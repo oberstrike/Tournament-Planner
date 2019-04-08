@@ -1,11 +1,15 @@
 package com.agil.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
+@Entity
 public class Team {
 
 	@Id
@@ -13,10 +17,26 @@ public class Team {
 	private long id;
 
 	// Vom User gesetzt
-	private String teamname;
+	private String name;
 
 	// Kann gesetzt werden
 	private String teamcolor;
+
+
+	// Member die verknüpft sind
+	@ManyToMany
+	private Set<Member> connectedMembers = new HashSet<>();
+	
+	@ManyToMany
+	private Set<Game> games = new HashSet<>();
+	
+	public Set<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(Set<Game> games) {
+		this.games = games;
+	}
 
 	public long getId() {
 		return id;
@@ -26,20 +46,21 @@ public class Team {
 		this.id = id;
 	}
 
-	public Team(String teamname, String teamcolor, Set<String> teamMembers, Set<Member> connectedMembers) {
+	
+
+	public Team(String teamname, String teamcolor, Set<Member> connectedMembers) {
 		super();
-		this.teamname = teamname;
+		this.name = teamname;
 		this.teamcolor = teamcolor;
-		this.teamMembers = teamMembers;
 		this.connectedMembers = connectedMembers;
 	}
 
 	public String getTeamname() {
-		return teamname;
+		return name;
 	}
 
 	public void setTeamname(String teamname) {
-		this.teamname = teamname;
+		this.name = teamname;
 	}
 
 	public String getTeamcolor() {
@@ -50,13 +71,7 @@ public class Team {
 		this.teamcolor = teamcolor;
 	}
 
-	public Set<String> getTeamMembers() {
-		return teamMembers;
-	}
 
-	public void setTeamMembers(Set<String> teamMembers) {
-		this.teamMembers = teamMembers;
-	}
 
 	public Set<Member> getConnectedMembers() {
 		return connectedMembers;
@@ -66,11 +81,6 @@ public class Team {
 		this.connectedMembers = connectedMembers;
 	}
 
-	// Namen von allen Mitspielern (müssen nicht registriert)
-	private Set<String> teamMembers;
-
-	// Member die verknüpft
-	private Set<Member> connectedMembers;
 
 	protected Team() {
 		// TODO Auto-generated constructor stub

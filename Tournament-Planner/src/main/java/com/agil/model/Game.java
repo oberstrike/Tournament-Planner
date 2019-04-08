@@ -1,6 +1,8 @@
 package com.agil.model;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
@@ -27,7 +30,8 @@ public class Game {
 	
 	private Date startDate;
 
-	private Set<Team> teams;
+	@ManyToMany
+	private Set<Team> teams = new HashSet<>();
 
 	public Game(GameStatus status, GameType type, Date startDate, Set<Team> teams) {
 		super();
@@ -37,9 +41,8 @@ public class Game {
 		this.teams = teams;
 	}
 
-	protected Game() {
-		
-	}
+	protected Game() {}
+	
 	
 	public long getId() {
 		return id;
