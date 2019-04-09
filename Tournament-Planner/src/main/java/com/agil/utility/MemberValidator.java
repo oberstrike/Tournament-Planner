@@ -26,7 +26,7 @@ public class MemberValidator implements Validator {
 		Member member = (Member) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
 		if (member.getUsername().length() < 6 || member.getUsername().length() > 32) {
-			errors.reject("username", "Size.usersForm.username");
+			errors.reject("username", "Size.userForm.username");
 		}
 
 		if (memberService.findByUsername(member.getUsername()) != null) {
@@ -35,7 +35,7 @@ public class MemberValidator implements Validator {
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
 		if (member.getUsername().length() < 8 || member.getUsername().length() > 32) {
-			errors.reject("password", "Size.usersForm.password");
+			errors.reject("password", "Size.userForm.password");
 		}
 
 		if (!member.getPasswordConfirm().equals(member.getPassword())) {

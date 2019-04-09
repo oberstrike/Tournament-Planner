@@ -3,6 +3,7 @@ package com.agil.service;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,10 @@ import com.agil.utility.MemberRole;
 @Service
 public class MemberServiceImpl implements MemberService {
 
+	@Autowired
 	private MemberRepository memberRepo;
 	
+	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
 	@Override

@@ -38,6 +38,7 @@ public class Member {
 	
 	@Email
 	private String email;
+	
 	private String passwordConfirm;
 	
 	@ManyToMany
