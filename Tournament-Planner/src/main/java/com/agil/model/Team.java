@@ -22,10 +22,9 @@ public class Team {
 	// Kann gesetzt werden
 	private String teamcolor;
 
-
 	// Member die verknüpft sind
 	@ManyToMany
-	private Set<Member> connectedMembers = new HashSet<>();
+	private Set<Member> members = new HashSet<>();
 	
 	@ManyToMany
 	private Set<Game> games = new HashSet<>();
@@ -38,6 +37,12 @@ public class Team {
 		this.games = games;
 	}
 
+	@Override
+	public String toString() {
+		return "Team [id=" + id + ", name=" + name + ", teamcolor=" + teamcolor + ", members=" + members + ", games="
+				+ games + "]";
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -46,20 +51,18 @@ public class Team {
 		this.id = id;
 	}
 
-	
-
-	public Team(String teamname, String teamcolor, Set<Member> connectedMembers) {
+	public Team(String teamname, String teamcolor, Set<Member> members) {
 		super();
 		this.name = teamname;
 		this.teamcolor = teamcolor;
-		this.connectedMembers = connectedMembers;
+		this.members = members;
 	}
 
-	public String getTeamname() {
+	public String getName() {
 		return name;
 	}
 
-	public void setTeamname(String teamname) {
+	public void setName(String teamname) {
 		this.name = teamname;
 	}
 
@@ -71,16 +74,13 @@ public class Team {
 		this.teamcolor = teamcolor;
 	}
 
-
-
-	public Set<Member> getConnectedMembers() {
-		return connectedMembers;
+	public Set<Member> getMembers() {
+		return members;
 	}
 
-	public void setConnectedMembers(Set<Member> connectedMembers) {
-		this.connectedMembers = connectedMembers;
+	public void Members(Set<Member> Members) {
+		this.members = members;
 	}
-
 
 	protected Team() {
 		// TODO Auto-generated constructor stub

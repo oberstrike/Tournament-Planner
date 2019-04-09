@@ -8,8 +8,10 @@ import com.agil.model.Team;
 public interface TeamService {
 	public List<Team> getAll();
 
-	public Optional<Team> findOne(long id);
+	public Optional<Team> findOne(String name);
+	
+	public List<Team> findByMembers_Id(long id);
 
-	public Optional<Team> findOne(String name);
+	Optional<Team> findOne(Long id);
 }
 

@@ -25,8 +25,10 @@ public class TeamServiceImpl implements TeamService {
 
 
 	@Override
-	public Optional<Team> findOne(long id) {
-		return teamRepository.findById(id);
+	public Optional<Team> findOne(Long id) {
+		if(id != null)
+			return teamRepository.findById(id);
+		return Optional.empty();
 	}
 
 
@@ -35,4 +37,10 @@ public class TeamServiceImpl implements TeamService {
 		return teamRepository.findByName(name);
 	}
 
+	@Override
+	public List<Team> findByMembers_Id(long id){
+		return teamRepository.findByMembers_Id(id);
+	}
+	
+	
 }

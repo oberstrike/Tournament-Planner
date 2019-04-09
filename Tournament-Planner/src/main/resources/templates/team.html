@@ -2,9 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <title>Hello World!</title>
+        <title>Teams</title>
     </head>
-    <body>
-        <h1>Hello world!</h1>
-    </body>
+    <table th:switch="${#lists.size(teams)}">
+	    <tbody th:case="'0'">
+	    	<h1> Kein Team gefunden</h1>
+	    </tbody>
+	    
+	    <tbody th:case="*">
+	    	<tr th:each="team: ${teams}" bordercolor="black" >
+	    		<td th:text="${team.id}">
+	    		<td th:text="${team.name}">
+	    	</tr>
+	    </tbody>
+    </table>
 </html>

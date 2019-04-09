@@ -15,8 +15,6 @@ import com.agil.model.Team;
 import com.agil.repo.MemberRepository;
 import com.agil.repo.TeamRepository;
 
-import antlr.Token;
-
 @SpringBootApplication
 public class TournamentPlannerApplication {
 
