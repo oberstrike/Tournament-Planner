@@ -7,6 +7,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.agil.model.Member;
 import com.agil.service.MemberService;
@@ -42,18 +44,16 @@ public class MemberController {
 		memberService.save(memberForm);
 
 		securityService.autoLogin(memberForm.getUsername(), memberForm.getPassword());
-
 		return "redirect:/home";
 	}
 	
-	@GetMapping("/login")
+	@RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
 	public String login(Model model, String error, String logout) {
 		if(error != null)
 			model.addAttribute("error", "Your username or password is invalid");
 		if(logout != null)
 			model.addAttribute("message", "you have been logged out successfull");
 		return "login";
-	
 	}
 	
 

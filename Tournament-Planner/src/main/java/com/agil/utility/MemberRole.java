@@ -1,5 +1,5 @@
 package com.agil.utility;
 
 public enum MemberRole {
-	ADMIN, USER
+	ROLE_ADMIN, ROLE_USER
 }	

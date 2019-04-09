@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void save(Member member) {
 		member.setPassword(encoder.encode(member.getPassword()));
-		member.setRoles(new HashSet<>(Arrays.asList(MemberRole.USER)));
+		member.setRoles(new HashSet<>(Arrays.asList(MemberRole.ROLE_ADMIN)));
 		memberRepo.save(member);
 	}
 

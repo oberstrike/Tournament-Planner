@@ -36,11 +36,10 @@ public class TeamController {
 	
 	@GetMapping("/team/search")
 	public String getTeamById(@RequestParam("id") Long id, Model model) {
-		Team team = teamService.findOne(id).orElseThrow(TeamNotFoundException::new);
+		Team team = teamService.findOne(id).orElseThrow(TeamNotFoundException::new);		
 		model.addAttribute("team", team);
 		return "/team";
 	}
-	
 
 	
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)

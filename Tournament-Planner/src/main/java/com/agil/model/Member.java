@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 import com.agil.utility.MemberRole;
 
@@ -31,9 +32,12 @@ public class Member {
 	@JoinTable(name = "memberRoles", joinColumns = @JoinColumn(name = "id"))
 	@Column(name = "role", nullable = true)
 	@Enumerated(EnumType.STRING)
-	private Set<MemberRole> roles = new HashSet<>(Arrays.asList(MemberRole.USER));
+	private Set<MemberRole> roles = new HashSet<>(Arrays.asList(MemberRole.ROLE_USER));
 
+	@NotEmpty
 	private String username;
+
+	@NotEmpty
 	private String password;
 	
 	@Email
@@ -75,7 +79,7 @@ public class Member {
 	}
 
 	public Member(String username, String password, String email) {
-		this(new HashSet<>(Arrays.asList(MemberRole.USER)), username, password, email);
+		this(new HashSet<>(Arrays.asList(MemberRole.ROLE_USER)), username, password, email);
 	}
 
 	public String getPassword() {
