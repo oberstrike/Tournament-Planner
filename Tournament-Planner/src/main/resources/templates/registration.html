@@ -2,7 +2,11 @@
 <html>
 <div th:replace="fragments/general.html :: headerdata (title='Registrierung')" ></div>
 <body>
-
+	<div th:replace="fragments/general.html :: header"></div>
+	
+	<div class="container text-success text-center">
+		<h4>Jetzt registrieren!</h4>
+	</div>
 	<div th:if="${param.error}" class="container text-danger text-center">
 		Die Registrierung ist fehlgeschlagen!
 	</div>
@@ -19,7 +23,7 @@
 			</div>
 			<div class="">
 				<input type="text" class="form-control" id="username"
-					placeholder="Benutzernamen eingeben">
+					placeholder="Benutzernamen eingeben" autofocus="autofocus">
 			</div>
 		</div>
 		<div class="col-auto text-center">
@@ -59,6 +63,10 @@
 				<input type="password" class="form-control" id="password2"
 					placeholder="Passwort wiederholen">
 			</div>
+		</div>
+		<BR>
+		<div class="container text-center">
+			Bereits registriert? <a href="login.html">Hier</a> einloggen.
 		</div>
 		<BR>
 		<button type="submit" class="btn btn-primary col" value="Registrieren">Absenden</button>
