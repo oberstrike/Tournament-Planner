@@ -1,5 +1,7 @@
 package com.agil.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -37,7 +39,7 @@ public class TeamController {
 	@GetMapping("/team/search")
 	public String getTeamById(@RequestParam("id") Long id, Model model) {
 		Team team = teamService.findOne(id).orElseThrow(TeamNotFoundException::new);		
-		model.addAttribute("team", team);
+		model.addAttribute("team", Arrays.asList(team))  ;
 		return "/team";
 	}
 
