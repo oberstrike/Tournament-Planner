@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
 <html>
-<head th:fragment="headerdata (title)" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:fragment="headerdata (title)"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +16,38 @@
 <title th:text="${title}">Default-Title</title>
 </head>
 <body>
-
+	<div th:fragment="header" class="container-fluid bg-info">
+		<button class="btn btn-primary dropdown-toggle" type="button"
+			id="dropdownmenu1" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="false">
+			Sport	
+		</button>
+		<div class="dropdown">
+			<div class="dropdown-menu" aria-labelledby="dropdownmenu1">
+				Einträge
+			</div>
+		</div>
+		<button class="btn btn-primary dropdown-toggle" type="button"
+			id="dropdownmenu2" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="false">
+			eSport
+		</button>
+		<div class="dropdown">
+			<div class="dropdown-menu" aria-labelledby="dropdownmenu2">
+				Einträge2
+			</div>
+		</div>
+		<button class="btn btn-primary dropdown-toggle" type="button"
+			id="dropdownmenu3" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="false">
+			Login-Bereich	
+		</button>
+		<div class="dropdown">
+			<div class="dropdown-menu" aria-labelledby="dropdownmenu3">
+				Einträge3
+			</div>
+		</div>
+	</div>
 
 
 
@@ -25,8 +58,9 @@
 	Jump Up
 	 -->
 	<div th:fragment="footer">
-		<div class="container">
+		<div class="container fixed-bottom">
 			<a class="border border-primary rounded-sm" href="login.html">Einloggen</a>
+			<a class="border border-primary rounded-sm" href="registration.html">Registrierung</a>
 			<a class="border border-primary rounded-sm" href="datenschutz.html">Datenschutz</a>
 			<a class="border border-primary rounded-sm" href="impressum.html">Impressum</a>
 		</div>

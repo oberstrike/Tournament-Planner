@@ -2,7 +2,11 @@
 <html>
 <div th:replace="fragments/general.html :: headerdata (title='Registrierung')" ></div>
 <body>
-
+	<div th:replace="fragments/general.html :: header"></div>
+	
+	<div class="container text-success text-center">
+		<h4>Jetzt registrieren!</h4>
+	</div>
 	<div th:if="${param.error}" class="container text-danger text-center">
 		Die Registrierung ist fehlgeschlagen!
 	</div>
@@ -19,7 +23,7 @@
 			</div>
 			<div class="">
 				<input type="text" class="form-control" id="username" name="username"
-					placeholder="Benutzernamen eingeben">
+					placeholder="Benutzernamen eingeben" autofocus="autofocus">
 			</div>
 		</div>
 		<div class="col-auto text-center">
@@ -28,7 +32,7 @@
 			</div>
 			<div class="">
 				<input type="email" class="form-control" id="email" name="email"
-					aria-describedby="emailHelp" placeholder="E-Mail eingeben">
+					aria-describedby="emailHelp" placeholder="E-Mail eingeben" autofocus="autofocus">
 			</div>
 		</div>
 		<!-- E-Mail Bestätigung noch nicht implementiert
@@ -38,7 +42,7 @@
 			</div>
 			<div class="">
 				<input type="email" class="form-control" id="email2"
-					aria-describedby="emailHelp" placeholder="E-Mail wiederholen">
+					aria-describedby="emailHelp" placeholder="E-Mail wiederholen" autofocus="autofocus">
 			</div>
 		</div>
 		-->
@@ -61,6 +65,11 @@
 			</div>
 		</div>
 		<BR>
+		<div class="container text-center">
+			Bereits registriert? <a href="login.html">Hier</a> einloggen.
+		</div>
+		<BR>
+
 		<button type="submit" class="btn btn-primary col" value="Registrieren">Absenden</button>
 
 	</form>
