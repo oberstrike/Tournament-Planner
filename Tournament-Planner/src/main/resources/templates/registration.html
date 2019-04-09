@@ -1,27 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<title>Registrierung</title>
-</head>
+<div th:replace="fragments/general.html :: headerdata (title='Registrierung')" ></div>
 <body>
 
-	<div th:if="${param.notRegistered}" class="container text-danger text-center">
+	<div th:if="${param.error}" class="container text-danger text-center">
 		Die Registrierung ist fehlgeschlagen!
 	</div>
 	
-	<div th:if="${param.registered}" class="container text-success text-center">
+	<div th:if="${param.logout}" class="container text-success text-center">
 		Die Registrierung war erfolgreich!
 	</div>
-	
+	<BR>
 	<div class="container text-center">
 	<form th:action="@{/registration}" method="POST">
 		<div class="col-auto text-center">
@@ -42,15 +31,17 @@
 					aria-describedby="emailHelp" placeholder="E-Mail eingeben">
 			</div>
 		</div>
+		<!-- E-Mail Bestätigung noch nicht implementiert
 		<div class="col-auto text-center">
 			<div class="">
-				<label>E-Mail Adresse bestÃ¤tigen:</label>
+				<label>E-Mail Adresse bestätigen:</label>
 			</div>
 			<div class="">
 				<input type="email" class="form-control" id="email2"
 					aria-describedby="emailHelp" placeholder="E-Mail wiederholen">
 			</div>
 		</div>
+		-->
 		<div class="col-auto text-center">
 			<div class="">
 				<label for="inputPassword">Passwort eingeben:</label>
@@ -62,7 +53,7 @@
 		</div>
 		<div class="col-auto text-center">
 			<div class="">
-				<label for="inputPassword">Passwort bestÃ¤tigen:</label>
+				<label for="inputPassword">Passwort bestätigen:</label>
 			</div>
 			<div class="">
 				<input type="password" class="form-control" id="password2"
@@ -78,18 +69,7 @@
 
 
 
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
+	
+<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 </body>
 </html>

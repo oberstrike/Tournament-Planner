@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="fragments/general.html :: headerdata (title='Login')"></div>
+<body>
+
+	<div class="container">
+		<div class="container"><label>Benutzername:</label><input type="text" name="username" class="form-control" placeholder="Benutzername"/></div>
+		<div class="container"><label>Passwort:</label><input type="password" name="password" class="form-control" placeholder="Passwort"/></div>
+		<div class="container"><input type="submit" class="btn btn-primary" value="Einloggen"></div>
+	</div>
+
+<div th:replace="fragments/general.html :: footer"></div>
+<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+</body>
+</html>
