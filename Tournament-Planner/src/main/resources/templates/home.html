@@ -29,7 +29,7 @@
 				<button type="submit" class="btn-primary">Auswählen</button>
 			<!-- </form> -->
 			<div
-				th:replace="fragments/fragm_createGame :: newGame(gametype=@{gametype})"></div>
+				th:replace="fragments/fragm_createGame :: newGame(gametype=${gametype})"></div>
 			<button type="submit" class="btn btn-primary">Erstellen</button>
 		</form>
 	</div>
