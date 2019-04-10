@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Hello World!</title>
-    </head>
-    <body>
-        <h2>Hallo <span sec:authentication="name"></span></h2>
-        <h2>Deine Rollen: <span sec:authentication="principal.authorities"></span> </h2>
-    
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div
+	th:replace="fragments/general.html :: headerdata(title='Userbereich')"></div>
+<body>
+	<div th:replace="fragments/general.html :: header"></div>
+	<h2>
+		Hallo <span sec:authentication="name"></span>
+	</h2>
+	<h2>
+		Deine Rollen: <span sec:authentication="principal.authorities"></span>
+	</h2>
+
+</body>
+<div th:replace="fragments/general.html :: footer"></div>
+<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 </html>

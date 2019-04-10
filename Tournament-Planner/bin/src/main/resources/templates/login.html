@@ -2,6 +2,7 @@
 <html>
 <div th:replace="fragments/general.html :: headerdata (title='Login')"></div>
 <body>
+<div th:replace="fragments/general.html :: header"></div>
 <div th:if="${param.error}" class="container text-danger text-center">
 		Das Login ist fehlgeschlagen!
 	</div>
@@ -9,7 +10,7 @@
 		Das Login war erfolgreich!
 	</div>
 	<div th:if="${param.logout}" class="container text-success text-center">
-		Logut lol
+		Logout Parameter wiedergegeben
 	</div> 
 	<div class="container">
 	<form th:action="@{/login}" method="POST">
