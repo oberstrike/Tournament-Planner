@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.agil.model.Team;
 import com.agil.service.TeamService;
 import com.agil.service.TeamServiceImpl;
+import com.agil.utility.TeamValidator;
 
 @Controller
 public class TeamController {
@@ -53,7 +54,6 @@ public class TeamController {
 	
 	@PostMapping("/team")
 	public String addTeam(@ModelAttribute("teamForm") Team team, BindingResult bindResult) {
-		
 		return "/team";
 	}
 }
