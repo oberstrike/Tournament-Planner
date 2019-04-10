@@ -12,6 +12,7 @@
 	<h2>
 		Deine Rollen: <span sec:authentication="principal.authorities"></span>
 	</h2>
+<<<<<<< HEAD
 	<form th:action="">
 		<select class="custom-select">
 			<option selected>Bitte Typ auswählen</option>
@@ -20,6 +21,29 @@
 		</select>
 		<button type="submit" class="btn btn-primary">Auswählen</button>
 	</form>
+=======
+
+	<button class="btn btn-danger dropdown-toggle" type="button"
+		id="createGame" data-toggle="dropdown" aria-haspopup="true"
+		aria-expanded="false">Spiel erstellen</button>
+	<div class="dropdown-menu dropdown-menu-left"
+		aria-labelledby="createGame">
+		<!--  <a th:each="gametype :: @{game/gametypes}"></a>-->
+		<form th:action="@{/createGame}" method="POST">
+			<!-- <form th:action="@{/selectGame}" method="POST"> -->
+				<select class="custom-select">
+					<option disabled selected>Bitte Typ auswählen</option>
+					<option th:each="gametype : ${gametypes}"
+						th:text="${gametype}" th:value="${gametype}"></option>
+				</select>
+				<button type="submit" class="btn-primary">Auswählen</button>
+			<!-- </form> -->
+			<div
+				th:replace="fragments/fragm_createGame :: newGame(gametype=${gametype})"></div>
+			<button type="submit" class="btn btn-primary">Erstellen</button>
+		</form>
+	</div>
+>>>>>>> branch 'master' of https://github.com/oberstrike/Tournament-Planner.git
 
 
 </body>
