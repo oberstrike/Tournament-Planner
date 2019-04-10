@@ -1,15 +1,47 @@
-<div th:fragment="LeagueOfLegends">
-	LEAGUEOFLEGENDS
-</div>
-<div th:fragment="Sport">
-	SPORT
-</div>
-<div th:fragment="eSport">
-	ESPORT
-</div>
-<div th:fragment="Volleyball">
-	VOLLEYBALL
-</div>
-<div th:fragment="Beachvolleyball">
-	BEACHVOLLEYBALL
+<div th:fragment="newGame (gametype)">
+	<div th:switch="${gametype}">
+
+		<!-- League Of Legends -->
+		<div th:case="'LeagueOfLegends'">
+			<label>Best Of:</label> <input type="number" min="1" step="1" id="mode" name="mode" placeholder="Siegpunkte">
+		</div>
+
+		<!-- Counter-Strike: Global Offensive -->
+		<div th:case="'CounterStrikeGo'">
+			<label>Best Of:</label> <input type="number" min="1" step="1"
+				id="mode" name="mode" placeholder="Siegpunkte"> <label>Runden:</label>
+			<input type="number" min="2" step="1" id="score" name="score"
+				value="30" placeholder="Runden">
+		</div>
+
+		<!-- Volleyball -->
+		<div th:case="'Volleyball'">
+			<label>Gewinnsätze:</label> <input type="number" min="1" step="1"
+				id="sets" name="sets" value="2" placeholder="Gewinnsätze"> <label>Gewinnpunkte:</label>
+			<input type="number" min="2" step="1" id="points" name="points"
+				value="25" placeholder="Gewinnpunkte">
+		</div>
+
+		<!-- Fußball -->
+		<div th:case="'Fußball'">
+			<label>Halbzeitlänge:</label> <input type="number" min="1" step="1"
+				id="halftimelength" name="halftimelength" value="45"
+				placeholder="Halbzeitlänge"> <label>Verlängerung?</label> <input
+				type="checkbox" id="overtime" name="overtime">
+		</div>
+		<!-- Handball -->
+		<div th:case="'Handball'">
+			<label>Halbzeitlänge:</label> <input type="number" min="1" step="1"
+				id="halftimelength" name="halftimelength" value="30"
+				placeholder="Halbzeitlänge"> <label>Verlängerung?</label> <input
+				type="checkbox" id="overtime" name="overtime">
+		</div>
+		<!--
+		<div th:case="''"></div>
+		<div th:case="''"></div>
+		<div th:case="''"></div>
+		<div th:case="''"></div>
+		  -->
+
+	</div>
 </div>

@@ -20,7 +20,7 @@
 		<div class="col container-fluid">
 			<div class="float-left">
 				<div class="dropdown">
-					<button class="btn btn-primary dropdown-toggle" type="button"
+					<button class="btn btn-success dropdown-toggle" type="button"
 						id="dropdownmenu1" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">Sport</button>
 
@@ -45,14 +45,17 @@
 					<div class="dropdown-menu dropdown-menu-left"
 						aria-labelledby="createGame">
 						<form th:action="@{/createGame}" method="POST">
-							<form>
+							<form th:action="@{/selectGame}" method="POST">
 								<select class="custom-select">
-									<option selected>Bitte Typ auswählen</option>
-									<option th:each="gametype,iterStat : ${gameTypes}"
+									<option disabled selected>Bitte Typ auswählen</option>
+									<option value="volleyball">Volleyball</option>
+									<option th:each="gametype,iterStat : @{/game/gametypes}"
 										th:value="${iterStat.count}" th:text="${gameType}"></option>
 								</select>
+								<button type="submit" class="btn-primary">Auswählen</button>
 							</form>
-							<div th:replace="fragments/fragm_createGame :: ${gameType}"></div>
+							<div
+								th:replace="fragments/fragm_createGame :: newGame(gametype=@{/selectedGame})"></div>
 							<button type="submit" class="btn btn-primary">Erstellen</button>
 						</form>
 					</div>
