@@ -2,6 +2,7 @@ package com.agil.controller;
 
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +18,12 @@ public class MainController {
 
 	@GetMapping("/home")
 	public String getHome(@RequestParam(name = "type", required=false) String type, Model model) {
-		model.addAttribute("gametypes", Arrays.asList(GameType.values()).stream().map(Object::toString)
-				.map(String::toLowerCase).collect(Collectors.toList()));
-		System.out.println(model);
-		
+		GameType[] types = GameType.values();
+		String[] sArray = new String[types.length];
+		for(int i = 0; i < types.length; i++) {
+			sArray[i] = types[i].name();
+		}
+		model.addAttribute("gametypes", Arrays.asList(sArray));
 		return "home";
 	}
 

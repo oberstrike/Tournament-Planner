@@ -12,8 +12,5 @@ import com.agil.utility.GameType;
 @RestController
 public class GameController {
 	
-	@GetMapping("/game/gametypes")
-	public List<GameType> getGameTypes(){
-		return Arrays.asList(GameType.values());
-	}
+
 }

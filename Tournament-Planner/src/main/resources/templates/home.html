@@ -24,7 +24,7 @@
 				<select class="custom-select">
 					<option disabled selected>Bitte Typ auswählen</option>
 					<option th:each="gametype : ${gametypes}"
-						th:text="${gameType}"></option>
+						th:text="${gametype}" th:value="${gametype}"></option>
 				</select>
 				<button type="submit" class="btn-primary">Auswählen</button>
 			<!-- </form> -->
