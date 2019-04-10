@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
-<div th:replace="fragments/general.html :: headerdata (title='Spiele')" ></div>
+<div th:replace="fragments/general.html :: headerdata (title='Spiele')"></div>
 <body>
 
-<p>Hier wird ein einzelnes Spiel angezeigt</p>
+	<p>Hier wird ein einzelnes Spiel angezeigt</p>
 
-
-
-<!-- 
+		<!-- 
 
 Diese Seite erreicht man über einen Link /game?id=ID
 Diese Link kann man teilen
@@ -16,8 +14,7 @@ Die Generellen GameInfos werden immer angezeigt
 Wenn ADMIN/Ersteller, dann auch cnfig des templates zulassen (also editable)
 
  -->
-
-<div th:replace="fragments/general.html :: footer"></div>
-<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+	<div th:replace="fragments/general.html :: footer"></div>
+	<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 </body>
 </html>
