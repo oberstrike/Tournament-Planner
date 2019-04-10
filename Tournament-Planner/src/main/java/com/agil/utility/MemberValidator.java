@@ -26,21 +26,28 @@ public class MemberValidator implements Validator {
 		Member member = (Member) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
 		if (member.getUsername().length() < 6 || member.getUsername().length() > 32) {
-			errors.reject("username", "Size.userForm.username");
+			errors.reject("username", "Size.memberForm.username");
 		}
 
 		if (memberService.findByUsername(member.getUsername()) != null) {
-			errors.rejectValue("username", "Duplicate.userForm.username");
+			errors.rejectValue("username", "Duplicate.memberForm.username");
 		}
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
 		if (member.getPassword().length() < 8 || member.getPassword().length() > 32) {
-			errors.reject("password", "Size.userForm.password");
+			errors.reject("password", "Size.memberForm.password");
 		}
 
 		if (!member.getPasswordConfirm().equals(member.getPassword())) {
-			errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+			errors.rejectValue("passwordConfirm", "Diff.memberForm.passwordConfirm");
 		}
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+		if(memberService.findByEmail(member.getEmail()) != null) {
+			errors.reject("email", "Duplicate.memberForm.username");
+		}
+		
+		
 		
 	}
 

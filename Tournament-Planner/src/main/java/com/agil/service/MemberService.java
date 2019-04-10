@@ -7,5 +7,7 @@ public interface MemberService {
 	void save(Member member);
 	
 	Member findByUsername(String username);
+
+	Member findByEmail(String email);
 	
 }
