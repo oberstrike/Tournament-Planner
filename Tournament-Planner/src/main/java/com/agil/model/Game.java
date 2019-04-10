@@ -8,10 +8,13 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
@@ -26,19 +29,31 @@ public class Game {
 	@Enumerated(EnumType.STRING)
 	private GameStatus status;
 
+	@Enumerated(EnumType.STRING)
 	private GameType type;
 	
 	private Date startDate;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="CREATOR_ID")
+	private Member creator;
 
 	@ManyToMany
 	private Set<Team> teams = new HashSet<>();
 
-	public Game(GameStatus status, GameType type, Date startDate, Set<Team> teams) {
+	private String name;
+	
+	public Game(GameStatus status, GameType type, Date startDate, Set<Team> teams, Member member) {
 		super();
 		this.status = status;
 		this.type = type;
 		this.startDate = startDate;
 		this.teams = teams;
+		this.creator = member;
+		for (Team team : teams) {
+			team.addGame(this);
+		}
+	
 	}
 
 	protected Game() {}
@@ -86,6 +101,14 @@ public class Game {
 			this.teams = teams;
 		else
 			throw new RuntimeException("Es dürfen nicht mehr als Teams in einem Spiel sein.");
+	}
+
+	public Member getCreator() {
+		return creator;
+	}
+
+	public void setCreator(Member creator) {
+		this.creator = creator;
 	}
 
 }

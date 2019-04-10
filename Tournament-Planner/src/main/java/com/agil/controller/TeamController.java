@@ -1,9 +1,6 @@
 package com.agil.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -21,29 +18,23 @@ public class TeamController {
 
 	private final TeamService teamService;
 
-
 	@Autowired
 	public TeamController(TeamServiceImpl teamServiceImpl) {
 		this.teamService = teamServiceImpl;
 	}
-	
-	
-	@GetMapping("/team/search/all")
+
+	@GetMapping("/teams/search/all")
 	public String getTeams(Model model) {
 		model.addAttribute("teams", teamService.getAll());
-		return "/team";
+		return "/teams";
 	}
 	
 	
-	@GetMapping("/team/search")
-	public String getTeamById(@RequestParam(name="id", required=false) Long id, Model model) {		
-		Optional<Team> team = teamService.findOne(id);
-		
-		if(team.isPresent()) 
-			model.addAttribute("teams", Arrays.asList(team.get()));
-		else
-			model.addAttribute("teams", new ArrayList<>());
-		return "/team";
+	@GetMapping("/teams/search")
+	public String getTeamById(@RequestParam(name="name", required=false) String name, Model model) {		
+		List<Team> team = teamService.findByNameIgnoreCase(name);
+		model.addAttribute("teams", team);
+		return "/teams";
 	}
 
 	

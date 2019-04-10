@@ -13,5 +13,7 @@ public interface TeamService {
 	public List<Team> findByMembers_Id(long id);
 
 	Optional<Team> findOne(Long id);
+
+	List<Team> findByNameIgnoreCase(String name);
 }
 

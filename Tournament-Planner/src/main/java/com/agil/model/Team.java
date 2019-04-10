@@ -28,6 +28,7 @@ public class Team {
 	
 	@ManyToMany
 	private Set<Game> games = new HashSet<>();
+	 
 	
 	public Set<Game> getGames() {
 		return games;
@@ -78,12 +79,20 @@ public class Team {
 		return members;
 	}
 
-	public void Members(Set<Member> Members) {
+	public void Members(Set<Member> members) {
 		this.members = members;
 	}
 
 	protected Team() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public void addGame(Game game) {
+		this.games.add(game);
+	}
+	
+	public void addMember(Member member) {
+		this.members.add(member);
 	}
 
 }

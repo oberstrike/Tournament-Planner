@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -48,7 +49,8 @@ public class Member {
 	@ManyToMany
 	private Set<Team> teams = new HashSet<>();
 
-
+	@OneToMany(mappedBy = "creator")
+	private Set<Game> games = new HashSet<>();
 
 	public long getId() {
 		return id;
