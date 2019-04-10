@@ -9,9 +9,6 @@
 	<div th:if="${param.login}" class="container text-success text-center">
 		Das Login war erfolgreich!
 	</div>
-	<div th:if="${param.logout}" class="container text-success text-center">
-		Logout Parameter wiedergegeben
-	</div> 
 	<div class="container">
 	<form th:action="@{/login}" method="POST">
 		<div class="container"><label for="username">Benutzername:</label><input type="text" name="username" id="username" class="form-control" placeholder="Benutzername"/></div>
