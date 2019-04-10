@@ -49,7 +49,7 @@
 								<select class="custom-select">
 									<option disabled selected>Bitte Typ auswählen</option>
 									<option value="volleyball">Volleyball</option>
-									<option th:each="gametype,iterStat : @{/game/gametypes}"
+									<option th:each="gametype,iterStat : ${gametypes}"
 										th:value="${iterStat.count}" th:text="${gameType}"></option>
 								</select>
 								<button type="submit" class="btn-primary">Auswählen</button>

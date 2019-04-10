@@ -70,5 +70,6 @@ public class MemberController {
 		}
 		return "redirect:/login?logout";
 	}
+	
 
 }
