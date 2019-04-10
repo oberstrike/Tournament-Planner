@@ -13,8 +13,8 @@
 		Deine Rollen: <span sec:authentication="principal.authorities"></span>
 	</h2>
 
-	<form th:action="">
-		<select class="custom-select">
+	<form th:action="@{/home}" th:object="${#selection}">
+		<select class="custom-select" th:field="*{type}">
 			<option selected>Bitte Typ auswählen</option>
 			<option th:each="gametype : ${gametypes}" th:text="${gametype}"
 				th:value="${gametype}"></option>
