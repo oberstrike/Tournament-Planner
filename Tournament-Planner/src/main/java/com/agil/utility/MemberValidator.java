@@ -34,7 +34,7 @@ public class MemberValidator implements Validator {
 		}
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-		if (member.getUsername().length() < 8 || member.getUsername().length() > 32) {
+		if (member.getPassword().length() < 8 || member.getPassword().length() > 32) {
 			errors.reject("password", "Size.userForm.password");
 		}
 
