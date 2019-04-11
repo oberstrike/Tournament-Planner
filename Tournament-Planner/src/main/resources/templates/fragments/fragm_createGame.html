@@ -1,0 +1,75 @@
+<div th:fragment="newGame">
+	<th:block th:switch="${type}">
+
+
+
+		<div th:case="'LEAGUEOFLEGENDS'">
+			<label>Best Of:</label> <input type="number" min="1" step="1"
+				id="mode" name="mode" placeholder="Siegpunkte">
+		</div>
+
+
+
+		<div th:case='COUNTERSTRIKEGO'>
+			<label>Best Of:</label> <input type="number" min="1" step="1"
+				id="mode" name="mode" placeholder="Siegpunkte"> <label>Runden:</label>
+			<input type="number" min="2" step="1" id="score" name="score"
+				value="30" placeholder="Runden">
+		</div>
+
+
+
+		<div th:case='VOLLEYBALL'>
+			<div class="form-row">
+				<div class="col">
+					<label>Gewinnsätze:</label>
+				</div>
+				<div class="col">
+					<input type="number" class="form-control" min="1" step="1" id="setsRule" name="setsRule"
+						value="2" placeholder="Gewinnsätze">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col">
+					<label>Gewinnpunkte:</label>
+				</div>
+				<div class="col">
+					<input type="number" class="form-control" min="2" step="1" id="pointsRule" name="pointsRule"
+						value="25" placeholder="Gewinnpunkte">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col">
+					<label>Tie-Break?</label>
+				</div>
+				<div class="col">
+					<input type="checkbox" class="form-control" id="tiebreakRule" name="tiebreakRule">
+				</div>
+			</div>
+		</div>
+
+
+
+		<div th:case='FUSSBALL'>
+			<label>Halbzeitlänge:</label> <input type="number" min="1" step="1"
+				id="halftimelength" name="halftimelength" value="45"
+				placeholder="Halbzeitlänge"> <label>Verlängerung?</label> <input
+				type="checkbox" id="overtime" name="overtime">
+		</div>
+
+
+
+		<div th:case='HANDBALL'>
+			<label>Halbzeitlänge:</label> <input type="number" min="1" step="1"
+				id="halftimelength" name="halftimelength" value="30"
+				placeholder="Halbzeitlänge"> <label>Verlängerung?</label> <input
+				type="checkbox" id="overtime" name="overtime">
+		</div>
+
+		<div th:case="*">
+			<p>Bitte gültigen Spieltyp wählen!
+			<p>
+			<div th:text="${type}"></div>
+		</div>
+	</th:block>
+</div>

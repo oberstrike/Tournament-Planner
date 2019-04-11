@@ -3,6 +3,8 @@ package com.agil.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.agil.model.Team;
 
 public interface TeamService {
@@ -13,5 +15,11 @@ public interface TeamService {
 	public List<Team> findByMembers_Id(long id);
 
 	Optional<Team> findOne(Long id);
+
+	List<Team> findByNameIgnoreCase(String name);
+	
+	List<Team> findByNameIgnoreCaseContaining(String name);
+
+	public void save(Team teamForm);
 }
 

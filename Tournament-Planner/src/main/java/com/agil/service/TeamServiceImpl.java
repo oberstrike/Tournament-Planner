@@ -41,6 +41,24 @@ public class TeamServiceImpl implements TeamService {
 	public List<Team> findByMembers_Id(long id){
 		return teamRepository.findByMembers_Id(id);
 	}
+
+
+	@Override
+	public List<Team> findByNameIgnoreCase(String name) {
+		return teamRepository.findByNameIgnoreCase(name);
+	}
+
+
+	@Override
+	public List<Team> findByNameIgnoreCaseContaining(String name) {
+		return teamRepository.findByNameIgnoreCaseContaining(name);
+	}
+
+
+	@Override
+	public void save(Team teamForm) {
+		teamRepository.save(teamForm);
+	}
 	
 	
 }

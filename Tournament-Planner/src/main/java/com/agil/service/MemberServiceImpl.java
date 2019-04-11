@@ -31,4 +31,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepo.findByUsername(username);
 	}
 
+	@Override
+	public Member findByEmail(String email) {
+		return memberRepo.findByEmail(email);
+	}
+
 }

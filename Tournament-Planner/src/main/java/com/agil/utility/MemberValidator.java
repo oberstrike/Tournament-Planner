@@ -24,23 +24,19 @@ public class MemberValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		Member member = (Member) target;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-		if (member.getUsername().length() < 6 || member.getUsername().length() > 32) {
-			errors.reject("username", "Size.userForm.username");
-		}
-
 		if (memberService.findByUsername(member.getUsername()) != null) {
-			errors.rejectValue("username", "Duplicate.userForm.username");
+			errors.rejectValue("username", "username.duplicate");
 		}
-
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-		if (member.getPassword().length() < 8 || member.getPassword().length() > 32) {
-			errors.reject("password", "Size.userForm.password");
+		
+		if(memberService.findByEmail(member.getEmail()) != null) {
+			errors.rejectValue("email", "email.duplicate");
 		}
-
-		if (!member.getPasswordConfirm().equals(member.getPassword())) {
-			errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordConfirm", "password.notempty");
+		if(!member.getPassword().equals(member.getPasswordConfirm())) {
+			errors.rejectValue("password", "password.notequals");
 		}
+		
 		
 	}
 

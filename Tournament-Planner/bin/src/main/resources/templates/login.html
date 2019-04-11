@@ -2,6 +2,7 @@
 <html>
 <div th:replace="fragments/general.html :: headerdata (title='Login')"></div>
 <body>
+<<<<<<< HEAD
 <div th:if="${param.error}" class="container text-danger text-center">
 		Das Login ist fehlgeschlagen!
 	</div>
@@ -10,6 +11,17 @@
 	</div>
 	<div th:if="${param.logout}" class="container text-success text-center">
 		Logut lol
+=======
+<div th:replace="fragments/general.html :: header"></div>
+<div th:if="${param.error}" class="container text-danger text-center">
+		Das Login ist fehlgeschlagen!
+	</div>
+	<div th:if="${param.login}" class="container text-success text-center">
+		Das Login war erfolgreich!
+	</div>
+	<div th:if="${param.logout}" class="container text-success text-center">
+		Logout Parameter wiedergegeben
+>>>>>>> branch 'master' of https://github.com/oberstrike/Tournament-Planner
 	</div> 
 	<div class="container">
 	<form th:action="@{/login}" method="POST">
