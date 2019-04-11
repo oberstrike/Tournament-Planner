@@ -13,14 +13,20 @@
 		Deine Rollen: <span sec:authentication="principal.authorities"></span>
 	</h2>
 
-	<form th:action="@{/home}" th:object="${#selection}">
-		<select class="custom-select" th:field="*{type}">
+	<form th:action="@{/home}" method="POST">
+		<select class="form-control" name="type">
 			<option selected>Bitte Typ auswählen</option>
 			<option th:each="gametype : ${gametypes}" th:text="${gametype}"
 				th:value="${gametype}"></option>
 		</select>
 		<button type="submit" class="btn btn-primary">Auswählen</button>
 	</form>
+
+	<div th:if="${type != null}">
+		<form></form>
+		<div th:replace="fragments/fragm_createGame :: ${type}"></div>
+	</div>
+
 
 </body>
 <div th:replace="fragments/general.html :: footer"></div>
