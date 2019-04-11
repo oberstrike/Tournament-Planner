@@ -11,8 +11,11 @@ public class GameController {
 	
 	
 	@PostMapping("/game")
-	public String addGame(@ModelAttribute("gameForm") Game game, BindingResult result) {
-		return "redirect:/game/search?id=1";
+	public String addGame(@Valid @ModelAttribute("gameForm") Game game, BindingResult bindingResult) {
+		if(bindingResult.hasErrors())
+			return "redirect:/home";
+		gameService.save(game);
+		return "/home";
 	}
 
 }
