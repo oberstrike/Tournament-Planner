@@ -6,7 +6,8 @@
 	<div th:if="${param.error}" class="container text-danger text-center">
 		Das Login ist fehlgeschlagen!</div>
 	<div th:if="${param.login}" class="container text-success text-center">
-		Das Login war erfolgreich!</div>
+		Das Login war erfolgreich!
+	</div>
 	<div class="container">
 		<form th:action="@{/login}" method="POST">
 			<div class="container">
