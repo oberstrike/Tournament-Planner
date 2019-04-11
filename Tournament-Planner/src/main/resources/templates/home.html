@@ -12,8 +12,7 @@
 	<h2>
 		Deine Rollen: <span sec:authentication="principal.authorities"></span>
 	</h2>
-
-	<form th:action="@{/home}">
+	<form th:action="@{/home}" method="GET">
 		<select class="form-control" name="type">
 			<option selected>Bitte Typ auswählen</option>
 			<option th:each="gametype : ${gametypes}" th:text="${gametype}"

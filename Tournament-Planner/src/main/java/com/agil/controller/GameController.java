@@ -8,11 +8,11 @@ import com.agil.model.Game;
 
 @Controller
 public class GameController {
+
 	/*
 	@PostMapping
 	public String addGame(@ModelAttribute("gameForm") Game game, BindingResult result) {
 		return "redirect:/game/search?id=1";
 	}
-	*/
-
+*/
 }
