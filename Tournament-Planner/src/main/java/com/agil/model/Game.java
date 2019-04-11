@@ -17,6 +17,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
@@ -30,11 +31,14 @@ public class Game {
 	private long id;
 
 	@Enumerated(EnumType.STRING)
+	@NotNull(message = "{game.status.notempty")
 	private GameStatus status;
 
 	@Enumerated(EnumType.STRING)
+	@NotNull(message = "{game.type.notempty}")
 	private GameType type;
 	
+	@NotNull(message = "{game.startDate.notempty")
 	private Date startDate;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -52,15 +56,28 @@ public class Game {
 		this.type = type;
 		this.startDate = startDate;
 		this.teams = teams;
-		this.creator = member;
+		this.creator = member;	
+		
 		for (Team team : teams) {
 			team.addGame(this);
 		}
-	
+		if(teams.size() == 2)
+			this.name = teams.toArray()[0] + " vs " + teams.toArray()[1];	
 	}
-
-	protected Game() {}
 	
+	public Game(String name, GameStatus status, GameType type, Date startDate, Set<Team> teams, Member member) {
+		this(status, type, startDate, teams, member);
+		this.name = name;
+	}
+	
+	public Game(String name, GameStatus status, GameType type, Date startDate, Member member) {
+		this(name, status, type, startDate, new HashSet<>(), member);
+	}
+	
+
+	public Game() {
+		
+	}
 	
 	public long getId() {
 		return id;
@@ -112,6 +129,14 @@ public class Game {
 
 	public void setCreator(Member creator) {
 		this.creator = creator;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
