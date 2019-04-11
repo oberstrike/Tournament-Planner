@@ -13,7 +13,7 @@
 		Deine Rollen: <span sec:authentication="principal.authorities"></span>
 	</h2>
 
-	<form th:action="@{/home}" method="POST">
+	<form th:action="@{/home}">
 		<select class="form-control" name="type">
 			<option selected>Bitte Typ auswählen</option>
 			<option th:each="gametype : ${gametypes}" th:text="${gametype}"
@@ -21,10 +21,18 @@
 		</select>
 		<button type="submit" class="btn btn-primary">Auswählen</button>
 	</form>
-
 	<div th:if="${type != null}">
-		<form></form>
-		<div th:replace="fragments/fragm_createGame :: ${type}"></div>
+		<form th:action="@{/game}" method="POST" th:object="${gameForm}">
+			<label>Spieltyp:</label><input disabled th:text="${type}" name="type"
+				th:value="${type}"> <label>Startzeit:</label><input
+				type="datetime" class="form-control" id="startDate" name="startDate">
+			<label>Spielstatus:</label><input disabled type="text"
+				class="form-control" id="status" name="status" value="PENDING">
+			<label>Ersteller:</label><input disabled th:text="${name}"
+				name="creator" th:value="${name}">
+			<div th:include="fragments/fragm_createGame :: newGame"></div>
+			<button type="submit" class="btn btn-primary" value="Spiel erstellen">Erstellen</button>
+		</form>
 	</div>
 
 

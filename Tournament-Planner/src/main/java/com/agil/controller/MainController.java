@@ -23,6 +23,9 @@ public class MainController {
 		for(int i = 0; i < types.length; i++) {
 			sArray[i] = types[i].name();
 		}
+		if(type != null) {
+			model.addAttribute("type", type.toUpperCase());
+		}
 		model.addAttribute("gametypes", Arrays.asList(sArray));
 		return "home";
 	}

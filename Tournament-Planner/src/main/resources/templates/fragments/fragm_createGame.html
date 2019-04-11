@@ -1,47 +1,39 @@
-<div th:fragment="newGame (gametype)">
-	<div th:switch="${gametype}">
-
-		<!-- League Of Legends -->
-		<div th:case="'LeagueOfLegends'">
-			<label>Best Of:</label> <input type="number" min="1" step="1" id="mode" name="mode" placeholder="Siegpunkte">
+<div th:fragment="newGame">
+	<th:block th:switch="${type}">
+		<div th:case="'LEAGUEOFLEGENDS'">
+			<label>Best Of:</label> <input type="number" min="1" step="1"
+				id="mode" name="mode" placeholder="Siegpunkte">
 		</div>
-
-		<!-- Counter-Strike: Global Offensive -->
-		<div th:case="'CounterStrikeGo'">
+		<div th:case='COUNTERSTRIKEGO'>
 			<label>Best Of:</label> <input type="number" min="1" step="1"
 				id="mode" name="mode" placeholder="Siegpunkte"> <label>Runden:</label>
 			<input type="number" min="2" step="1" id="score" name="score"
 				value="30" placeholder="Runden">
 		</div>
-
-		<!-- Volleyball -->
-		<div th:case="'Volleyball'">
-			<label>Gewinns‰tze:</label> <input type="number" min="1" step="1"
-				id="sets" name="sets" value="2" placeholder="Gewinns‰tze"> <label>Gewinnpunkte:</label>
+		<div th:case='VOLLEYBALL'>
+			<label>Gewinns√§tze:</label> <input type="number" min="1" step="1"
+				id="sets" name="sets" value="2" placeholder="Gewinns√§tze"> <label>Gewinnpunkte:</label>
 			<input type="number" min="2" step="1" id="points" name="points"
-				value="25" placeholder="Gewinnpunkte">
+				value="25" placeholder="Gewinnpunkte"> <label>Tie-Break?</label> <input
+				type="checkbox" id="tiebreak" name="tiebreak">
 		</div>
-
-		<!-- Fuﬂball -->
-		<div th:case="'Fuﬂball'">
-			<label>Halbzeitl‰nge:</label> <input type="number" min="1" step="1"
+		<div th:case='FUSSBALL'>
+			<label>Halbzeitl√§nge:</label> <input type="number" min="1" step="1"
 				id="halftimelength" name="halftimelength" value="45"
-				placeholder="Halbzeitl‰nge"> <label>Verl‰ngerung?</label> <input
+				placeholder="Halbzeitl√§nge"> <label>Verl√§ngerung?</label> <input
 				type="checkbox" id="overtime" name="overtime">
 		</div>
-		<!-- Handball -->
-		<div th:case="'Handball'">
-			<label>Halbzeitl‰nge:</label> <input type="number" min="1" step="1"
+		<div th:case='HANDBALL'>
+			<label>Halbzeitl√§nge:</label> <input type="number" min="1" step="1"
 				id="halftimelength" name="halftimelength" value="30"
-				placeholder="Halbzeitl‰nge"> <label>Verl‰ngerung?</label> <input
+				placeholder="Halbzeitl√§nge"> <label>Verl√§ngerung?</label> <input
 				type="checkbox" id="overtime" name="overtime">
 		</div>
-		<!--
-		<div th:case="''"></div>
-		<div th:case="''"></div>
-		<div th:case="''"></div>
-		<div th:case="''"></div>
-		  -->
-
-	</div>
+		<div th:case="*">
+			<p>
+			Bitte g√ºltigen Spieltyp w√§hlen!
+			<p>
+			<div th:text="${type}"></div>
+		</div>
+	</th:block>
 </div>
