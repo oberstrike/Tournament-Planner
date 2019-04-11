@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -43,6 +44,7 @@ public class Member {
 	@Email
 	private String email;
 	
+	@Transient
 	private String passwordConfirm;
 	
 	@ManyToMany
