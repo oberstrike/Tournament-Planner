@@ -1,5 +1,5 @@
 package com.agil.utility;
 
 public enum GameType {
-	LEAGUEOFLEGENDS, COUNTERSTRIKEGO, HANDBALL, FUSSBALL, VOLLEYBALL, SPORTS, ESPORTS
+	VOLLEYBALL;
 }

@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div th:fragment="header" class="container-fluid bg-info row">
-		<div class="col container-fluid">
+		<!-- <div class="col container-fluid">
 			<div class="float-left">
 				<div class="dropdown">
 					<button class="btn btn-success dropdown-toggle" type="button"
@@ -47,48 +47,116 @@
 					<div class="dropdown-menu dropdown-menu-right"
 						aria-labelledby="dropdownmenu3">
 						<!-- Login -->
-						<div sec:authorize="isAnonymous()">
-							<form th:action="@{/login}" method="POST">
-								<div class="container">
-									<label for="username">Benutzername:</label><input type="text"
-										name="username" id="username" class="form-control"
-										placeholder="Benutzername" />
-								</div>
-								<div class="container">
-									<label for="password">Passwort:</label><input type="password"
-										name="password" id="password" class="form-control"
-										placeholder="Passwort" />
-								</div>
-								<br>
-								<div class="container">
-									<button type="submit" class="btn btn-primary">Einloggen</button>
-								</div>
-							</form>
-						</div>
-						<!-- Login End -->
-						<!-- Logout/Home -->
-						<div sec:authorize="isAuthenticated()">
-							<div>
-								<!-- home -->
+		<!--
+		<div sec:authorize="isAnonymous()">
+			<form th:action="@{/login}" method="POST">
+				<div class="container">
+					<label for="username">Benutzername:</label><input type="text"
+						name="username" id="username" class="form-control"
+						placeholder="Benutzername" />
+				</div>
+				<div class="container">
+					<label for="password">Passwort:</label><input type="password"
+						name="password" id="password" class="form-control"
+						placeholder="Passwort" />
+				</div>
+				<br>
+				<div class="container">
+					<button type="submit" class="btn btn-primary">Einloggen</button>
+				</div>
+			</form>
+		</div>
+		<!-- Login End -->
+		<!-- Logout/Home -->
+		<!--
+		<div sec:authorize="isAuthenticated()">
+			<div>
+				<!-- home -->
+		<!-- 
 								<form th:action="@{/home}" method="GET">
-									<button type="submit" class="btn btn-primary" value="Home">Zum
-										Home</button>
-								</form>
+					<button type="submit" class="btn btn-primary" value="Home">Zum
+						Home</button>
+				</form>
+			</div>
+			<br>
+			<div>
+				<!-- logout -->
+		<!-- 
+						<form th:action="@{/logout}" method="POST">
+			<button type="submit" class="btn btn-primary" value="Ausloggen">Logout</button>
+		</form>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	-->
+		<!-- oben neu anfang -->
+		<nav class="navbar navbar-dark bg-primary">
+			<ul class="nav nav-tabs">
+				<li class="nav-item"><a class="nav-link active" href="home">Home</a>
+				</li>
+				<li class="nav-item"><a class="nav-link active dropdown-toggle"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+					href="">Sportarten</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" th:href="@{/game/${gametype}}"
+							th:each="gametype : ${gametypes}" th:text="${gametype}"></a>
+					</div></li>
+				<th:block sec:authorize="isAnonymous()">
+					<li class="nav-item dropdown"><a
+						class="nav-link active dropdown-toggle" data-toggle="dropdown" href=""
+						role="button" aria-haspopup="true" aria-expanded="false">Anmelden</a>
+						<div class="dropdown-menu">
+							<form th:action="@{/login}" method="POST" class="form-inline">
+							<div>
+								<input type="text" name="username" id="username"
+									class="form-control" placeholder="Benutzername" /></div><div><input
+									type="password" name="password" id="password"
+									class="form-control" placeholder="Passwort" /></div>
+								<button type="submit" class="btn btn-light">Einloggen</button>
+							</form>
+						</div></li>
+				</th:block>
+				<th:block sec:authorize="isAuthenticated()">
+					<li class="nav-item"><a class="nav-link active"
+						th:href="@{/logout}">Ausloggen</a></li>
+			</ul>
+			<!-- <li class="nav-item"><a class="nav-link dropdown-toggle"
+				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+				href="">User-Bereich</a>
+				<div class="dropdown-menu dropdown-menu-right">
+					<div sec:authorize="isAnonymous()">
+						<form th:action="@{/login}" method="POST">
+							<div class="container">
+								<label for="username">Benutzername:</label><input type="text"
+									name="username" id="username" class="form-control"
+									placeholder="Benutzername" />
+							</div>
+							<div class="container">
+								<label for="password">Passwort:</label><input type="password"
+									name="password" id="password" class="form-control"
+									placeholder="Passwort" />
 							</div>
 							<br>
-							<div>
-								<!-- logout -->
-								<form th:action="@{/logout}" method="POST">
-									<button type="submit" class="btn btn-primary" value="Ausloggen">Logout</button>
-								</form>
+							<div class="container">
+								<button type="submit" class="btn btn-primary">Einloggen</button>
 							</div>
+						</form>
+					</div>
+					<div sec:authorize="isAuthenticated()">
+						<div>
+							<form th:action="@{/logout}" method="POST">
+								<button type="submit" class="btn btn-primary" value="Ausloggen">Logout</button>
+							</form>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
+				</div></li> -->
+		</nav>
 	</div>
 
+	<!-- oben neu ende -->
 	<!-- Unteres Menü / Footer -->
 	<!-- 
 	Impressum
@@ -97,6 +165,7 @@
 	 -->
 
 	<div th:fragment="footer" class="container-fluid">
+		<div style="padding-bottom: auto;"></div>
 		<div class="container-fluid fixed-bottom bg-info row">
 			<div class="col container-fluid">
 				<div class="float-left">

@@ -43,7 +43,7 @@ public class TournamentPlannerApplication {
 			teamRepository.save(team2);
 			
 			
-			Game game = new Game(GameStatus.PENDING, GameType.SPORTS, new Date(System.currentTimeMillis()), new HashSet<>(), member);
+			Game game = new Game(GameStatus.PENDING, GameType.VOLLEYBALL, new Date(System.currentTimeMillis()), new HashSet<>(), member);
 			game.setTeams(new HashSet<>(Arrays.asList(team, team2)));
 			gameRepository.save(game);
 		};
