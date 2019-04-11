@@ -9,13 +9,17 @@
 		<h4>Jetzt registrieren!</h4>
 	</div>
 	<div th:if="${param.error}" class="container text-danger text-center">
-		Die Registrierung ist fehlgeschlagen!</div>
+		Die Registrierung ist fehlgeschlagen!
 
+	</div>
+		
+		
 	<div th:if="${param.logout}" class="container text-success text-center">
 		Die Registrierung war erfolgreich!</div>
 	<BR>
 	<div class="container text-center">
-		<form th:action="@{/registration}" method="POST">
+		<form th:action="@{/registration}" method="POST" th:object="${memberForm}">
+
 			<div class="col-auto text-center">
 				<div class="">
 					<label>Benutzername:</label>
@@ -23,8 +27,9 @@
 				<div class="">
 					<input type="text" class="form-control" id="username"
 						name="username" placeholder="Benutzernamen eingeben"
-						autofocus="autofocus">
+						autofocus="autofocus" th:field="*{username}" >
 				</div>
+
 			</div>
 			<div class="col-auto text-center">
 				<div class="">
@@ -73,7 +78,10 @@
 
 			<button type="submit" class="btn btn-primary col"
 				value="Registrieren">Absenden</button>
-
+				
+			<ul th:if="${#fields.hasErrors('*')}">
+		  		<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+			</ul>
 		</form>
 	</div>
 

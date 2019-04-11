@@ -34,7 +34,7 @@ public class TournamentPlannerApplication {
 	@Bean
 	CommandLineRunner init(TeamRepository teamRepository, MemberRepository memberRepository, GameRepository gameRepository) {
 		return (args) -> {
-			Member member = new Member("oberstrike", encoder.encode("mewtu123"), "markus.juergens@gmx.de");		
+			Member member = new Member("oberstrike", encoder.encode("mewtu1234"), "markus.juergens@gmx.de");		
 			memberRepository.save(member);
 			
 			Team team = new Team("Team Solo Mid", "Blau", new HashSet<>(Arrays.asList(member)));
@@ -43,7 +43,7 @@ public class TournamentPlannerApplication {
 			teamRepository.save(team2);
 			
 			
-			Game game = new Game(GameStatus.PENDING, GameType.SPORTS, new Date(System.currentTimeMillis()), new HashSet<>(), member);
+			Game game = new Game(GameStatus.PENDING, GameType.VOLLEYBALL, new Date(System.currentTimeMillis()), new HashSet<>(), member);
 			game.setTeams(new HashSet<>(Arrays.asList(team, team2)));
 			gameRepository.save(game);
 		};

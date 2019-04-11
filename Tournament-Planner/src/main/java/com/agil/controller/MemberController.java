@@ -2,8 +2,12 @@ package com.agil.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,36 +23,59 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.agil.model.Member;
 import com.agil.service.MemberService;
+import com.agil.service.MemberServiceImpl;
 import com.agil.service.SecurityService;
+import com.agil.service.SecurityServiceImpl;
 import com.agil.utility.MemberValidator;
 
 @Controller
 public class MemberController {
 
-	@Autowired
-	private MemberService memberService;
 
 	@Autowired
-	private SecurityService securityService;
+	private final MemberService memberService;
 
 	@Autowired
-	private MemberValidator memberValidator;
+	private final SecurityService securityService;
+
+	@Autowired
+	private final MemberValidator memberValidator;
+	
+	private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
+
+	
+	public MemberController(MemberServiceImpl memberService, SecurityServiceImpl securityService,
+			MemberValidator memberValidator) {
+		super();
+		this.memberService = memberService;
+		this.securityService = securityService;
+		this.memberValidator = memberValidator;
+	}
+
+	
 
 	@GetMapping("/registration")
 	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
-	public String registration(Model model) {
-		model.addAttribute("userForm", new Member());
+	public String registration(Member member, Model model) {
+		model.addAttribute("memberForm", member);
 		return "registration";
 	}
 
 	@PostMapping
-	public String registration(@ModelAttribute("memberForm") Member memberForm, BindingResult bindingResult) {
+	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
+	public String registration(@Valid @ModelAttribute("memberForm") Member memberForm, BindingResult bindingResult) {
 		memberValidator.validate(memberForm, bindingResult);
+		String password = memberForm.getPassword();
+		
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
+		System.out.println("Speichere Member");
 		memberService.save(memberForm);
-		securityService.autoLogin(memberForm.getUsername(), memberForm.getPassword());
+		System.out.println("Auto login");
+		
+		securityService.autoLogin(memberForm.getUsername(), password);
+
 		return "redirect:/home";
 	}
 

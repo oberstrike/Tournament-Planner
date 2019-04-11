@@ -17,8 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.agil.utility.MemberRole;
 
@@ -35,15 +37,19 @@ public class Member {
 	@Enumerated(EnumType.STRING)
 	private Set<MemberRole> roles = new HashSet<>(Arrays.asList(MemberRole.ROLE_USER));
 
-	@NotEmpty
+	@NotEmpty(message = "{username.notempty}")
+	@Size(min=6, max=32, message="{username.badformat}")
 	private String username;
 
-	@NotEmpty
+	@NotEmpty(message = "{password.notempty}")
 	private String password;
 	
 	@Email
+	@NotEmpty(message = "{email.notempty}")
 	private String email;
 	
+	@Transient
+	@Size(min=8, max=32, message="{password.badformat}")
 	private String passwordConfirm;
 	
 	@ManyToMany
