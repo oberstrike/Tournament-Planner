@@ -18,13 +18,13 @@
 
 		<tbody th:case="*">
 			<tr th:each="team: ${teams}" bordercolor="black">
-				<td th:text="${team.id}">
-				<td th:text="${team.name}">
+				<td th:text="${team.id}"/>
+				<td><a th:href="@{'/team?id' + ${team.id}}" th:text="${team.name}"> </a> </td>
 			</tr>
 		</tbody>
 	</table>
 	</div>
-</body>
 <div th:replace="fragments/general.html :: footer"></div>
 <div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+</body>
 </html>
