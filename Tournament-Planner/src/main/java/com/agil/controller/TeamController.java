@@ -1,6 +1,7 @@
 package com.agil.controller;
 
-import java.util.List;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.agil.model.Team;
 import com.agil.service.TeamService;
 import com.agil.service.TeamServiceImpl;
-import com.agil.utility.TeamValidator;
 
 @Controller
 public class TeamController {
@@ -25,10 +25,28 @@ public class TeamController {
 	public TeamController(TeamServiceImpl teamServiceImpl) {
 		this.teamService = teamServiceImpl;
 	}
+
+	@PostMapping("/team")
+	public String addTeam(@Valid @ModelAttribute("teamForm") Team teamForm, BindingResult bindingResult) {
+		if(bindingResult.hasErrors())
+			return "/team";
+		teamService.save(teamForm);
+		
+		return "redirect:/team/search?name" + teamForm.getName();
+	}
 	
-	@GetMapping("/team/search")
-	public String getTeamById(@RequestParam(name="id", required=false) Long id, Model model) {
-		model.addAttribute("teams", teamService.getAll());
+	@GetMapping("/team")
+	public String getTeamById(@RequestParam(name="id", required=false) Long id, Team team, Model model) {
+		if(id != null)
+			team = teamService.findOne(id).orElseThrow(TeamNotFoundException::new);
+		model.addAttribute("teamForm", team);
+		return "team";
+	}
+	
+	
+	@GetMapping("/teams/search")
+	public String getTeamsByName(@RequestParam(name="name", required=true) String name, Model model) {
+		model.addAttribute("teams", teamService.findByNameIgnoreCaseContaining(name));
 		return "/teams";
 	}
 
@@ -38,13 +56,11 @@ public class TeamController {
 		return "/teams";
 	}
 	
-	
-	@GetMapping("/teams/search")
-	public String getTeamByName(@RequestParam(name="name", required=false) String name, Model model) {		
-		List<Team> team = teamService.findByNameIgnoreCase(name);
-		model.addAttribute("teams", team);
+	@GetMapping("/teams")
+	public String teams(Model model) {
 		return "/teams";
 	}
+	
 
 	
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
@@ -52,8 +68,5 @@ public class TeamController {
 		private static final long serialVersionUID = 1L;		
 	}
 	
-	@PostMapping("/team")
-	public String addTeam(@ModelAttribute("teamForm") Team team, BindingResult bindResult) {
-		return "/team";
-	}
+
 }

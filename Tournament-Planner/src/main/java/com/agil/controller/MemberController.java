@@ -66,14 +66,11 @@ public class MemberController {
 	public String registration(@Valid @ModelAttribute("memberForm") Member memberForm, BindingResult bindingResult) {
 		memberValidator.validate(memberForm, bindingResult);
 		String password = memberForm.getPassword();
-		
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
-		System.out.println("Speichere Member");
 		memberService.save(memberForm);
-		System.out.println("Auto login");
-		
+
 		securityService.autoLogin(memberForm.getUsername(), password);
 
 		return "redirect:/home";

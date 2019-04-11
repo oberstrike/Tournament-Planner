@@ -8,8 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.agil.model.Team;
+
 @Repository
-public interface TeamRepository extends CrudRepository<Team, Long>{
+public interface TeamRepository extends CrudRepository<Team, Long> {
 
 	Optional<Team> findByName(String name);
 
@@ -17,4 +18,5 @@ public interface TeamRepository extends CrudRepository<Team, Long>{
 
 	List<Team> findByNameIgnoreCase(String name);
 
+	List<Team> findByNameIgnoreCaseContaining(String name);
 }

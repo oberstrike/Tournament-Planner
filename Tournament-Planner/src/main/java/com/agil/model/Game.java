@@ -31,14 +31,14 @@ public class Game {
 	private long id;
 
 	@Enumerated(EnumType.STRING)
-	@NotNull(message = "{game.status.notempty")
+	@NotNull(message = "{game.status.notempty}")
 	private GameStatus status;
 
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = "{game.type.notempty}")
 	private GameType type;
 	
-	@NotNull(message = "{game.startDate.notempty")
+	@NotNull(message = "{game.startDate.notempty}")
 	private Date startDate;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

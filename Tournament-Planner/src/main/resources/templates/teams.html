@@ -6,7 +6,12 @@
 	th:replace="fragments/general.html :: headerdata(title='Teamübersicht')"></div>
 <body>
 	<div th:replace="fragments/general.html :: header"></div>
-	<table th:switch="${#lists.size(teams)}">
+	<form action="GET" class="form-inline" th:action="@{/teams/search}">
+		<input name="name" class="form-control" type="text" placeholder="Search" aria-label="Search">
+		<button type="submit"><i class="fa fa-search"></i></button>
+	</form>
+	<div th:if="${teams}">
+		<table th:switch="${#lists.size(teams)}">
 		<tbody th:case="'0'">
 			<h1>Kein Team gefunden</h1>
 		</tbody>
@@ -18,6 +23,7 @@
 			</tr>
 		</tbody>
 	</table>
+	</div>
 </body>
 <div th:replace="fragments/general.html :: footer"></div>
 <div th:replace="fragments/general.html :: bootstrapcomponents"></div>

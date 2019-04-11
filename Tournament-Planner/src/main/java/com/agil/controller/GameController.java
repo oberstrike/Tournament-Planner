@@ -19,6 +19,8 @@ public class GameController {
 	
 	@PostMapping("/game")
 	public String addGame(@Valid @ModelAttribute("gameForm") Game game, BindingResult bindingResult) {
+		System.out.println(bindingResult);
+		
 		if(bindingResult.hasErrors())
 			return "redirect:/home";
 		gameService.save(game);

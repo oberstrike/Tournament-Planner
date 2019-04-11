@@ -47,6 +47,18 @@ public class TeamServiceImpl implements TeamService {
 	public List<Team> findByNameIgnoreCase(String name) {
 		return teamRepository.findByNameIgnoreCase(name);
 	}
+
+
+	@Override
+	public List<Team> findByNameIgnoreCaseContaining(String name) {
+		return teamRepository.findByNameIgnoreCaseContaining(name);
+	}
+
+
+	@Override
+	public void save(Team teamForm) {
+		teamRepository.save(teamForm);
+	}
 	
 	
 }
