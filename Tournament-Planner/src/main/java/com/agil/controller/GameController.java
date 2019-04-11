@@ -12,16 +12,13 @@ import com.agil.service.GameService;
 
 @Controller
 public class GameController {
-	
+
 	@Autowired
 	private GameService gameService;
-	
-	
+
 	@PostMapping("/game")
 	public String addGame(@Valid @ModelAttribute("gameForm") Game game, BindingResult bindingResult) {
-		System.out.println(bindingResult);
-		
-		if(bindingResult.hasErrors())
+		if (bindingResult.hasErrors())
 			return "redirect:/home";
 		gameService.save(game);
 		return "/home";

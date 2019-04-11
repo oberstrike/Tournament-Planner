@@ -6,31 +6,97 @@
 	th:replace="fragments/general.html :: headerdata(title='Userbereich')"></div>
 <body>
 	<div th:replace="fragments/general.html :: header"></div>
+	<div class="container">
 	<h2>
-		Hallo <span sec:authentication="name"></span>
+		Willkommen in deinem Bereich <span sec:authentication="name"></span>!
 	</h2>
 	<h2>
 		Deine Rollen: <span sec:authentication="principal.authorities"></span>
 	</h2>
-	<form th:action="@{/home}" method="GET">
-		<select class="form-control" name="type">
-			<option selected>Bitte Typ auswählen</option>
-			<option th:each="gametype : ${gametypes}" th:text="${gametype}"
-				th:value="${gametype}"></option>
-		</select>
-		<button type="submit" class="btn btn-primary">Auswählen</button>
-	</form>
-	<div th:if="${type != null}">
+	</div>
+	<div class="container">
+		<form th:action="@{/home}" method="GET">
+			<div class="input-group">
+				<select class="custom-select" name="type">
+					<option selected>Bitte Typ auswählen...</option>
+					<option th:each="gametype : ${gametypes}" th:text="${gametype}"
+						th:value="${gametype}"></option>
+				</select>
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-primary float-right">Auswählen</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div th:if="${type != null}" class="container">
 		<form th:action="@{/game}" method="POST" th:object="${gameForm}">
-			<label>Spieltyp:</label><input disabled th:text="${type}" name="type"
-				th:value="${type}"> <label>Startzeit:</label><input
-				type="datetime" class="form-control" id="startDate" name="startDate">
-			<label>Spielstatus:</label><input disabled type="text"
-				class="form-control" id="status" name="status" value="PENDING">
-			<label>Ersteller:</label><input disabled th:text="${name}"
-				name="creator" th:value="${name}">
+			<div class="form-row">
+				<div class="col">
+					<label>Spieltyp:</label>
+				</div>
+				<div class="col">
+					<input disabled type="text" class="form-control" id ="type" name="type" th:value="${type}">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col">
+					<label>Startzeit:</label>
+				</div>
+				<div class="col">
+					<input type="datetime" class="form-control" id="startDate"
+						name="startDate">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col">
+					<label>Spielstatus:</label>
+				</div>
+				<div class="col">
+					<input disabled type="text" class="form-control" id="status"
+						name="status" value="PENDING">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col">
+					<label>Ersteller:</label>
+				</div>
+				<div class="col">
+					<input disabled type="text" class="form-control" id="creator" name="creator" th:value="${session.username}">
+				</div>
+			</div>
+			<div th:replace="fragments/fragm_createGame :: newGame"></div>
+			<div class="form-row">
+				<div class="col">
+					<button type="submit" class="btn btn-primary"
+						value="Spiel erstellen">Erstellen</button>
+				</div>
+			</div>
+			<!--
+			<div class="col-auto float-left">
+				<label>Spieltyp:</label>
+			</div>
+			<div class="float-right">
+				<input disabled name="type" th:value="${type}">
+			</div>
+			<div class="col-auto">
+				<label>Startzeit:</label>
+			</div>
+			<div>
+				<input type="datetime" class="form-control" id="startDate"
+					name="startDate"> <label>Spielstatus:</label>
+			</div>
+			<div class="col-auto">
+				<input disabled type="text" class="form-control" id="status"
+					name="status" value="PENDING">
+			</div>
+			<div class="col-auto">
+				<label>Ersteller:</label>
+			</div>
+			<div>
+				<input disabled th:text="${name}" name="creator" th:value="${name}">
+			</div>
 			<div th:include="fragments/fragm_createGame :: newGame"></div>
-			<button type="submit" class="btn btn-primary" value="Spiel erstellen">Erstellen</button>
+			<button type="submit" class="btn btn-primary" value="Spiel erstellen">Erstellen</button> OLD -->
 		</form>
 	</div>
 
