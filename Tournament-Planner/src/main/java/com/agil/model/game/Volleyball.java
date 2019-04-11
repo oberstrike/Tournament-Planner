@@ -66,5 +66,64 @@ public class Volleyball extends Game{
 		}
 	}
 	
+	public int getPointsA() {
+		return pointsA;
+	}
+
+	public void setPointsA(int pointsA) {
+		this.pointsA = pointsA;
+	}
+
+	public int getPointsB() {
+		return pointsB;
+	}
+
+	public void setPointsB(int pointsB) {
+		this.pointsB = pointsB;
+	}
+
+	public int getSetsA() {
+		return setsA;
+	}
+
+	public void setSetsA(int setsA) {
+		this.setsA = setsA;
+	}
+
+	public int getSetsB() {
+		return setsB;
+	}
+
+	public void setSetsB(int setsB) {
+		this.setsB = setsB;
+	}
+
+	public String getTeamA() {
+		return teamA;
+	}
+
+	public void setTeamA(String teamA) {
+		this.teamA = teamA;
+	}
+
+	public String getTeamB() {
+		return teamB;
+	}
+
+	public void setTeamB(String teamB) {
+		this.teamB = teamB;
+	}
+
+	public void setSetsRule(int setsRule) {
+		this.setsRule = setsRule;
+	}
+
+	public void setPointsRule(int pointsRule) {
+		this.pointsRule = pointsRule;
+	}
+
+	public void setTiebreakRule(boolean tiebreakRule) {
+		this.tiebreakRule = tiebreakRule;
+	}
 	
 }

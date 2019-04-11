@@ -1,24 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<div
-	th:replace="fragments/general.html :: headerdata(title='Teamübersicht')"></div>
+<html>
+<div th:replace="fragments/general.html :: headerdata (title='Team')" ></div>
 <body>
-	<div th:replace="fragments/general.html :: header"></div>
-	<table th:switch="${#lists.size(teams)}">
-		<tbody th:case="'0'">
-			<h1>Kein Team gefunden</h1>
-		</tbody>
 
-		<tbody th:case="*">
-			<tr th:each="team: ${teams}" bordercolor="black">
-				<td th:text="${team.id}">
-				<td th:text="${team.name}">
-			</tr>
-		</tbody>
-	</table>
-</body>
 <div th:replace="fragments/general.html :: footer"></div>
 <div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+</body>
 </html>

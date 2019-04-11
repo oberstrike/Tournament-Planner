@@ -5,73 +5,76 @@
 <div
 	th:replace="fragments/general.html :: headerdata(title='Userbereich')"></div>
 <body>
-	<div th:replace="fragments/general.html :: header"></div>
 	<div class="container">
-	<h2>
-		Willkommen in deinem Bereich <span sec:authentication="name"></span>!
-	</h2>
-	<h2>
-		Deine Rollen: <span sec:authentication="principal.authorities"></span>
-	</h2>
-	</div>
-	<div class="container">
-		<form th:action="@{/home}" method="GET">
-			<div class="input-group">
-				<select class="custom-select" name="type">
-					<option selected>Bitte Typ auswählen...</option>
-					<option th:each="gametype : ${gametypes}" th:text="${gametype}"
-						th:value="${gametype}"></option>
-				</select>
-				<div class="input-group-append">
-					<button type="submit" class="btn btn-primary float-right">Auswählen</button>
+		<div th:replace="fragments/general.html :: header"></div>
+		<div class="container">
+			<h2>
+				Willkommen in deinem Bereich <span sec:authentication="name"></span>!
+			</h2>
+			<h2>
+				Deine Rollen: <span sec:authentication="principal.authorities"></span>
+			</h2>
+		</div>
+		<div class="container">
+			<form th:action="@{/home}" method="GET">
+				<div class="input-group">
+					<select class="custom-select" name="type">
+						<option selected>Bitte Typ auswählen...</option>
+						<option th:each="gametype : ${gametypes}" th:text="${gametype}"
+							th:value="${gametype}"></option>
+					</select>
+					<div class="input-group-append">
+						<button type="submit" class="btn btn-primary float-right">Auswählen</button>
+					</div>
 				</div>
-			</div>
-		</form>
-	</div>
-	<div th:if="${type != null}" class="container">
-		<form th:action="@{/game}" method="POST" th:object="${gameForm}">
-			<div class="form-row">
-				<div class="col">
-					<label>Spieltyp:</label>
+			</form>
+		</div>
+		<div th:if="${type != null}" class="container">
+			<form th:action="@{/game}" method="POST" th:object="${gameForm}">
+				<div class="form-row">
+					<div class="col">
+						<label>Spieltyp:</label>
+					</div>
+					<div class="col">
+						<input disabled type="text" class="form-control" id="type"
+							name="type" th:value="${type}">
+					</div>
 				</div>
-				<div class="col">
-					<input disabled type="text" class="form-control" id ="type" name="type" th:value="${type}">
+				<div class="form-row">
+					<div class="col">
+						<label>Startzeit:</label>
+					</div>
+					<div class="col">
+						<input type="datetime" class="form-control" id="startDate"
+							name="startDate">
+					</div>
 				</div>
-			</div>
-			<div class="form-row">
-				<div class="col">
-					<label>Startzeit:</label>
+				<div class="form-row">
+					<div class="col">
+						<label>Spielstatus:</label>
+					</div>
+					<div class="col">
+						<input disabled type="text" class="form-control" id="status"
+							name="status" value="PENDING">
+					</div>
 				</div>
-				<div class="col">
-					<input type="datetime" class="form-control" id="startDate"
-						name="startDate">
+				<div class="form-row">
+					<div class="col">
+						<label>Ersteller:</label>
+					</div>
+					<div class="col">
+						<input disabled type="text" class="form-control" id="creator"
+							name="creator" th:value="${session.username}">
+					</div>
 				</div>
-			</div>
-			<div class="form-row">
-				<div class="col">
-					<label>Spielstatus:</label>
+				<div th:replace="fragments/fragm_createGame :: newGame"></div>
+				<div class="form-row">
+					<div class="col">
+						<button type="submit" class="btn btn-primary"
+							value="Spiel erstellen">Erstellen</button>
+					</div>
 				</div>
-				<div class="col">
-					<input disabled type="text" class="form-control" id="status"
-						name="status" value="PENDING">
-				</div>
-			</div>
-			<div class="form-row">
-				<div class="col">
-					<label>Ersteller:</label>
-				</div>
-				<div class="col">
-					<input disabled type="text" class="form-control" id="creator" name="creator" th:value="${session.username}">
-				</div>
-			</div>
-			<div th:replace="fragments/fragm_createGame :: newGame"></div>
-			<div class="form-row">
-				<div class="col">
-					<button type="submit" class="btn btn-primary"
-						value="Spiel erstellen">Erstellen</button>
-				</div>
-			</div>
-			<!--
+				<!--
 			<div class="col-auto float-left">
 				<label>Spieltyp:</label>
 			</div>
@@ -97,11 +100,12 @@
 			</div>
 			<div th:include="fragments/fragm_createGame :: newGame"></div>
 			<button type="submit" class="btn btn-primary" value="Spiel erstellen">Erstellen</button> OLD -->
-		</form>
+			</form>
+		</div>
+
+		<div th:replace="fragments/general.html :: footer"></div>
+		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+
 	</div>
-
-
 </body>
-<div th:replace="fragments/general.html :: footer"></div>
-<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 </html>

@@ -5,26 +5,32 @@
 <div
 	th:replace="fragments/general.html :: headerdata(title='Teamübersicht')"></div>
 <body>
-	<div th:replace="fragments/general.html :: header"></div>
-	<form action="GET" class="form-inline" th:action="@{/teams/search}">
-		<input name="name" class="form-control" type="text" placeholder="Search" aria-label="Search">
-		<button type="submit"><i class="fa fa-search"></i></button>
-	</form>
-	<div th:if="${teams}">
-		<table th:switch="${#lists.size(teams)}">
-		<tbody th:case="'0'">
-			<h1>Kein Team gefunden</h1>
-		</tbody>
+	<div class="container">
+		<div th:replace="fragments/general.html :: header"></div>
+		<form class="form-inline" th:action="@{/teams/search}" method="GET">
+			<input name="name" class="form-control" type="text"
+				placeholder="Search" aria-label="Search">
+			<button type="submit">
+				<i class="fa fa-search"></i>
+			</button>
+		</form>
+		<div th:if="${teams}">
+			<table th:switch="${#lists.size(teams)}">
+				<tbody th:case="'0'">
+					<h1>Kein Team gefunden</h1>
+				</tbody>
 
-		<tbody th:case="*">
-			<tr th:each="team: ${teams}" bordercolor="black">
-				<td th:text="${team.id}"/>
-				<td><a th:href="@{'/team?id' + ${team.id}}" th:text="${team.name}"> </a> </td>
-			</tr>
-		</tbody>
-	</table>
+				<tbody th:case="*">
+					<tr th:each="team: ${teams}" bordercolor="black">
+						<td th:text="${team.id}" />
+						<td><a th:href="@{'/team?id' + ${team.id}}"
+							th:text="${team.name}"> </a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div th:replace="fragments/general.html :: footer"></div>
+		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 	</div>
-<div th:replace="fragments/general.html :: footer"></div>
-<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 </body>
 </html>
