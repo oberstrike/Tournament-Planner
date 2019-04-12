@@ -1,6 +1,6 @@
 package com.agil.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
@@ -39,8 +41,9 @@ public class Game {
 	private GameType type;
 	
 	@NotNull(message = "{game.startDate.notempty}")
+	@DateTimeFormat(pattern="dd.MM.yyyy HH:mm")
 	private Date startDate;
-	
+		
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="CREATOR_ID")
 	private Member creator;
@@ -74,11 +77,23 @@ public class Game {
 		this(name, status, type, startDate, new HashSet<>(), member);
 	}
 	
-
-	public Game() {
-		
+	public String getTeamAName() {
+		return ((Team) this.teams.toArray()[0]).getName();
 	}
 	
+	public String getTeamBName() {
+		return ((Team) this.teams.toArray()[this.teams.size()-1]).getName();
+	}
+
+	public Game() {
+		this.status = GameStatus.PENDING;
+	}
+	
+	public Game(GameType valueOf) {
+		this();
+		this.type = valueOf;
+	}
+
 	public long getId() {
 		return id;
 	}
