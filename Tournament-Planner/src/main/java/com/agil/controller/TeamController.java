@@ -15,19 +15,27 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.agil.model.Team;
 import com.agil.service.TeamService;
 import com.agil.service.TeamServiceImpl;
+import com.agil.utility.TeamValidator;
 
 @Controller
 public class TeamController {
 
+	@Autowired
 	private final TeamService teamService;
+	
+	@Autowired
+	private final TeamValidator teamValidator;
 
 	@Autowired
-	public TeamController(TeamServiceImpl teamServiceImpl) {
+	public TeamController(TeamServiceImpl teamServiceImpl, TeamValidator teamValidator) {
+		super();
 		this.teamService = teamServiceImpl;
+		this.teamValidator = teamValidator;
 	}
 
 	@PostMapping("/team")
 	public String addTeam(@Valid @ModelAttribute("teamForm") Team teamForm, BindingResult bindingResult) {
+		teamValidator.validate(teamForm, bindingResult);
 		if(bindingResult.hasErrors())
 			return "/team";
 		teamService.save(teamForm);

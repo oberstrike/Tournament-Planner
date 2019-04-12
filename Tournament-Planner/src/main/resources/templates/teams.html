@@ -28,13 +28,6 @@
 							th:replace="fragments/fragm_team :: showTeam(${team.name})"></th:block>
 					</th:block>
 				</div>
-				<tbody th:case="*">
-					<tr th:each="team: ${teams}" bordercolor="black">
-						<td th:text="${team.id}" />
-						<td><a th:href="@{'/team?id' + ${team.id}}"
-							th:text="${team.name}"> </a></td>
-					</tr>
-				</tbody>
 			</th:block>
 		</div>
 		<div th:replace="fragments/general.html :: footer"></div>

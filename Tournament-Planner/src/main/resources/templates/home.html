@@ -45,8 +45,8 @@
 						<label>Startzeit:</label>
 					</div>
 					<div class="col">
-						<input type="datetime" class="form-control" id="startDate"
-							name="startDate">
+						<input type="datetime-local" class="form-control" id="startDate"
+							name="startDate" placeholder="TT.MM.JJJJ HH:MM">
 					</div>
 				</div>
 				<div class="form-row">
@@ -71,35 +71,40 @@
 				<div class="form-row">
 					<div class="col">
 						<button type="submit" class="btn btn-primary"
-							value="Spiel erstellen">Erstellen</button>
+							value="Spiel erstellen">Spiel erstellen</button>
 					</div>
 				</div>
-				<!--
-			<div class="col-auto float-left">
-				<label>Spieltyp:</label>
-			</div>
-			<div class="float-right">
-				<input disabled name="type" th:value="${type}">
-			</div>
-			<div class="col-auto">
-				<label>Startzeit:</label>
-			</div>
-			<div>
-				<input type="datetime" class="form-control" id="startDate"
-					name="startDate"> <label>Spielstatus:</label>
-			</div>
-			<div class="col-auto">
-				<input disabled type="text" class="form-control" id="status"
-					name="status" value="PENDING">
-			</div>
-			<div class="col-auto">
-				<label>Ersteller:</label>
-			</div>
-			<div>
-				<input disabled th:text="${name}" name="creator" th:value="${name}">
-			</div>
-			<div th:include="fragments/fragm_createGame :: newGame"></div>
-			<button type="submit" class="btn btn-primary" value="Spiel erstellen">Erstellen</button> OLD -->
+			</form>
+		</div>
+		
+		<!-- Team erstellen -->
+		
+		<div class="container">
+			<form th:action="@{/team}" method="POST" th:object="${teamForm}">
+				<div class="form-row">
+					<div class="col">
+						<label>Teamname:</label>
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" id="teamname"
+							name="teamname">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="col">
+						<label>Teamfarbe:</label>
+					</div>
+					<div class="col">
+						<input type="color" class="form-control" id="teamcolor"
+							name="teamcolor">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="col">
+						<button type="submit" class="btn btn-primary"
+							value="Team erstellen">Team erstellen</button>
+					</div>
+				</div>
 			</form>
 		</div>
 
