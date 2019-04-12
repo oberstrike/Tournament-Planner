@@ -33,6 +33,14 @@
 			<form th:action="@{/game}" method="POST" th:object="${gameForm}">
 				<div class="form-row">
 					<div class="col">
+						<label>Spielname:</label>
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" id="name" name="name">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="col">
 						<label>Spieltyp:</label>
 					</div>
 					<div class="col">
@@ -76,9 +84,9 @@
 				</div>
 			</form>
 		</div>
-		
+
 		<!-- Team erstellen -->
-		
+
 		<div class="container">
 			<form th:action="@{/team}" method="POST" th:object="${teamForm}">
 				<div class="form-row">
