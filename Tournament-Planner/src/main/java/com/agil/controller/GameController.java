@@ -13,41 +13,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.agil.controller.TeamController.TeamNotFoundException;
 import com.agil.model.Game;
-import com.agil.model.Team;
 import com.agil.service.GameService;
 import com.agil.service.GameServiceImpl;
-import com.agil.service.TeamServiceImpl;
 
 @Controller
 public class GameController {
 
 	@Autowired
 	private GameService gameService;
-
-	@PostMapping("/game")
-	public String addGame(@Valid @ModelAttribute("gameForm") Game game, BindingResult bindingResult) {
-		if (bindingResult.hasErrors())
-			return "redirect:/home";
-		gameService.save(game);
-		return "/home";
-	}
 	
 	@Autowired
 	public GameController(GameServiceImpl GameServiceImpl) {
 		this.gameService = GameServiceImpl;
 	}
-	/*
+
+	
 	@PostMapping("/game")
 	public String addGame(@Valid @ModelAttribute("gameForm") Game gameForm, BindingResult bindingResult) {
 		if(bindingResult.hasErrors())
 			return "/game";
 		gameService.save(gameForm);
 		
-		return "redirect:/game/search?name" + gameForm.getName();
+		return "redirect:/games/search?name" + gameForm.getName();
 	}
-	*/
+
 	@GetMapping("/game")
 	public String getGameById(@RequestParam(name="id", required=false) Long id, Game game, Model model) {
 		if(id != null)

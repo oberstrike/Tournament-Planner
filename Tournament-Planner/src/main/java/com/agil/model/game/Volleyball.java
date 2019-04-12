@@ -13,18 +13,12 @@ public class Volleyball extends Game{
 	private int setsRule;
 	
 	private int pointsRule;
-	
 	private boolean tiebreakRule;
-	
 	private int pointsA;
 	private int pointsB;
-	
 	private int setsA;
 	private int setsB;
-	
-	private String teamA;
-	private String teamB;
-	
+
 	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule) {
 		super();
 		this.setsRule = setsRule;
@@ -97,23 +91,7 @@ public class Volleyball extends Game{
 	public void setSetsB(int setsB) {
 		this.setsB = setsB;
 	}
-
-	public String getTeamA() {
-		return teamA;
-	}
-
-	public void setTeamA(String teamA) {
-		this.teamA = teamA;
-	}
-
-	public String getTeamB() {
-		return teamB;
-	}
-
-	public void setTeamB(String teamB) {
-		this.teamB = teamB;
-	}
-
+	
 	public void setSetsRule(int setsRule) {
 		this.setsRule = setsRule;
 	}

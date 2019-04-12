@@ -22,6 +22,8 @@ public class GameServiceImpl implements GameService {
 	
 	@Override
 	public List<Game> getAll() {
+		System.out.println("ALLE SPIELE: " + repo.findAll());
+		
 		return StreamSupport.stream(repo.findAll().spliterator(),  false).collect(Collectors.toList());
 	}
 	

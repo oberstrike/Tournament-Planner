@@ -37,7 +37,7 @@
 					</div>
 					<div class="col">
 						<input disabled type="text" class="form-control" id="type"
-							name="type" th:value="${type}">
+							name="type" th:value="${type}" th:field="*{type}">
 					</div>
 				</div>
 				<div class="form-row">
@@ -55,7 +55,7 @@
 					</div>
 					<div class="col">
 						<input disabled type="text" class="form-control" id="status"
-							name="status" value="PENDING">
+							name="status" value="*{status}" th:field="*{status}">
 					</div>
 				</div>
 				<div class="form-row">

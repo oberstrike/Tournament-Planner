@@ -25,7 +25,8 @@ public class MainController {
 		
 		if(type != null) {
 			model.addAttribute("type", type.toUpperCase());
-			model.addAttribute("gameForm", new Game());
+			System.out.println(type);
+			model.addAttribute("gameForm", new Game(GameType.VOLLEYBALL));
 		}
 		
 		model.addAttribute("gametypes", Arrays.asList(sArray));		
