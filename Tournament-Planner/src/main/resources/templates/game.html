@@ -5,10 +5,10 @@
 
 	<p>Hier wird ein einzelnes Spiel angezeigt</p>
 
-<div th:replace="fragments/fragm_game :: showGame(1)"></div>
+	<th:block th:replace="fragments/fragm_game :: showGame(${game})"></th:block>
 
 
-		<!-- 
+	<!-- 
 
 Diese Seite erreicht man über einen Link /game?id=ID
 Diese Link kann man teilen
@@ -17,9 +17,9 @@ Die Generellen GameInfos werden immer angezeigt
 Wenn ADMIN/Ersteller, dann auch cnfig des templates zulassen (also editable)
 
  -->
- 	
- 	
- 
+
+
+
 	<div th:replace="fragments/general.html :: footer"></div>
 	<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 </body>

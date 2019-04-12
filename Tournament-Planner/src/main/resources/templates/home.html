@@ -30,7 +30,7 @@
 			</form>
 		</div>
 		<div th:if="${type != null}" class="container">
-			<form th:action="@{/game}" method="POST" th:object="${gameForm}">
+			<form th:action="@{/games/search}" method="POST" th:object="${gameForm}">
 				<div class="form-row">
 					<div class="col">
 						<label>Spielname:</label>
@@ -94,8 +94,8 @@
 						<label>Teamname:</label>
 					</div>
 					<div class="col">
-						<input type="text" class="form-control" id="teamname"
-							name="teamname">
+						<input type="text" class="form-control" id="name"
+							name="name">
 					</div>
 				</div>
 				<div class="form-row">
