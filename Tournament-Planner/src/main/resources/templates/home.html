@@ -30,7 +30,8 @@
 			</form>
 		</div>
 		<div th:if="${type != null}" class="container">
-			<form th:action="@{/games/search}" method="POST" th:object="${gameForm}">
+			<form th:action="@{/game}" method="POST"
+				th:object="${gameForm}">
 				<div class="form-row">
 					<div class="col">
 						<label>Spielname:</label>
@@ -44,7 +45,7 @@
 						<label>Spieltyp:</label>
 					</div>
 					<div class="col">
-						<input disabled type="text" class="form-control" id="type"
+						<input type="text" class="form-control" id="type"
 							name="type" th:value="${type}" th:field="*{type}">
 					</div>
 				</div>
@@ -53,7 +54,7 @@
 						<label>Startzeit:</label>
 					</div>
 					<div class="col">
-						<input type="datetime-local" class="form-control" id="startDate"
+						<input type="text" class="form-control" id="startDate"
 							name="startDate" placeholder="TT.MM.JJJJ HH:MM">
 					</div>
 				</div>
@@ -71,10 +72,26 @@
 						<label>Ersteller:</label>
 					</div>
 					<div class="col">
-						<input disabled type="text" class="form-control" id="creator"
+						<input type="text" class="form-control" id="creator"
 							name="creator" th:value="${session.username}">
 					</div>
+				</div><!--
+				<div class="form-row">
+					<div class="col">
+						<label>Heimteam:</label>
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" id="teams" name="teams" th:field="*{teams}">
+					</div>
 				</div>
+				<div class="form-row">
+					<div class="col">
+						<label>Gastteam:</label>
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" id="teams" name="teams" th:field="*{teams}">
+					</div>
+				</div>-->
 				<div th:replace="fragments/fragm_createGame :: newGame"></div>
 				<div class="form-row">
 					<div class="col">
@@ -94,8 +111,8 @@
 						<label>Teamname:</label>
 					</div>
 					<div class="col">
-						<input type="text" class="form-control" id="name"
-							name="name">
+						<input type="text" class="form-control" id="teamname"
+							name="teamname">
 					</div>
 				</div>
 				<div class="form-row">

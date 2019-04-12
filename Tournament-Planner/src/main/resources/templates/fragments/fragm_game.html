@@ -1,5 +1,36 @@
 <div th:fragment="showGame(game)">
-	<div th:text="${game.id}" class="container bg-success"></div>
+	<div th:text="${game.type}" class="container bg-success"></div>
 	<div th:text="${game.name}" class="container bg-success"></div>
+	<div th:text="${game.startDate}" class="container bg-success"></div>
 	<div class="dropdown-divider pb-3"></div>
+
+	<div class="container">
+		<div class="container" th:text="${game.name}"></div>
+		<div class="container" th:text="${game.startDate}"></div>
+		<table>
+			<tbody>
+				<!-- hier kommt noch ein Fehler, wenn das Spiel über das Formular erstellt wurde, da dort keine Teams gesetzt werden für das Spiel, mach ich noch. Gez. dotflag -->
+				<tr>
+					<td th:text="${game.getTeamAName()}"></td>
+					<td th:text="${game.getTeamBName()}"></td>
+				</tr>
+				<!-- 
+				<tr>
+					<td th:text="${game.getSetsA()}"></td>
+					<td th:text="${game.getSetsB()}"></td>
+				</tr>
+				<tr>
+					<td th:text="${game.getPointsA()}"></td>
+					<td th:text="${game.getPointsB()}"></td>
+				</tr>
+				<tr>
+					<td><form th:action="${game.addPointsA(1)}"><button type="submit">+</button></form><form th:action="${game.substractPointsA(1)}"><button type="submit">-</button></form></td>
+					<td></td>
+				</tr> -->
+			</tbody>
+		</table>
+
+
+	</div>
+
 </div>

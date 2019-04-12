@@ -31,11 +31,12 @@ public class GameController {
 	
 	@PostMapping("/game")
 	public String addGame(@Valid @ModelAttribute("gameForm") Game gameForm, BindingResult bindingResult) {
+		System.out.println(bindingResult);
 		if(bindingResult.hasErrors())
 			return "/game";
 		gameService.save(gameForm);
 		
-		return "redirect:/games/search?name" + gameForm.getName();
+		return "redirect:/games/search?name=" + gameForm.getName();
 	}
 
 	@GetMapping("/game")
