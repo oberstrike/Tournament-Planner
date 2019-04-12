@@ -17,7 +17,6 @@ public class GameTypeController {
 	 */ 
 	
 	@GetMapping("/gametypes")
-	@PreAuthorize("")
 	public List<GameType> getTypes(){
 		return Arrays.asList(GameType.values());
 	}

@@ -21,5 +21,7 @@ public interface TeamService {
 	List<Team> findByNameIgnoreCaseContaining(String name);
 
 	public void save(Team teamForm);
+
+	public Optional<Team> findByName(String name);
 }
 

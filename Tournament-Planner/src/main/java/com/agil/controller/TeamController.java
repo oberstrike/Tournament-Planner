@@ -36,6 +36,7 @@ public class TeamController {
 	@PostMapping("/team")
 	public String addTeam(@Valid @ModelAttribute("teamForm") Team teamForm, BindingResult bindingResult) {
 		teamValidator.validate(teamForm, bindingResult);
+		System.out.println(bindingResult);
 		if(bindingResult.hasErrors())
 			return "/team";
 		teamService.save(teamForm);

@@ -21,7 +21,8 @@ public class TeamValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		Team team = (Team) target;
-		if(teamService.findByNameIgnoreCase(team.getName()) != null) {
+		
+		if(teamService.findByName(team.getName()) != null) {
 			errors.rejectValue("name", "teamname.duplicate");
 		}
 				
