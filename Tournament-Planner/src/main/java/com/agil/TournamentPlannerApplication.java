@@ -49,6 +49,10 @@ public class TournamentPlannerApplication {
 			game.setTeams(new HashSet<>(Arrays.asList(team, team2)));
 			game.setCreator(member);
 			gameRepository.save(game);
+			
+			memberRepository.save(member);
+			memberRepository.save(member2);
+			
 		};
 	}
 

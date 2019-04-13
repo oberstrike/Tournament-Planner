@@ -56,8 +56,10 @@ public class Team {
 		super();
 		this.name = teamname;
 		this.teamcolor = teamcolor;
-		this.members = members;
-		members.forEach(each -> each.addTeam(this));
+		if(members != null) {
+			members.forEach(each -> each.addTeam(this));
+			this.members = members;
+		}
 
 	}
 
@@ -96,29 +98,6 @@ public class Team {
 	public void addMember(Member member) {
 		member.addTeam(this);
 		this.members.add(member);
-	}
-	
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Team other = (Team) obj;
-		if (id != other.id)
-			return false;
-		return true;
 	}
 
 }
