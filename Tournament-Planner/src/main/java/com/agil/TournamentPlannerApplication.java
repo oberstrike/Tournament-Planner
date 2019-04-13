@@ -39,8 +39,8 @@ public class TournamentPlannerApplication {
 			memberRepository.save(member);
 			memberRepository.save(member2);
 			
-			Team team = new Team("Team Solo Mid", "Blau", new HashSet<>(Arrays.asList(member, member2)));
-			Team team2 = new Team("Team Liquid", "Rot", new HashSet<>(Arrays.asList(member)));
+			Team team = new Team("Team Solo Mid", "Blue", new HashSet<>(Arrays.asList(member, member2)));
+			Team team2 = new Team("Team Liquid", "Red", new HashSet<>(Arrays.asList(member)));
 			teamRepository.save(team);
 			teamRepository.save(team2);
 			
@@ -49,6 +49,12 @@ public class TournamentPlannerApplication {
 			game.setTeams(new HashSet<>(Arrays.asList(team, team2)));
 			game.setCreator(member);
 			gameRepository.save(game);
+			
+
+			Game game2 = new Game("Spiel 1",GameStatus.PENDING, GameType.VOLLEYBALL, new Date(System.currentTimeMillis()), new HashSet<>(), member);
+			game2.setTeams(new HashSet<>(Arrays.asList(team, team2)));
+			game2.setCreator(member);
+			gameRepository.save(game2);
 			
 			memberRepository.save(member);
 			memberRepository.save(member2);

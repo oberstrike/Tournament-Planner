@@ -25,7 +25,7 @@
 				<div th:case="*">
 					<th:block th:each="team: ${teams}">
 						<th:block
-							th:replace="fragments/fragm_team :: showTeam(${team.name}, ${team.id})"></th:block>
+							th:replace="fragments/fragm_team :: showTeam(${team})"></th:block>
 					</th:block>
 				</div>
 			</th:block>

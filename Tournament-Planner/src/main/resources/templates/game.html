@@ -5,14 +5,8 @@
 	<div class="container">
 		<div th:replace="fragments/general.html :: header"></div>
 		<p>Hier wird ein einzelnes Spiel angezeigt</p>
-		<!-- <div th:text="${games}"></div>
-		<div th:text="${param.id}"></div> -->
-		<!-- Nächste Methode: alle Spiele durchsuchen, dort wo die ID == param.id wird das Spiel ausgegeben und übergeben an das Fragment -->
-		<!-- <th:block th:each="game : ${games}">
-			<th:block th:if="${${game.id} == ${id}}">-->
+
 		<th:block th:replace="fragments/fragm_game :: showGame(${gameForm})"></th:block>
-		<!--  </th:block>
-		</th:block>-->
 
 		<!-- 
 

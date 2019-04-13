@@ -77,12 +77,12 @@ public class Game {
 		this(name, status, type, startDate, new HashSet<>(), member);
 	}
 	
-	public String getTeamAName() {
-		return ((Team) this.teams.toArray()[0]).getName();
+	public Team getTeamA() {
+		return ((Team) this.teams.toArray()[0]);
 	}
 	
-	public String getTeamBName() {
-		return ((Team) this.teams.toArray()[this.teams.size()-1]).getName();
+	public Team getTeamB() {
+		return ((Team) this.teams.toArray()[this.teams.size()-1]);
 	}
 
 	public Game() {
