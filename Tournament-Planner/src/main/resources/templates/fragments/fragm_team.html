@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 <div th:fragment="showTeam(teamname)">
 	<div class="container bg-success"><a class="text-dark" th:href="@{'/team?name=' + ${teamname}}" th:text="${teamname}"></a></div>
 	<div th:each="member : ${members}" th:text="${member}"></div>
+=======
+<div th:fragment="showTeam(teamname, id)">	
+	<a th:href="@{'/team?id=' + ${id}}" th:text="${teamname}" class="container bg-success"></a>
+	<div th:each="member : ${members}" th:value="${member}"></div>
+>>>>>>> branch 'master' of https://github.com/oberstrike/Tournament-Planner.git
 	<div class="dropdown-divider pb-3"></div>
 </div>
