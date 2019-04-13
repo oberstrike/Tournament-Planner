@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Team {
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -25,11 +26,10 @@ public class Team {
 	// Member die verknüpft sind
 	@ManyToMany
 	private Set<Member> members = new HashSet<>();
-	
+
 	@ManyToMany
 	private Set<Game> games = new HashSet<>();
-	 
-	
+
 	public Set<Game> getGames() {
 		return games;
 	}
@@ -57,6 +57,8 @@ public class Team {
 		this.name = teamname;
 		this.teamcolor = teamcolor;
 		this.members = members;
+		members.forEach(each -> each.addTeam(this));
+
 	}
 
 	public String getName() {
@@ -90,9 +92,33 @@ public class Team {
 	public void addGame(Game game) {
 		this.games.add(game);
 	}
-	
+
 	public void addMember(Member member) {
+		member.addTeam(this);
 		this.members.add(member);
+	}
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Team other = (Team) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }

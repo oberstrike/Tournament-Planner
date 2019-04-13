@@ -118,6 +118,14 @@ public class Member {
 		return username;
 	}
 
+	public Set<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(Set<Game> games) {
+		this.games = games;
+	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -128,6 +136,19 @@ public class Member {
 
 	public Object getPasswordConfirm() {
 		return passwordConfirm;
+	}
+
+	public void addGame(Game game) {
+		if(games.contains(game))
+			return;
+		
+		this.games.add(game);
+	}
+
+	public void addTeam(Team team) {
+		if(teams.contains(team))
+			return;
+		this.teams.add(team);
 	}
 
 }

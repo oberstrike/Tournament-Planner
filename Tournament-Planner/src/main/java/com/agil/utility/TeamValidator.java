@@ -20,9 +20,8 @@ public class TeamValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		Team team = (Team) target;
-		
-		if(teamService.findByName(team.getName()) != null) {
+		Team team = (Team) target;	
+		if(teamService.findByName(team.getName()).isPresent()) {
 			errors.rejectValue("name", "teamname.duplicate");
 		}
 				

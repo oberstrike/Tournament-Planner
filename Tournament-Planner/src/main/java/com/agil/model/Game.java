@@ -53,13 +53,13 @@ public class Game {
 
 	private String name;
 	
-	public Game(GameStatus status, GameType type, Date startDate, Set<Team> teams, Member member) {
+	public Game(GameStatus status, GameType type, Date startDate, Set<Team> teams) {
 		super();
 		this.status = status;
 		this.type = type;
 		this.startDate = startDate;
 		this.teams = teams;
-		this.creator = member;	
+		
 		
 		for (Team team : teams) {
 			team.addGame(this);
@@ -69,7 +69,7 @@ public class Game {
 	}
 	
 	public Game(String name, GameStatus status, GameType type, Date startDate, Set<Team> teams, Member member) {
-		this(status, type, startDate, teams, member);
+		this(status, type, startDate, teams);
 		this.name = name;
 	}
 	
@@ -143,6 +143,7 @@ public class Game {
 	}
 
 	public void setCreator(Member creator) {
+		creator.addGame(this);
 		this.creator = creator;
 	}
 
@@ -152,6 +153,31 @@ public class Game {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Game other = (Game) obj;
+		if (id != other.id)
+			return false;
+		if (type != other.type)
+			return false;
+		return true;
 	}
 
 }

@@ -5,8 +5,30 @@
 <body>
 	<div class="container">
 		<div th:replace="fragments/general.html :: header"></div>
-
-
+		<div th:if="${teamForm}">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Name</th>
+						<th scope="col">Farbe</th>
+						<th scope="col">Mitglieder</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td th:text="${teamForm.id}"></td>
+						<td th:text="${teamForm.name}"></td>						
+						<td th:text="${teamForm.teamcolor}"></td>
+						<td th:if="${teamForm.members}">
+						<div th:each="member: ${teamForm.members}">
+							<a th:href="@{'/member?id=' + ${member.id}}" th:text="${member.username}"></a>
+						</div>
+						</td>
+					</tr>				
+				</tbody>
+			</table>
+		</div>
 		<div th:replace="fragments/general.html :: footer"></div>
 		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 	</div>

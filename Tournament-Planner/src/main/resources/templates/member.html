@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<div
+	th:replace="fragments/general.html :: headerdata (title='Mitglied')"></div>
+<body>
+	<div class="container">
+		<div th:replace="fragments/general.html :: header"></div>
+		<div th:if="${memberForm}">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Username</th>
+						<th scope="col">Teams</th>
+						<th scope="col">Spiele</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td th:text="${memberForm.id}"></td>
+						<td th:text="${memberForm.username}"></td>
+						<td th:if="${memberForm.teams}">
+							<div th:each="team: ${memberForm.teams}">
+								<a th:href="@{'/team?id=' + ${team.id}}" th:text="${team.name}"></a>
+							</div>
+						</td>
+						<td th:if="${memberForm.games}">
+							<div th:each="game: ${memberForm.games}">
+								<a th:href="@{'/game?id=' + ${game.id}}" th:text="${game.name}"></a>
+							</div>
+						</td>
+					</tr>				
+				</tbody>
+			</table>
+		</div>
+		<div th:replace="fragments/general.html :: footer"></div>
+		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+	</div>
+</body>
+</html>

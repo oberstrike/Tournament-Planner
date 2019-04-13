@@ -1,5 +1,7 @@
 package com.agil.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.agil.model.Member;
 import com.agil.service.MemberService;
@@ -94,6 +97,17 @@ public class MemberController {
 		}
 		return "redirect:/login?logout";
 	}
+	
+	@GetMapping("/member")
+	public String getMemberById(@RequestParam long id, Model model) {
+		Optional<Member> member = memberService.findById(id);
+		if(!member.isPresent())
+			return "redirect:/home";
+		model.addAttribute("memberForm", member.get());
+		return "member";
+		
+	}
+	
 	
 
 }

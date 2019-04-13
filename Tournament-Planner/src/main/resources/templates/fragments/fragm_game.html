@@ -11,8 +11,8 @@
 			<tbody>
 				<!-- hier kommt noch ein Fehler, wenn das Spiel über das Formular erstellt wurde, da dort keine Teams gesetzt werden für das Spiel, mach ich noch. Gez. dotflag -->
 				<tr>
-					<td th:text="${game.getTeamAName()}"></td>
-					<td th:text="${game.getTeamBName()}"></td>
+					<td th:if="${game.getTeamAName()}" th:text="${game.getTeamAName()}"></td>
+					<td th:if="${game.getTeamBName()}" th:text="${game.getTeamBName()}"></td>
 				</tr>
 				<!-- 
 				<tr>

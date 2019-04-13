@@ -2,6 +2,7 @@ package com.agil.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,6 +35,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member findByEmail(String email) {
 		return memberRepo.findByEmail(email);
+	}
+
+	@Override
+	public Optional<Member> findById(long id) {
+		return memberRepo.findById(id);
 	}
 
 }
