@@ -20,7 +20,7 @@
 				<div th:case="'0'">Keine Spiele gefunden</div>
 				<div th:case="*">
 					<th:block th:each="game: ${games}">
-						<th:block th:replace="fragments/fragm_game :: showGame(${game})"></th:block>
+						<th:block th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
 					</th:block>
 				</div>
 			</th:block>
