@@ -1,4 +1,4 @@
-<div th:fragment="showGame(game)">
+<div th:fragment="showGames(game)">
 	<div th:text="${game.type}" class="container bg-success"></div>
 	<div th:text="${game.name}" class="container bg-success"></div>
 	<div th:text="${game.startDate}" class="container bg-success"></div>
@@ -32,5 +32,10 @@
 
 
 	</div>
+
+</div>
+
+<div th:fragment="showGame(id)">
+<div th:text="${id}"></div>
 
 </div>

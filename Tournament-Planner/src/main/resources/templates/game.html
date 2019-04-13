@@ -5,8 +5,12 @@
 
 	<p>Hier wird ein einzelnes Spiel angezeigt</p>
 
-	<th:block th:replace="fragments/fragm_game :: showGame(${game})"></th:block>
+<!-- Nächste Methode: alle Spiele durchsuchen, dort wo die ID == param.id wird das Spiel ausgegeben und übergeben an das Fragment -->
 
+	<th:block th:if="${param.id}">
+	<th:block th:replace="fragments/fragm_game :: showGame(${param.id})"></th:block>
+</th:block>
+<th:block th:if="${!param.id}" th:text="Kein Spiel gefunden mit dieser ID"></th:block>
 
 	<!-- 
 
