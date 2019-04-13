@@ -6,9 +6,7 @@
 				<!-- hier kommt noch ein Fehler, wenn das Spiel über das Formular erstellt wurde, da dort keine Teams gesetzt werden für das Spiel, mach ich noch. Gez. dotflag -->
 				<tr>
 					<td scope="col" th:text="${game.name}"></td>
-					<td scope="col" rowspan="2">SHARE ME!
-						<p>PLEASE!
-					</td>
+					<td scope="col" rowspan="2"><a th:href="'https://wa.me/?text=Schau%20dir%20das%20Spiel%20' + ${game.getTeamA().getName()} + '%20gegen%20' + ${game.getTeamB().getName()} + '%20im%20Liveticker%20an%3A%0A' + ${#httpServletRequest.requestURL} + '?id=' + ${game.id}" target="_blank"><i class="fa fa-whatsapp bg-success text-white btn-lg"></i></a></td>
 				</tr>
 				<tr>
 					<td scope="col" th:text="${game.startDate}"></td>
