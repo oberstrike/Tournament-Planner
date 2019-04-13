@@ -19,9 +19,24 @@
 			<th:block th:switch="${#lists.size(games)}">
 				<div th:case="'0'">Keine Spiele gefunden</div>
 				<div th:case="*">
-					<th:block th:each="game: ${games}">
-						<th:block th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
-					</th:block>
+					<table class="table">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Sportart</th>
+								<th scope="col">Spielname</th>
+								<th scope="col">Datum</th>
+								<th scope="col">Heim</th>
+								<th scope="col">Gast</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="game: ${games}">
+								<th:block
+									th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
+							</th:block>
+						</tbody>
+					</table>
 				</div>
 			</th:block>
 		</div>

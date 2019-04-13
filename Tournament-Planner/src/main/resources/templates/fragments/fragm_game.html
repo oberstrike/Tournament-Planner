@@ -1,32 +1,41 @@
-<div th:fragment="showGames(game)">
-	<div th:text="${game.type}" class="container bg-success"></div>
-	<div th:text="${game.name}" class="container bg-success"></div>
-	<div th:text="${game.startDate}" class="container bg-success"></div>
-	<div class="dropdown-divider pb-3"></div>
+<div th:fragment="showGame(game)">
 
 	<div class="container">
-		<div class="container" th:text="${game.name}"></div>
+		<div class="container" th:text="${game.name}">
+			<a class="text-dark" th:href="@{'/game?id='+${game.id}}"
+				th:text="${game.name}"></a>
+		</div>
 		<div class="container" th:text="${game.startDate}"></div>
-		<table>
+		<table class="table">
 			<tbody>
 				<!-- hier kommt noch ein Fehler, wenn das Spiel über das Formular erstellt wurde, da dort keine Teams gesetzt werden für das Spiel, mach ich noch. Gez. dotflag -->
+				<tr>
+					<td><!-- Name, Datum --></td>
+					<td><!-- Share Button --></td>
+				</tr>
 				<tr>
 					<td th:if="${game.getTeamAName()}" th:text="${game.getTeamAName()}"></td>
 					<td th:if="${game.getTeamBName()}" th:text="${game.getTeamBName()}"></td>
 				</tr>
 				<!-- 
 				<tr>
-					<td th:text="${game.getSetsA()}"></td>
-					<td th:text="${game.getSetsB()}"></td>
+					<td th:if="${game.getSetsA()}" th:text="${game.getSetsA()}"></td>
+					<td th:if="${game.getSetsB()}" th:text="${game.getSetsB()}"></td>
 				</tr>
 				<tr>
-					<td th:text="${game.getPointsA()}"></td>
-					<td th:text="${game.getPointsB()}"></td>
-				</tr>
-				<tr>
-					<td><form th:action="${game.addPointsA(1)}"><button type="submit">+</button></form><form th:action="${game.substractPointsA(1)}"><button type="submit">-</button></form></td>
-					<td></td>
+					<td th:if="${game.getPointsA()}" th:text="${game.getPointsA()}"></td>
+					<td th:if="${game.getPointsB()}" th:text="${game.getPointsB()}"></td>
 				</tr> -->
+				<th:block sec:authorize="isAuthenticated()">
+				<th:block th:if="${game.creator == name}">
+					<tr>
+						<td><!-- ADMINBUTTONS TEAM A -->
+						</td>
+						<td><!-- ADMINBUTTONS TEAM B -->
+						</td>
+					</tr>
+				</th:block>
+				</th:block>
 			</tbody>
 		</table>
 
@@ -35,7 +44,19 @@
 
 </div>
 
-<div th:fragment="showGame(id)">
-<div th:text="${id}"></div>
-
+<div th:fragment="showGames(game)">
+	<tr scope="row">
+		<td scope="col" th:text="${game.id}"></td>
+		<td scope="col" th:text="${game.type}"></td>
+		<td scope="col"><a class="text-dark"
+			th:href="@{'/game?id=' + ${game.id}}" th:text="${game.name}"></a></td>
+		<td scope="col"><a class="text-dark"
+			th:href="@{'/game?id=' + ${game.id}}" th:text="${game.startDate}"></a></td>
+		<td scope="col"><a class="text-dark"
+			th:href="@{'/team?name=' + ${game.getTeamAName()}}"
+			th:text="${game.getTeamAName()}"></a></td>
+		<td scope="col"><a class="text-dark"
+			th:href="@{'/team?name=' + ${game.getTeamBName()}}"
+			th:text="${game.getTeamBName()}"></a></td>
+	</tr>
 </div>
