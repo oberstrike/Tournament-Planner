@@ -1,5 +1,6 @@
 package com.agil.controller;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -107,6 +108,19 @@ public class MemberController {
 		return "member";
 		
 	}
+	
+	@GetMapping("/profile")
+	public String getMember() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth == null)
+			return "redirect:/login";
+		String name = ((Principal) auth.getPrincipal()).getName();
+		Member member = memberService.findByUsername(name);
+		
+		
+		return "profile";
+	}
+	
 	
 	
 

@@ -1,5 +1,5 @@
-<div th:fragment="showTeam(teamname)">
-	<div th:text="${teamname}" class="container bg-success"></div>
+<div th:fragment="showTeam(teamname, id)">	
+	<a th:href="@{'/team?id=' + ${id}}" th:text="${teamname}" class="container bg-success"></a>
 	<div th:each="member : ${members}" th:value="${member}"></div>
 	<div class="dropdown-divider pb-3"></div>
 </div>
