@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.agil.model.Game;
 import com.agil.model.Member;
 import com.agil.model.Team;
+import com.agil.model.game.Volleyball;
 import com.agil.repo.GameRepository;
 import com.agil.repo.MemberRepository;
 import com.agil.repo.TeamRepository;
@@ -45,13 +46,13 @@ public class TournamentPlannerApplication {
 			teamRepository.save(team2);
 			
 			
-			Game game = new Game("Spiel 1",GameStatus.PENDING, GameType.VOLLEYBALL, new Date(System.currentTimeMillis()), new HashSet<>(), member);
+			Game game = new Volleyball(3, 25, true, "Spiel 1",GameStatus.PENDING, GameType.VOLLEYBALL, new Date(System.currentTimeMillis()), new HashSet<>(), member);
 			game.setTeams(new HashSet<>(Arrays.asList(team, team2)));
 			game.setCreator(member);
 			gameRepository.save(game);
 			
 
-			Game game2 = new Game("Spiel 1",GameStatus.PENDING, GameType.VOLLEYBALL, new Date(System.currentTimeMillis()), new HashSet<>(), member);
+			Game game2 = new Volleyball(3, 25, true, "Spiel 2",GameStatus.PENDING, GameType.VOLLEYBALL, new Date(System.currentTimeMillis()), new HashSet<>(), member);
 			game2.setTeams(new HashSet<>(Arrays.asList(team, team2)));
 			game2.setCreator(member);
 			gameRepository.save(game2);

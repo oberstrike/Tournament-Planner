@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Team {
@@ -18,6 +19,7 @@ public class Team {
 	private long id;
 
 	// Vom User gesetzt
+	@Size(min=6, message="{teamname.badformat}")
 	private String name;
 
 	// Kann gesetzt werden
