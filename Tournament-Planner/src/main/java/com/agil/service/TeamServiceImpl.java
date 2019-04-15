@@ -39,7 +39,7 @@ public class TeamServiceImpl implements TeamService {
 
 	@Override
 	public List<Team> findByMembers_Id(long id){
-		return teamRepository.findByMembers_Id(id);
+		return teamRepository.findByPlayers_Id(id);
 	}
 
 

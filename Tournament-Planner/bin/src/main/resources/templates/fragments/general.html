@@ -13,13 +13,14 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title th:text="${title}">Default-Title</title>
 </head>
 <body>
-	<div th:fragment="header" class="container">
+	<div th:fragment="header">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<a class="navbar-brand" href="home">[]</a>
+			<a class="navbar-brand" href="home">[o]</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarText" aria-controls="navbarText"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -35,29 +36,30 @@
 						<div class="dropdown-menu">
 							<a class="dropdown-item" th:href="@{/game/${gametype}}"
 								th:each="gametype : ${gametypes}" th:text="${gametype}"></a>
-						</div>
-						</li>
-						<li class="nav-item"> 
-							<a class = "nav-link" href="teams">Teams</a>
-						</li>
+						</div></li>
+					<li class="nav-item active"><a class="nav-link" href="teams/search/all">Teams</a>
+					</li>
+					<li class="nav-item active"><a class="nav-link" href="games/search/all">Spiele</a>
+					</li>
 				</ul>
 				<th:block sec:authorize="isAnonymous()">
 					<ul class="navbar-nav">
+						<li class="nav-item active"><a class="nav-link" href="registration">Registrieren</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link active dropdown-toggle" data-toggle="dropdown"
 							href="" aria-haspopup="true" aria-expanded="false">Anmelden</a>
 							<div class="dropdown-menu dropdown-menu-right">
 								<form th:action="@{/login}" method="POST" class="form-inline">
-									<div class="container">
+									<div class="container pb-3">
 										<input type="text" name="username" id="username"
 											class="form-control" placeholder="Benutzername" />
 									</div>
-									<BR>
-									<div class="container">
+									<p>
+									<div class="container pb-3">
 										<input type="password" name="password" id="password"
 											class="form-control" placeholder="Passwort" />
 									</div>
-									<BR>
+									<p>
 									<div class="container">
 										<button type="submit" class="btn btn-primary float-right">Einloggen</button>
 									</div>
@@ -67,6 +69,7 @@
 				</th:block>
 				<th:block sec:authorize="isAuthenticated()">
 					<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link active" th:href="home"><span sec:authentication="name"></span></a>
 						<li class="nav-item"><a class="nav-link active"
 							th:href="@{/logout}">Ausloggen</a></li>
 					</ul>
@@ -82,29 +85,29 @@
 	Jump Up
 	 -->
 
-	<div th:fragment="footer" class="container-fluid">
-		<div style="padding-bottom: auto;"></div>
-		<div class="container-fluid fixed-bottom bg-info row">
-			<div class="col container-fluid">
-				<div class="float-left">
+	<div th:fragment="footer" class="container pt-6">
+		<!-- FOOTER DEAKTIVIERT
+		<div class="container fixed-bottom float-center bg-info">
+			<div class="col container">
+				<div class="">
 					<a href="datenschutz"><button class="btn btn-primary">Datenschutz</button></a>
 				</div>
-				<div class="float-left">
+				<div class="">
 					<a href="impressum"><button class="btn btn-primary">Impressum</button></a>
 				</div>
 			</div>
-			<div class="col container-fluid">
-				<div class="float-right">
+			<div class="col container">
+				<div class="">
 					<div sec:authorize="isAnonymous()">
 						<a href="login"><button class="btn btn-primary">Einloggen</button></a>
 					</div>
 				</div>
-				<div class="float-right">
+				<div class="">
 					<div sec:authorize="isAnonymous()">
 						<a href="registration"><button class="btn btn-primary">Registrierung</button></a>
 					</div>
 				</div>
-				<div class="float-right">
+				<div class="">
 					<div sec:authorize="isAuthenticated()">
 						<form th:action="@{/logout}" method="POST">
 							<button type="submit" class="btn btn-primary" value="Ausloggen">Ausloggen</button>
@@ -112,7 +115,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 	<div th:fragment="bootstrapcomponents">

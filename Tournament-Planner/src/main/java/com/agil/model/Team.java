@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -15,36 +17,29 @@ public class Team {
 
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;
 
 	// Vom User gesetzt
 	@Size(min=6, message="{teamname.badformat}")
 	private String name;
 
-	// Kann gesetzt werden
+	// Kann zum Individuellisieren genutzt werden
 	private String teamcolor;
 
 	// Member die verknüpft sind
 	@ManyToMany
-	private Set<Member> members = new HashSet<>();
+	private Set<Player> players = new HashSet<>();
 
-	@ManyToMany
-	private Set<Game> games = new HashSet<>();
-
-	public Set<Game> getGames() {
-		return games;
-	}
-
-	public void setGames(Set<Game> games) {
-		this.games = games;
-	}
-
-	@Override
-	public String toString() {
-		return "Team [id=" + id + ", name=" + name + ", teamcolor=" + teamcolor + ", members=" + members + ", games="
-				+ games + "]";
-	}
+	@OneToMany(mappedBy = "teamA")
+	private Set<Game> homegames = new HashSet<>();
+	
+	@OneToMany(mappedBy = "teamB")
+	private Set<Game> awaygames = new HashSet<>();
+	
+	
+	@ManyToOne
+	private Member creator;
 
 	public long getId() {
 		return id;
@@ -54,15 +49,10 @@ public class Team {
 		this.id = id;
 	}
 
-	public Team(String teamname, String teamcolor, Set<Member> members) {
+	public Team(String teamname, String teamcolor) {
 		super();
 		this.name = teamname;
 		this.teamcolor = teamcolor;
-		if(members != null) {
-			members.forEach(each -> each.addTeam(this));
-			this.members = members;
-		}
-
 	}
 
 	public String getName() {
@@ -81,25 +71,54 @@ public class Team {
 		this.teamcolor = teamcolor;
 	}
 
-	public Set<Member> getMembers() {
-		return members;
-	}
-
-	public void Members(Set<Member> members) {
-		this.members = members;
-	}
 
 	protected Team() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void addGame(Game game) {
-		this.games.add(game);
+	public Set<Player> getPlayers() {
+		return players;
 	}
 
-	public void addMember(Member member) {
-		member.addTeam(this);
-		this.members.add(member);
+	public void setPlayers(Set<Player> players) {
+		this.players = players;
+	}
+
+	public Member getCreator() {
+		return creator;
+	}
+
+	public void setCreator(Member creator) {
+		this.creator = creator;
+	}
+
+	public Set<Game> getHomegames() {
+		return homegames;
+	}
+
+	public void setHomegames(Set<Game> homegames) {
+		this.homegames = homegames;
+	}
+
+	public Set<Game> getAwaygames() {
+		return awaygames;
+	}
+
+	public void setAwaygames(Set<Game> awaygames) {
+		this.awaygames = awaygames;
+	}
+
+	public void addAwayGame(Game game) {
+		this.awaygames.add(game);
+	}
+	
+	public void addHomeGame(Game game) {
+		this.homegames.add(game);
+	}
+
+	public void addPlayer(Player player) {
+		player.addTeam(this);
+		this.players.add(player);
 	}
 
 }

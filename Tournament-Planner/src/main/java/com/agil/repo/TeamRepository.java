@@ -14,7 +14,7 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
 
 	Optional<Team> findByName(String name);
 
-	List<Team> findByMembers_Id(long id);
+	List<Team> findByPlayers_Id(long id);
 
 	List<Team> findByNameIgnoreCase(String name);
 

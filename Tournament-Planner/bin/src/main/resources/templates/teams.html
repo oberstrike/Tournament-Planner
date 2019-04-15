@@ -5,26 +5,33 @@
 <div
 	th:replace="fragments/general.html :: headerdata(title='Teamübersicht')"></div>
 <body>
-	<div th:replace="fragments/general.html :: header"></div>
-	<form action="GET" class="form-inline" th:action="@{/teams/search}">
-		<input name="name" class="form-control" type="text" placeholder="Search" aria-label="Search">
-		<button type="submit"><i class="fa fa-search"></i></button>
-	</form>
-	<div th:if="${teams}">
-		<table th:switch="${#lists.size(teams)}">
-		<tbody th:case="'0'">
-			<h1>Kein Team gefunden</h1>
-		</tbody>
+	<div class="container">
+		<div th:replace="fragments/general.html :: header"></div>
+		<div class="input-group mb-3 justify-content-end">
+			<form th:action="@{/teams/search}" method="GET" class="form-inline">
+				<input type="text" name="name" class="form-control" placeholder="Team suchen..."
+					aria-label="Team suchen...">
+				<div class="input-group-append">
+					<button class="btn btn-outline-primary" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</form>
+		</div>
 
-		<tbody th:case="*">
-			<tr th:each="team: ${teams}" bordercolor="black">
-				<td th:text="${team.id}"/>
-				<td><a th:href="@{'/team?id' + ${team.id}}" th:text="${team.name}"> </a> </td>
-			</tr>
-		</tbody>
-	</table>
+		<div th:if="${teams}">
+			<th:block th:switch="${#lists.size(teams)}">
+				<div th:case="'0'">Keine Teams gefunden</div>
+				<div th:case="*">
+					<th:block th:each="team: ${teams}">
+						<th:block
+							th:replace="fragments/fragm_team :: showTeam(${team})"></th:block>
+					</th:block>
+				</div>
+			</th:block>
+		</div>
+		<div th:replace="fragments/general.html :: footer"></div>
+		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 	</div>
-<div th:replace="fragments/general.html :: footer"></div>
-<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 </body>
 </html>

@@ -2,20 +2,21 @@
 <html>
 <div th:replace="fragments/general.html :: headerdata (title='Login')"></div>
 <body>
-	<div th:replace="fragments/general.html :: header"></div>
-	<div th:if="${param.error}" class="container text-danger text-center">
-		Das Login ist fehlgeschlagen!</div>
-	<div th:if="${param.login}" class="container text-success text-center">
-		Das Login war erfolgreich!
-	</div>
 	<div class="container">
+		<div th:replace="fragments/general.html :: header"></div>
+		<h4>Einloggen!</h4>
+		<div th:if="${param.error}" class="container text-danger text-center">
+			Das Login ist fehlgeschlagen!</div>
+		<div th:if="${param.login}" class="container text-success text-center">
+			Das Login war erfolgreich!</div>
+
 		<form th:action="@{/login}" method="POST">
-			<div class="container">
+			<div class="container pb-3">
 				<label for="username">Benutzername:</label><input type="text"
 					name="username" id="username" class="form-control"
 					placeholder="Benutzername" />
 			</div>
-			<div class="container">
+			<div class="container pb-3">
 				<label for="password">Passwort:</label><input type="password"
 					name="password" id="password" class="form-control"
 					placeholder="Passwort" />
@@ -24,9 +25,10 @@
 				<button type="submit" class="btn btn-primary">Einloggen</button>
 			</div>
 		</form>
-	</div>
 
-	<div th:replace="fragments/general.html :: footer"></div>
-	<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+
+		<div th:replace="fragments/general.html :: footer"></div>
+		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+	</div>
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -52,12 +54,16 @@ public class Member {
 	@Size(min=8, max=32, message="{password.badformat}")
 	private String passwordConfirm;
 	
-	@ManyToMany
+	@OneToMany(mappedBy = "creator")
 	private Set<Team> teams = new HashSet<>();
 
 	@OneToMany(mappedBy = "creator")
 	private Set<Game> games = new HashSet<>();
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "player_id", referencedColumnName = "id")
+	private Player connectedPlayer;
+	
 	public long getId() {
 		return id;
 	}
@@ -136,6 +142,15 @@ public class Member {
 
 	public Object getPasswordConfirm() {
 		return passwordConfirm;
+	}
+
+	public Player getPlayer() {
+		return connectedPlayer;
+	}
+
+	public void setPlayer(Player player) {
+		player.setMember(this);
+		this.connectedPlayer = player;
 	}
 
 	public void addGame(Game game) {

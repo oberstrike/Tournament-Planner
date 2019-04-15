@@ -17,6 +17,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -47,44 +48,25 @@ public class Game {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="CREATOR_ID")
 	private Member creator;
-
-	@ManyToMany
-	private Set<Team> teams = new HashSet<>();
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Team teamA;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Team teamB;
 
 	private String name;
 	
-	public Game(GameStatus status, GameType type, Date startDate, Set<Team> teams) {
+	public Game(GameStatus status, GameType type, Date startDate, Team teamA, Team teamB) {
 		super();
 		this.status = status;
 		this.type = type;
 		this.startDate = startDate;
-		this.teams = teams;
-		
-		
-		for (Team team : teams) {
-			team.addGame(this);
-		}
-		if(teams.size() == 2)
-			this.name = teams.toArray()[0] + " vs " + teams.toArray()[1];	
+		this.teamA = teamA;
+		this.teamB = teamB;
 	}
 	
-	public Game(String name, GameStatus status, GameType type, Date startDate, Set<Team> teams, Member member) {
-		this(status, type, startDate, teams);
-		this.name = name;
-	}
 	
-	public Game(String name, GameStatus status, GameType type, Date startDate, Member member) {
-		this(name, status, type, startDate, new HashSet<>(), member);
-	}
-	
-	public Team getTeamA() {
-		return ((Team) this.teams.toArray()[0]);
-	}
-	
-	public Team getTeamB() {
-		return ((Team) this.teams.toArray()[this.teams.size()-1]);
-	}
-
 	public Game() {
 		this.status = GameStatus.PENDING;
 	}
@@ -127,16 +109,6 @@ public class Game {
 	}
 
 
-	public Set<Team> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(Set<Team> teams) {
-		if (teams.size() <= 2)
-			this.teams = teams;
-		else
-			throw new RuntimeException("Es dürfen nicht mehr als Teams in einem Spiel sein.");
-	}
 
 	public Member getCreator() {
 		return creator;
@@ -178,6 +150,26 @@ public class Game {
 		if (type != other.type)
 			return false;
 		return true;
+	}
+
+
+	public Team getTeamA() {
+		return teamA;
+	}
+
+
+	public void setTeamA(Team teamA) {
+		this.teamA = teamA;
+	}
+
+
+	public Team getTeamB() {
+		return teamB;
+	}
+
+
+	public void setTeamB(Team teamB) {
+		this.teamB = teamB;
 	}
 
 }

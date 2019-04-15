@@ -22,11 +22,11 @@
 		<div th:case='VOLLEYBALL'>
 			<div class="form-row">
 				<div class="col">
-					<label>Gewinnsätze:</label>
+					<label>Gewinns�tze:</label>
 				</div>
 				<div class="col">
-					<input type="number" class="form-control" min="1" step="1" id="setsRule" name="setsRule"
-						value="2" placeholder="Gewinnsätze">
+					<input type="number" class="form-control" min="1" step="1"
+						id="setsRule" name="setsRule" value="2" placeholder="Gewinns�tze">
 				</div>
 			</div>
 			<div class="form-row">
@@ -34,8 +34,9 @@
 					<label>Gewinnpunkte:</label>
 				</div>
 				<div class="col">
-					<input type="number" class="form-control" min="2" step="1" id="pointsRule" name="pointsRule"
-						value="25" placeholder="Gewinnpunkte">
+					<input type="number" class="form-control" min="2" step="1"
+						id="pointsRule" name="pointsRule" value="25"
+						placeholder="Gewinnpunkte">
 				</div>
 			</div>
 			<div class="form-row">
@@ -43,7 +44,8 @@
 					<label>Tie-Break?</label>
 				</div>
 				<div class="col">
-					<input type="checkbox" class="form-control" id="tiebreakRule" name="tiebreakRule">
+					<input type="checkbox" class="form-control" id="tiebreakRule"
+						name="tiebreakRule">
 				</div>
 			</div>
 		</div>
@@ -53,8 +55,8 @@
 		<div th:case='FUSSBALL'>
 			<label>Halbzeitlänge:</label> <input type="number" min="1" step="1"
 				id="halftimelength" name="halftimelength" value="45"
-				placeholder="Halbzeitlänge"> <label>Verlängerung?</label> <input
-				type="checkbox" id="overtime" name="overtime">
+				placeholder="Halbzeitlänge"> <label>Verlängerung?</label>
+			<input type="checkbox" id="overtime" name="overtime">
 		</div>
 
 
@@ -62,8 +64,8 @@
 		<div th:case='HANDBALL'>
 			<label>Halbzeitlänge:</label> <input type="number" min="1" step="1"
 				id="halftimelength" name="halftimelength" value="30"
-				placeholder="Halbzeitlänge"> <label>Verlängerung?</label> <input
-				type="checkbox" id="overtime" name="overtime">
+				placeholder="Halbzeitlänge"> <label>Verlängerung?</label>
+			<input type="checkbox" id="overtime" name="overtime">
 		</div>
 
 		<div th:case="*">

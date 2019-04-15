@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-<div th:replace="fragments/general.html :: headerdata (title='Spiele')"></div>
+<div th:replace="fragments/general.html :: headerdata (title='Spiel')"></div>
 <body>
+	<div class="container">
+		<div th:replace="fragments/general.html :: header"></div>
+		<p>Hier wird ein einzelnes Spiel angezeigt</p>
 
-	<p>Hier wird ein einzelnes Spiel angezeigt</p>
-
-<div th:replace="fragments/fragm_viewGame :: showGame(1)"></div>
+		<th:block th:replace="fragments/fragm_game :: showGame(${gameForm})"></th:block>
 
 		<!-- 
 
@@ -16,7 +17,11 @@ Die Generellen GameInfos werden immer angezeigt
 Wenn ADMIN/Ersteller, dann auch cnfig des templates zulassen (also editable)
 
  -->
-	<div th:replace="fragments/general.html :: footer"></div>
-	<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+
+
+
+		<div th:replace="fragments/general.html :: footer"></div>
+		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+	</div>
 </body>
 </html>

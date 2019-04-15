@@ -1,0 +1,57 @@
+<div th:fragment="showGame(game)">
+
+	<div class="container">
+		<table class="table table-borderless">
+			<tbody>
+				<tr scope="row">
+					<td scope="col" th:text="${game.name}"></td>
+					<td scope="col" rowspan="2"><a
+						th:href="'https://wa.me/?text=Schau%20dir%20das%20Spiel%20' + ${game.getTeamA().getName()} + '%20gegen%20' + ${game.getTeamB().getName()} + '%20im%20Liveticker%20an%3A%0A' + ${#httpServletRequest.requestURL} + '?id=' + ${game.id}"
+						target="_blank"><i
+							class="fa fa-whatsapp bg-success text-white btn-lg"></i></a></td>
+				</tr>
+				<tr scope="row">
+					<td scope="col" th:text="${game.startDate}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="container">
+			<!-- Rahmen für die Spielanzeige -->
+			<div class="row">
+				<div class="col text-center" th:text="${game.getTeamA().getName()}"
+					th:style="'font-size: 5vw; background-color: ' + ${game.getTeamA().getTeamcolor()} + ';'"></div>
+				<div class="col text-center" th:text="${game.getTeamB().getName()}"
+					th:style="'font-size: 5vw; background-color: ' + ${game.getTeamB().getTeamcolor()} + ';'"></div>
+			</div>
+			<div class="row">
+				<div class="col text-right" th:text="${game.getSetsA()}"
+					style="font-size: 3vw;"></div>
+				<div class="col text-left" th:text="${game.getSetsB()}"
+					style="font-size: 3vw;"></div>
+			</div>
+			<div class="row">
+				<div class="col text-center" th:text="${game.getPointsA()}"
+					style="font-size: 12vw;"></div>
+				<div class="col text-center" th:text="${game.getPointsB()}"
+					style="font-size: 12vw;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div th:fragment="showGames(game)">
+	<tr scope="row">
+		<td scope="col" th:text="${game.id}"></td>
+		<td scope="col" th:text="${game.type}"></td>
+		<td scope="col"><a class="text-dark"
+			th:href="@{'/game?id=' + ${game.id}}" th:text="${game.name}"></a></td>
+		<td scope="col"><a class="text-dark"
+			th:href="@{'/game?id=' + ${game.id}}" th:text="${game.startDate}"></a></td>
+		<td scope="col"><a class="text-dark"
+			th:href="@{'/team?id=' + ${game.getTeamA().getId()}}"
+			th:text="${game.getTeamA().getName()}"></a></td>
+		<td scope="col"><a class="text-dark"
+			th:href="@{'/team?id=' + ${game.getTeamB().getId()}}"
+			th:text="${game.getTeamB().getName()}"></a></td>
+	</tr>
+</div>

@@ -25,19 +25,21 @@ public class Volleyball extends Game{
 	private int setsA;
 	private int setsB;
 	
-	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, GameStatus status, GameType type, Date startDate, Set<Team> teams) {
-		super(status, type, startDate, teams);
+	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, GameStatus status, GameType type, Date startDate, Team teamA, Team teamB) {
+		super(status, type, startDate, teamA, teamB);
 		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;		
 		initalizeGame();
 	}
 	
-	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus status, GameType type, Date startDate, Set<Team> teams, Member member) {
-		super(name, status, type, startDate, teams, member);
+	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus status, GameType type, Date startDate, Team teamA, Team teamB, Member member) {
+		super(status, type, startDate, teamA, teamB);
 		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
-		this.tiebreakRule = tiebreakRule;	
+		this.tiebreakRule = tiebreakRule;
+		this.setName(name);
+		this.setCreator(member);
 		initalizeGame();
 	}
 	

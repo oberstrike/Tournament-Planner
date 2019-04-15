@@ -82,4 +82,15 @@
 	</ul>
 </nav>
 
-<!-- MENÜ 3 -->
+<!-- TEAM SUCHE 1 -->
+
+<div th:replace="fragments/general.html :: header"></div>
+		<form class="form-inline" th:action="@{/teams/search}" method="GET">
+			<input name="name" class="form-control" type="text"
+				placeholder="Suchen" aria-label="Suchen">
+			<button type="submit" class="btn btn-primary">
+				<i class="fa fa-search"></i>
+			</button>
+		</form>
+		
+<!-- ? -->
