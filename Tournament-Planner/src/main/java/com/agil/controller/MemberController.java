@@ -26,8 +26,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.agil.model.Member;
+import com.agil.model.Player;
 import com.agil.service.MemberService;
 import com.agil.service.MemberServiceImpl;
+import com.agil.service.PlayerService;
 import com.agil.service.SecurityService;
 import com.agil.service.SecurityServiceImpl;
 import com.agil.utility.MemberValidator;
@@ -38,6 +40,9 @@ public class MemberController {
 
 	@Autowired
 	private final MemberService memberService;
+	
+	@Autowired
+	private final PlayerService playerService;
 
 	@Autowired
 	private final SecurityService securityService;
@@ -49,11 +54,12 @@ public class MemberController {
 
 	
 	public MemberController(MemberServiceImpl memberService, SecurityServiceImpl securityService,
-			MemberValidator memberValidator) {
+			MemberValidator memberValidator, PlayerService playerService) {
 		super();
 		this.memberService = memberService;
 		this.securityService = securityService;
 		this.memberValidator = memberValidator;
+		this.playerService = playerService;
 	}
 
 	
@@ -73,8 +79,12 @@ public class MemberController {
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
+		Player player = new Player(memberForm.getUsername());
+		memberForm.setPlayer(player);
+		
 		memberService.save(memberForm);
-
+		playerService.save(player);
+		
 		securityService.autoLogin(memberForm.getUsername(), password);
 
 		return "redirect:/home";
