@@ -19,7 +19,8 @@
 			<form th:action="@{/home}" method="GET">
 				<div class="input-group">
 					<select class="custom-select" name="type">
-						<option selected>Bitte Typ auswählen...</option>
+						<option selected disabled="disabled">Bitte Typ
+							auswählen...</option>
 						<option th:each="gametype : ${gametypes}" th:text="${gametype}"
 							th:value="${gametype}"></option>
 					</select>
@@ -30,8 +31,7 @@
 			</form>
 		</div>
 		<div th:if="${type != null}" class="container">
-			<form th:action="@{/game}" method="POST"
-				th:object="${gameForm}">
+			<form th:action="@{/game}" method="POST" th:object="${gameForm}">
 				<div class="form-row">
 					<div class="col">
 						<label>Spielname:</label>
@@ -45,8 +45,8 @@
 						<label>Spieltyp:</label>
 					</div>
 					<div class="col">
-						<input type="text" class="form-control" id="type"
-							name="type" th:value="${type}" th:field="*{type}">
+						<input type="text" class="form-control" id="type" name="type"
+							th:value="${type}" th:field="*{type}">
 					</div>
 				</div>
 				<div class="form-row">
@@ -75,7 +75,8 @@
 						<input type="text" class="form-control" id="creator"
 							name="creator" th:value="${session.username}">
 					</div>
-				</div><!--
+				</div>
+				<!--
 				<div class="form-row">
 					<div class="col">
 						<label>Heimteam:</label>
@@ -101,6 +102,8 @@
 				</div>
 			</form>
 		</div>
+
+		<hr/>
 
 		<!-- Team erstellen -->
 
@@ -137,6 +140,22 @@
 			</form>
 		</div>
 
+		<hr/>
+
+		<!-- Player erstellen -->
+
+		<div class="container">
+			<form th:action="@{/player}" method="POST" th:object="${playerForm}">
+				<select class="custom-select" name="teamname">
+					<option th:each="team : @{teams}" th:text="${team}"
+						th:value="${team}"></option>
+				</select> <label>Spielername eingeben:</label><input type="text"
+					class="form-control" id="name" name="name"
+					placeholder="Spielername">
+
+				<button type="submit" class="btn btn-primary float-right">Erstellen</button>
+			</form>
+		</div>
 		<div th:replace="fragments/general.html :: footer"></div>
 		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 

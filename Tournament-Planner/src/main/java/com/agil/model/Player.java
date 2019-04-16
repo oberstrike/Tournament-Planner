@@ -42,7 +42,12 @@ public class Player {
 	public Player(String name) {
 		this.name = name;
 	}
-
+	
+	public Player(String name, Team team) {
+		this(name);
+		addTeam(team);
+	}
+	
 	public boolean addTeam(Team team) {
 		return teams.add(team);
 	}
