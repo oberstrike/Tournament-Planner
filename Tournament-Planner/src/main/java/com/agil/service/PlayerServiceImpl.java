@@ -1,0 +1,25 @@
+package com.agil.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.agil.model.Player;
+import com.agil.repo.PlayerRepository;
+
+public class PlayerServiceImpl implements PlayerService {
+
+	@Autowired
+	private PlayerRepository playerRepository;
+	
+	@Override
+	public void save(Player player) {
+		playerRepository.save(player);
+	}
+
+	@Override
+	public Optional<Player> findByName(String name) {
+		return playerRepository.findByName(name);
+	}
+
+}

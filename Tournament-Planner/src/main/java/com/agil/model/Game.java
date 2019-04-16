@@ -1,9 +1,6 @@
 package com.agil.model;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,9 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,7 +26,7 @@ import com.agil.utility.GameType;
 public class Game {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 
 	@Enumerated(EnumType.STRING)
@@ -40,23 +36,24 @@ public class Game {
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = "{game.type.notempty}")
 	private GameType type;
-	
+
 	@NotNull(message = "{game.startDate.notempty}")
-	@DateTimeFormat(pattern="dd.MM.yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
 	private Date startDate;
-		
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="CREATOR_ID")
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Member creator;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "game_teama", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
 	private Team teamA;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "game_teamb", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
 	private Team teamB;
 
 	private String name;
-	
+
 	public Game(GameStatus status, GameType type, Date startDate, Team teamA, Team teamB) {
 		super();
 		this.status = status;
@@ -65,12 +62,11 @@ public class Game {
 		this.teamA = teamA;
 		this.teamB = teamB;
 	}
-	
-	
+
 	public Game() {
 		this.status = GameStatus.PENDING;
 	}
-	
+
 	public Game(GameType valueOf) {
 		this();
 		this.type = valueOf;
@@ -107,8 +103,6 @@ public class Game {
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-
-
 
 	public Member getCreator() {
 		return creator;
@@ -152,21 +146,17 @@ public class Game {
 		return true;
 	}
 
-
 	public Team getTeamA() {
 		return teamA;
 	}
-
 
 	public void setTeamA(Team teamA) {
 		this.teamA = teamA;
 	}
 
-
 	public Team getTeamB() {
 		return teamB;
 	}
-
 
 	public void setTeamB(Team teamB) {
 		this.teamB = teamB;

@@ -1,0 +1,14 @@
+package com.agil.service;
+
+import java.util.Optional;
+
+import com.agil.model.Player;
+
+public interface PlayerService {
+	void save(Player player);
+	
+	Optional<Player> findByName(String name);
+	
+	
+	
+}

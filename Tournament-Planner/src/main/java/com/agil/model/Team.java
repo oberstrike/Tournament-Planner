@@ -17,7 +17,7 @@ public class Team {
 
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	// Vom User gesetzt
@@ -28,7 +28,7 @@ public class Team {
 	private String teamcolor;
 
 	// Member die verknüpft sind
-	@ManyToMany
+	@ManyToMany(mappedBy = "teams")
 	private Set<Player> players = new HashSet<>();
 
 	@OneToMany(mappedBy = "teamA")

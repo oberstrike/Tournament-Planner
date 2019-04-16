@@ -16,8 +16,13 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Player {
 
+	@Override
+	public String toString() {
+		return "Player [id=" + id + ", name=" + name + ", member=" + member + ", teams=" + teams + "]";
+	}
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@NotNull

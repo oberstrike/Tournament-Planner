@@ -13,6 +13,7 @@
 						<th scope="col">Username</th>
 						<th scope="col">Teams</th>
 						<th scope="col">Spiele</th>
+						<th scope="col">Verbundener Spielername</th>	
 					</tr>
 				</thead>
 				<tbody>
@@ -27,6 +28,11 @@
 						<td th:if="${memberForm.games}">
 							<div th:each="game: ${memberForm.games}">
 								<a th:href="@{'/game?id=' + ${game.id}}" th:text="${game.name}"></a>
+							</div>
+						</td>
+						<td th:if="${memberForm.player}">
+							<div th:text="${memberForm.player.name}">
+							
 							</div>
 						</td>
 					</tr>				

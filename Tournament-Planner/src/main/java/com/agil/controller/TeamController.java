@@ -48,6 +48,7 @@ public class TeamController {
 	public String getTeamById(@RequestParam(name="id", required=false) Long id, Team team, Model model) {
 		if(id != null)
 			team = teamService.findOne(id).orElseThrow(TeamNotFoundException::new);
+		System.out.println(team.getPlayers());
 		model.addAttribute("teamForm", team);
 		return "team";
 	}
