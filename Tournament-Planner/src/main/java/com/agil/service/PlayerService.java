@@ -8,6 +8,8 @@ public interface PlayerService {
 	void save(Player player);
 	
 	Optional<Player> findByName(String name);
+
+	Optional<Player> findById(long id);
 	
 	
 	

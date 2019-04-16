@@ -22,4 +22,9 @@ public class PlayerServiceImpl implements PlayerService {
 		return playerRepository.findByName(name);
 	}
 
+	@Override
+	public Optional<Player> findById(long id) {
+		return playerRepository.findById(id);
+	}
+
 }
