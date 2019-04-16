@@ -6,4 +6,6 @@ import com.agil.model.Player;
 
 public interface PlayerRepository extends CrudRepository<Player, Long>{
 
+	Player findByName(String username);
+	
 }

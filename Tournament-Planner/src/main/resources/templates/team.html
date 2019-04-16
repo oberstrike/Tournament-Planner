@@ -20,9 +20,9 @@
 						<td th:text="${teamForm.id}"></td>
 						<td th:text="${teamForm.name}"></td>						
 						<td text="     " th:style="'background-color: ' + ${teamForm.teamcolor} + ';'"></td>
-						<td th:if="${teamForm.members}">
-						<div th:each="member: ${teamForm.members}">
-							<a th:href="@{'/member?id=' + ${member.id}}" th:text="${member.username}"></a>
+						<td th:if="${teamForm.players}">
+						<div th:each="player: ${teamForm.players}">
+							<a th:href="@{'/player?id=' + ${player.id}}" th:text="${player.name}"></a>
 						</div>
 						</td>
 					</tr>				
