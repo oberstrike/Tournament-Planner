@@ -11,8 +11,7 @@
 		<div th:if="${param.error}" class="container text-danger text-center">
 			Die Registrierung ist fehlgeschlagen!</div>
 		<div th:if="${param.logout}"
-			class="container text-success text-center">Die Registrierung
-			war erfolgreich!</div>
+			class="container text-success text-center">Die Registrierung war erfolgreich!</div>
 		<div class="container text-center">
 			<form th:action="@{/registration}" method="POST"
 				th:object="${memberForm}">

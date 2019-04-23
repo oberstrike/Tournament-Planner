@@ -1,5 +1,7 @@
 package com.agil.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.agil.model.Member;
 import com.agil.model.Player;
 import com.agil.model.Team;
+import com.agil.service.MemberService;
 import com.agil.service.TeamService;
 import com.agil.service.TeamServiceImpl;
+import com.agil.utility.MemberValidator;
 import com.agil.utility.TeamValidator;
 
 @Controller
@@ -26,23 +31,31 @@ public class TeamController {
 	
 	@Autowired
 	private final TeamValidator teamValidator;
+	
+	@Autowired
+	private final MemberService memberService;
 
 	@Autowired
-	public TeamController(TeamServiceImpl teamServiceImpl, TeamValidator teamValidator) {
+	public TeamController(TeamServiceImpl teamServiceImpl, TeamValidator teamValidator, MemberService memberService) {
 		super();
 		this.teamService = teamServiceImpl;
 		this.teamValidator = teamValidator;
+		this.memberService = memberService;
 	}
 
 	@PostMapping("/team")
-	public String addTeam(@Valid @ModelAttribute("teamForm") Team teamForm, BindingResult bindingResult) {
+	public String addTeam(@Valid @ModelAttribute("teamForm") Team teamForm, BindingResult bindingResult, Principal principal) {
 		teamValidator.validate(teamForm, bindingResult);
-		System.out.println(bindingResult);
 		if(bindingResult.hasErrors())
 			return "/team";
+		String username = principal.getName();
+		Member creator = memberService.findByUsername(username);
+		
+		teamForm.addPlayer(creator.getPlayer());
+		teamForm.setCreator(creator);
 		teamService.save(teamForm);
 		
-		return "redirect:/team/search?name" + teamForm.getName();
+		return "redirect:/team?id=" + teamForm.getId();
 	}
 	
 	@GetMapping("/team")
