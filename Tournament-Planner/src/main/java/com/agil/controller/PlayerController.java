@@ -70,9 +70,6 @@ public class PlayerController {
 		
 		if(bindingResult.hasErrors())
 			return "redirect:/team?id=" + teamId;
-		
-		//TODO Hier ist ein Fehler da der vorhandene Wert überschrieben wird.
-		playerForm = new Player(playerForm.getName());
 		playerService.save(playerForm);
 		
 		Optional<Team> oTeam = teamService.findOne(Long.valueOf(teamId));
