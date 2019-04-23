@@ -51,6 +51,8 @@ public class PlayerController {
 	@Autowired
 	private final PlayerValidator playerValidator;
 	
+
+	
 	private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
 	
@@ -70,6 +72,7 @@ public class PlayerController {
 			return "redirect:/team?id=" + teamId;
 		
 		//TODO Hier ist ein Fehler da der vorhandene Wert überschrieben wird.
+		playerForm = new Player(playerForm.getName());
 		playerService.save(playerForm);
 		
 		Optional<Team> oTeam = teamService.findOne(Long.valueOf(teamId));
@@ -77,6 +80,7 @@ public class PlayerController {
 			Team team = oTeam.get();
 			team.addPlayer(playerForm);
 			playerForm.addTeam(team);
+			teamService.save(team);
 		}
 		return  "redirect:/team?id=" + teamId;
 		
