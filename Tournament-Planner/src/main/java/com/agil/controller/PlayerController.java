@@ -64,17 +64,17 @@ public class PlayerController {
 	
 	@PostMapping("/player")
 	public String addPlayer(@Valid @ModelAttribute("playerForm") Player playerForm, BindingResult bindingResult, @RequestParam(name = "id") String teamId) {
-		playerValidator.validate(playerForm, bindingResult);
 	
 		if(bindingResult.hasErrors())
 			return "redirect:/team?id=" + teamId;
-		playerService.save(playerForm);
+		Player player = new Player(playerForm.getName());
+		playerService.save(player);
 		
 		Optional<Team> oTeam = teamService.findOne(Long.valueOf(teamId));
 		if(oTeam.isPresent()) {
 			Team team = oTeam.get();
-			team.addPlayer(playerForm);
-			playerForm.addTeam(team);
+			team.addPlayer(player);
+			player.addTeam(team);
 		}
 		return  "redirect:/team?id=" + teamId;
 		
