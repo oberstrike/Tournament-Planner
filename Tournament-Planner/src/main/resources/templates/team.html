@@ -19,8 +19,7 @@
 					<tr>
 						<td th:text="*{id}"></td>
 						<td th:text="*{name}"></td>
-						<td text="     "
-							th:style="'background-color: ' + ${teamForm.teamcolor} + ';'"></td>
+						<td text="     " th:style="'background-color: ' + ${teamForm.teamcolor} + ';'"></td>
 						<td th:if="*{players}">
 							<div th:each="player: ${teamForm.players}">
 								<div th:if="${player.member}">
@@ -30,9 +29,7 @@
 								<div th:unless="${player.member}" th:text="${player.name}">
 
 								</div>
-
 							</div>
-
 						</td>
 					</tr>
 					<tr>

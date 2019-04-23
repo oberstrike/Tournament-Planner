@@ -103,45 +103,6 @@
 			</form>
 		</div>
 
-		<hr/>
-
-		<!-- Team erstellen -->
-
-		<div class="container">
-			<form th:action="@{/team}" method="POST" th:object="${teamForm}">
-				<!-- <ul th:if="${#fields.hasErrors('*')}" class="list-unstyled text-center border border-danger rounded-lg">
-					<li th:each="err : ${#fields.errors('*')}" th:text="${err}"
-						class="" />
-				</ul> -->
-				<div class="form-row">
-					<div class="col">
-						<label>Teamname:</label>
-					</div>
-					<div class="col">
-						<input type="text" class="form-control" id="teamname"
-							name="teamname">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="col">
-						<label>Teamfarbe:</label>
-					</div>
-					<div class="col">
-						<input type="color" class="form-control" id="teamcolor"
-							name="teamcolor">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="col">
-						<button type="submit" class="btn btn-primary"
-							value="Team erstellen">Team erstellen</button>
-					</div>
-				</div>
-			</form>
-		</div>
-
-		<hr/>
-
 		<!-- Player erstellen -->
 
 		<div class="container">
