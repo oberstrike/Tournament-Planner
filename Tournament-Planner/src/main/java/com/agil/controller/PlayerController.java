@@ -59,24 +59,15 @@ public class PlayerController {
 	@PostMapping("/player")
 	public String addPlayer(@Valid @ModelAttribute("playerForm") Player playerForm, BindingResult bindingResult) {
 		playerValidator.validate(playerForm, bindingResult);
-		System.out.println(bindingResult);
+		System.out.println("Spieler: ");
+		System.out.println(playerForm);
 		if(bindingResult.hasErrors())
 			return "/player";
 		playerService.save(playerForm);
-		
 		return "redirect:/home";
 		
 	}
 	
-	@GetMapping("/player")
-	public String getPlayerById(@RequestParam long id, Model model) {
-		Optional<Player> player = playerService.findById(id);
-		if(!player.isPresent())
-			return "redirect:/home";
-		model.addAttribute("playerForm", player.get());
-		return "player";
-		
-	}
 	
 	
 	

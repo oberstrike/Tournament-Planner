@@ -13,6 +13,7 @@
 						<th scope="col">Name</th>
 						<th scope="col">Farbe</th>
 						<th scope="col">Mitglieder</th>
+						<th scope="col"> </th>
 					</tr>
 				</thead>
 				<tbody>
@@ -25,11 +26,11 @@
 							<div th:if="${player.member}">
 								<a th:href="@{'/member?id=' + ${player.member.id}}" th:text="${player.name}"></a>
 							</div>
-							<div th:unless="${player.member}" th:text="${player.name}">
-								
-							</div>
-						
+							<div th:unless="${player.member}" th:text="${player.name}">		</div>
 						</div>
+						</td>
+						<td>
+							<a th:href="@{'/player'}">Spieler hinzufügen.</a>
 						</td>
 					</tr>				
 				</tbody>

@@ -29,6 +29,11 @@ public class PlayerValidator implements Validator {
 		if (playerService.findByName(player.getName()) != null) {
 			errors.rejectValue("name", "playername.duplicate");
 		}
+		
+		if(player.getName().length() < 4) {
+			errors.reject("name", "playername.badformat");
+		}
+		
 
 	}
 

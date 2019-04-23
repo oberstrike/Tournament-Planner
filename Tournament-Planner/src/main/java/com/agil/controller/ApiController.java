@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agil.utility.GameType;
 
 @RestController
-public class GameTypeController {
+public class ApiController {
 
 	/* 
 	 * returns ["VOLLEYBALL", "FUSSBALL"...] 
@@ -20,5 +20,6 @@ public class GameTypeController {
 	public List<GameType> getTypes(){
 		return Arrays.asList(GameType.values());
 	}
+
 	
 }
