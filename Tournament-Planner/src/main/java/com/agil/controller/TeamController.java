@@ -42,7 +42,7 @@ public class TeamController {
 			return "/team";
 		teamService.save(teamForm);
 		
-		return "redirect:/team/search?name" + teamForm.getName();
+		return "redirect:/team/search?name=" + teamForm.getName();
 	}
 	
 	@GetMapping("/team")

@@ -19,49 +19,50 @@
 				</div>
 			</form>
 		</div> -->
-
 		<nav class="navbar navbar-expand-lg navbar-dark bg-info">
-			<th:block sec:authorize="isAuthenticated()">
-				<ul class="navbar-nav">
-					<li class="nav-item dropdown"><a
-						class="nav-link active dropdown-toggle" data-toggle="dropdown"
-						href="" aria-haspopup="true" aria-expanded="false">Team
-							erstellen</a>
-						<div class="dropdown-menu">
-							<form th:action="@{/team}" method="POST" th:object="${teamForm}">
-								<div class="container pb-3">
-									<input type="text" class="form-control" id="teamname"
-										name="teamname" placeholder="Teamname">
-								</div>
-								<p>
-								<div class="container pb-3">
-									<input type="color" class="form-control" id="teamcolor"
-										name="teamcolor">
-								</div>
-								<p>
-								<div class="container">
-									<button type="submit" class="btn btn-primary"
-										value="Team erstellen">Team erstellen</button>
+			<div class="collapse navbar-collapse" id="navbarText">
+				<th:block sec:authorize="isAuthenticated()">
+					<ul class="navbar-nav">
+						<li class="nav-item"><a
+							class="nav-link active dropdown-toggle" data-toggle="dropdown"
+							href="" aria-haspopup="true" aria-expanded="false">Team
+								erstellen</a>
+							<div class="dropdown-menu dropdown-menu-left">
+								<form th:action="@{/team}" method="POST" class="form-inline"
+									th:object="${teamForm}">
+									<div class="container pb-3">
+										<input type="text" class="form-control" id="teamname"
+											name="teamname" placeholder="Teamname">
+									</div>
+									<p>
+									<div class="container pb-3">
+										<input type="color" class="form-control" id="teamcolor"
+											name="teamcolor">
+									</div>
+									<p>
+									<div class="container">
+										<button type="submit" class="btn btn-primary"
+											value="Team erstellen">Team erstellen</button>
+									</div>
+								</form>
+							</div></li>
+					</ul>
+				</th:block>
+				<ul class="navbar-nav float-right">
+					<li class="nav-item active"><div class="input-group mb-3">
+							<form th:action="@{/teams/search}" method="GET"
+								class="form-inline">
+								<input type="text" name="name" class="form-control"
+									placeholder="Team suchen..." aria-label="Team suchen...">
+								<div class="input-group-append">
+									<button class="btn btn-outline-light" type="submit">
+										<i class="fa fa-search"></i>
+									</button>
 								</div>
 							</form>
-						</div>
+						</div></li>
 				</ul>
-			</th:block>
-
-			<ul class="navbar-nav">
-				<li class="nav-item active"><div class="input-group mb-3">
-						<form th:action="@{/teams/search}" method="GET"
-							class="form-inline">
-							<input type="text" name="name" class="form-control"
-								placeholder="Team suchen..." aria-label="Team suchen...">
-							<div class="input-group-append">
-								<button class="btn btn-outline-light" type="submit">
-									<i class="fa fa-search"></i>
-								</button>
-							</div>
-						</form>
-					</div></li>
-			</ul>
+			</div>
 		</nav>
 		<div class="container"></div>
 		<div th:if="${teams}">

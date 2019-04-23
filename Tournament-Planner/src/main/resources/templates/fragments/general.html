@@ -37,14 +37,15 @@
 							<a class="dropdown-item" th:href="@{/game/${gametype}}"
 								th:each="gametype : ${gametypes}" th:text="${gametype}"></a>
 						</div></li>
-					<li class="nav-item active"><a class="nav-link" href="teams/search/all">Teams</a>
-					</li>
-					<li class="nav-item active"><a class="nav-link" href="games/search/all">Spiele</a>
-					</li>
+					<li class="nav-item active"><a class="nav-link"
+						href="teams/search/all">Teams</a></li>
+					<li class="nav-item active"><a class="nav-link"
+						href="games/search/all">Spiele</a></li>
 				</ul>
 				<th:block sec:authorize="isAnonymous()">
 					<ul class="navbar-nav">
-						<li class="nav-item active"><a class="nav-link" href="registration">Registrieren</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="registration">Registrieren</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link active dropdown-toggle" data-toggle="dropdown"
 							href="" aria-haspopup="true" aria-expanded="false">Anmelden</a>
@@ -69,7 +70,8 @@
 				</th:block>
 				<th:block sec:authorize="isAuthenticated()">
 					<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link active" th:href="home"><span sec:authentication="name"></span></a>
+						<li class="nav-item"><a class="nav-link active"
+							th:href="home"><span sec:authentication="name"></span></a>
 						<li class="nav-item"><a class="nav-link active"
 							th:href="@{/logout}">Ausloggen</a></li>
 					</ul>
