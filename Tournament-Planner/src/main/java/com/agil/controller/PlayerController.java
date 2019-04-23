@@ -65,7 +65,7 @@ public class PlayerController {
 	}
 	
 	@PostMapping("/player")
-	public String addPlayer(@Valid @ModelAttribute("playerForm") Player playerForm, BindingResult bindingResult, @RequestParam(name = "id") String teamId) {
+	public String addPlayer(@Valid @ModelAttribute("playerForm") Player playerForm, BindingResult bindingResult, @RequestParam(name = "tid") String teamId) {
 		playerValidator.validate(playerForm, bindingResult);
 		
 		if(bindingResult.hasErrors())

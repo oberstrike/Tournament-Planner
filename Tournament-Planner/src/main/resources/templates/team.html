@@ -36,13 +36,12 @@
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<div class="container">
-								<form th:action="@{'/player?id=' + ${teamForm.id}}" method="POST"
+						<td><div class="container">
+								<form th:action="@{'/player?tid=' + ${teamForm.id}}" method="POST"
 									th:object="${playerForm}">
 									<label>Spieler hinzufügen</label> 
-									<input type="text" th:field="*{name}"
-										name="name"class="form-control"
+									<input type="text"
+										name="name" id="name" class="form-control"
 										placeholder="Spielernamen" />
 									<button type="submit" class="btn btn-primary float-right">Hinzufügen</button>
 								</form>
