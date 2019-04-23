@@ -64,17 +64,19 @@ public class PlayerController {
 	
 	@PostMapping("/player")
 	public String addPlayer(@Valid @ModelAttribute("playerForm") Player playerForm, BindingResult bindingResult, @RequestParam(name = "id") String teamId) {
-	
+		playerValidator.validate(playerForm, bindingResult);
+		
 		if(bindingResult.hasErrors())
 			return "redirect:/team?id=" + teamId;
-		Player player = new Player(playerForm.getName());
-		playerService.save(player);
+		
+		//TODO Hier ist ein Fehler da der vorhandene Wert überschrieben wird.
+		playerService.save(playerForm);
 		
 		Optional<Team> oTeam = teamService.findOne(Long.valueOf(teamId));
 		if(oTeam.isPresent()) {
 			Team team = oTeam.get();
-			team.addPlayer(player);
-			player.addTeam(team);
+			team.addPlayer(playerForm);
+			playerForm.addTeam(team);
 		}
 		return  "redirect:/team?id=" + teamId;
 		

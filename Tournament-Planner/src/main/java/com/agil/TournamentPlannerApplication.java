@@ -63,6 +63,7 @@ public class TournamentPlannerApplication {
 			Team team2 = new Team("Team Liquid", "Red");
 			team.addPlayer(player);
 			team.addPlayer(player2);
+			team2.addPlayer(player2);
 			team.setCreator(member);
 			team2.setCreator(member2);
 			
