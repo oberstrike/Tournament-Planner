@@ -12,6 +12,7 @@
 						<th scope="col">Name</th>
 						<th scope="col">Farbe</th>
 						<th scope="col">Mitglieder</th>
+						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -31,18 +32,22 @@
 								</div>
 
 							</div>
+
+							<div th:unless="${player.member}" th:text="${player.name}">
+							</div>
+
 						</td>
 					</tr>
 					<tr>
 						<td><div class="container">
-								<form th:action="@{/player}" method="POST" th:object="${playerForm}">
+								<form th:action="@{/player}" method="POST"
+									th:object="${playerForm}">
 									<label>Spieler hinzufügen</label> <input type="text"
 										name="name" id="name" class="form-control"
 										placeholder="Spielernamen" />
 									<button type="submit" class="btn btn-primary float-right">Hinzufügen</button>
 								</form>
 							</div></td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
