@@ -81,10 +81,8 @@ public class MemberController {
 		}
 		Player player = new Player(memberForm.getUsername());
 		memberForm.setPlayer(player);
-		
 		memberService.save(memberForm);
 		playerService.save(player);
-		
 		securityService.autoLogin(memberForm.getUsername(), password);
 
 		return "redirect:/home";
@@ -120,13 +118,13 @@ public class MemberController {
 	}
 	
 	@GetMapping("/profile")
-	public String getMember() {
+	public String getMember(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth == null)
 			return "redirect:/login";
 		String name = ((Principal) auth.getPrincipal()).getName();
 		Member member = memberService.findByUsername(name);
-		
+		model.addAttribute("memberForm", member);
 		
 		return "profile";
 	}

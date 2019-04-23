@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.agil.model.Player;
 import com.agil.model.Team;
 import com.agil.service.TeamService;
 import com.agil.service.TeamServiceImpl;
@@ -45,11 +46,11 @@ public class TeamController {
 	}
 	
 	@GetMapping("/team")
-	public String getTeamById(@RequestParam(name="id", required=false) Long id, Team team, Model model) {
+	public String getTeamById(@RequestParam(name="id", required=false) Long id, Team team, Player player , Model model) {
 		if(id != null)
 			team = teamService.findOne(id).orElseThrow(TeamNotFoundException::new);
-		System.out.println(team.getPlayers());
 		model.addAttribute("teamForm", team);
+		model.addAttribute("playerForm", player);
 		return "team";
 	}
 	
