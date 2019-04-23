@@ -26,7 +26,8 @@ public class PlayerValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		Player player = (Player) target;
-		if (playerService.findByName(player.getName()) != null) {
+		
+		if (playerService.findByName(player.getName()).isPresent()) {
 			errors.rejectValue("name", "playername.duplicate");
 		}
 		

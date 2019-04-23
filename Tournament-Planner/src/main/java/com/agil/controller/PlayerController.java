@@ -27,12 +27,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.agil.model.Member;
 import com.agil.model.Player;
+import com.agil.model.Team;
 import com.agil.service.MemberService;
 import com.agil.service.MemberServiceImpl;
 import com.agil.service.PlayerService;
 import com.agil.service.PlayerServiceImpl;
 import com.agil.service.SecurityService;
 import com.agil.service.SecurityServiceImpl;
+import com.agil.service.TeamService;
 import com.agil.utility.MemberValidator;
 import com.agil.utility.PlayerValidator;
 
@@ -44,27 +46,37 @@ public class PlayerController {
 	private final PlayerService playerService;
 
 	@Autowired
+	private final TeamService teamService;
+	
+	@Autowired
 	private final PlayerValidator playerValidator;
 	
 	private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
 	
 	public PlayerController(PlayerServiceImpl playerService,
-			PlayerValidator playerValidator) {
+			PlayerValidator playerValidator, TeamService teamService) {
 		super();
 		this.playerService = playerService;
 		this.playerValidator = playerValidator;
+		this.teamService = teamService;
 	}
 	
 	@PostMapping("/player")
-	public String addPlayer(@Valid @ModelAttribute("playerForm") Player playerForm, BindingResult bindingResult) {
+	public String addPlayer(@Valid @ModelAttribute("playerForm") Player playerForm, BindingResult bindingResult, @RequestParam(name = "id") String teamId) {
 		playerValidator.validate(playerForm, bindingResult);
-		System.out.println("Spieler: ");
-		System.out.println(playerForm);
+	
 		if(bindingResult.hasErrors())
-			return "/player";
+			return "redirect:/team?id=" + teamId;
 		playerService.save(playerForm);
-		return "redirect:/home";
+		
+		Optional<Team> oTeam = teamService.findOne(Long.valueOf(teamId));
+		if(oTeam.isPresent()) {
+			Team team = oTeam.get();
+			team.addPlayer(playerForm);
+			playerForm.addTeam(team);
+		}
+		return  "redirect:/team?id=" + teamId;
 		
 	}
 	
