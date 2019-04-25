@@ -60,11 +60,15 @@ public class TeamController {
 	}
 	
 	@GetMapping("/team")
-	public String getTeamById(@RequestParam(name="id", required=false) Long id, Team team, Player player , Model model) {
+	public String getTeamById(@RequestParam(name="id", required=false) Long id, Team team, Player player, Principal principal, Model model) {
 		if(id != null)
 			team = teamService.findOne(id).orElseThrow(TeamNotFoundException::new);
 		model.addAttribute("teamForm", team);
 		model.addAttribute("playerForm", player);
+		System.out.println("isCreator " + principal.getName().equals(team.getCreator().getUsername()));
+		model.addAttribute("isCreator", principal.getName().equals(team.getCreator().getUsername()));
+		
+		
 		return "team";
 	}
 	

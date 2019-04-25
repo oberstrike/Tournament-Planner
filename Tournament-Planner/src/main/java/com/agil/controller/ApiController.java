@@ -16,7 +16,7 @@ public class ApiController {
 	 * returns ["VOLLEYBALL", "FUSSBALL"...] 
 	 */ 
 	
-	@GetMapping("/gametypes")
+	@GetMapping("/api/gametypes")
 	public List<GameType> getTypes(){
 		return Arrays.asList(GameType.values());
 	}
