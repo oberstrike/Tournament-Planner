@@ -1,5 +1,7 @@
 package com.agil.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.agil.model.Game;
+import com.agil.model.Member;
 import com.agil.service.GameService;
 import com.agil.service.GameServiceImpl;
+import com.agil.service.MemberService;
 
 @Controller
 public class GameController {
@@ -24,26 +28,34 @@ public class GameController {
 	private GameService gameService;
 	
 	@Autowired
-	public GameController(GameServiceImpl GameServiceImpl) {
+	private final MemberService memberService;
+	
+	@Autowired
+	public GameController(GameServiceImpl GameServiceImpl, MemberService memberService) {
 		this.gameService = GameServiceImpl;
+		this.memberService = memberService;
 	}
 
 	
 	@PostMapping("/game")
-	public String addGame(@Valid @ModelAttribute("gameForm") Game gameForm, BindingResult bindingResult) {
+	public String addGame(@Valid @ModelAttribute("gameForm") Game gameForm, BindingResult bindingResult, Principal principal) {
 		System.out.println(bindingResult);
 		if(bindingResult.hasErrors())
 			return "/game";
+		String username = principal.getName();
+		Member creator = memberService.findByUsername(username);
+		gameForm.setCreator(creator);
 		gameService.save(gameForm);
 		
 		return "redirect:/games/search?name=" + gameForm.getName();
 	}
 
 	@GetMapping("/game")
-	public String getGameById(@RequestParam(name="id", required=false) Long id, Game game, Model model) {
+	public String getGameById(@RequestParam(name="id", required=false) Long id, Game game, Principal principal, Model model) {
 		if(id != null)
 			game = gameService.findOne(id).orElseThrow(GameNotFoundException::new);
 		model.addAttribute("gameForm", game);
+		model.addAttribute("isCreator", principal.getName().equals(game.getCreator().getUsername()));
 		return "game";
 	}
 	
