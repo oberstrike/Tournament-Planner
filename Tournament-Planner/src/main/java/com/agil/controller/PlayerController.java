@@ -48,12 +48,15 @@ public class PlayerController {
 	public String addPlayer(@Valid @ModelAttribute("playerForm") Player playerForm, BindingResult bindingResult, @RequestParam(name = "tid") String teamId) {
 		playerValidator.validate(playerForm, bindingResult);
 		
-		if(bindingResult.hasErrors())
+		if(bindingResult.hasErrors()) {
 			return "redirect:/team?id=" + teamId;
-		
-		
-		
-		playerService.save(playerForm);
+			
+		}
+
+		if(!playerService.findByName(playerForm.getName()).isPresent())
+			playerService.save(playerForm);
+		else
+			playerForm = playerService.findByName(playerForm.getName()).get();
 		
 		Optional<Team> oTeam = teamService.findOne(Long.valueOf(teamId));
 		if(oTeam.isPresent()) {
