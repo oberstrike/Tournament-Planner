@@ -13,7 +13,9 @@
 						<th scope="col">Username</th>
 						<th scope="col">Teams</th>
 						<th scope="col">Spiele</th>
-						<th scope="col">Verbundener Spielername</th>	
+						<th scope="col">Verbundener Spielername</th>
+						<th scope="col" th:if=${isCreator}>Passwort</th>
+						<th scope="col" th:if="${isCreator}">E-Mail</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,10 +37,19 @@
 							
 							</div>
 						</td>
+						<td th:if="${isCreator}">
+							*******
+						</td>
+						<td th:if="${isCreator}">
+							<div th:text="${memberForm.email}"></div>
+						
+						</td>
 					</tr>	
 					<tr th:if="${isCreator}">
 						<td>
-						 	<button name="change" type="button" class="btn btn-primary">&Auml;;ndern</button>
+				   		  <a href="#" class="btn btn-info btn-lg">
+         					 <span class="glyphicon glyphicon-pencil"></span> &Auuml;ndern 
+      					  </a>
 						<td>
 					</tr>
 								
