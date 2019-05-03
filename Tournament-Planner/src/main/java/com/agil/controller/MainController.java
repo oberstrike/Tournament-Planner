@@ -35,7 +35,13 @@ public class MainController {
 		return "home";
 	}
 
-
+	
+	@GetMapping("/")
+	public String getStandard() {
+		return "redirect:home";
+	}
+	
+	
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String accessDenied(Principal user) {
 
