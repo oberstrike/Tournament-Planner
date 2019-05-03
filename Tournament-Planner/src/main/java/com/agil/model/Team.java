@@ -52,7 +52,7 @@ public class Team {
 	public Team(String teamname, String teamcolor) {
 		super();
 		this.name = teamname;
-		this.teamcolor = teamcolor;
+		this.teamcolor = "#" + teamcolor;
 	}
 
 	public String getName() {

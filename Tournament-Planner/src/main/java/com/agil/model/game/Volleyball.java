@@ -15,89 +15,143 @@ import com.agil.utility.GameType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Volleyball extends Game{
+public class Volleyball extends Game {
 
 	private int setsRule;
 	private int pointsRule;
 	private boolean tiebreakRule;
-	private int pointsA;
-	private int pointsB;
+	private int pointsA[];
+	private int currentSet;
+	private int pointsB[];
 	private int setsA;
 	private int setsB;
-	
-	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, GameStatus status, GameType type, Date startDate, Team teamA, Team teamB) {
+
+	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, GameStatus status, GameType type,
+			Date startDate, Team teamA, Team teamB) {
 		super(status, type, startDate, teamA, teamB);
 		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
-		this.tiebreakRule = tiebreakRule;		
-		initalizeGame();
+		this.tiebreakRule = tiebreakRule;
+		initalizeGame(setsRule);
 	}
-	
-	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus status, GameType type, Date startDate, Team teamA, Team teamB, Member member) {
+
+	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus status, GameType type,
+			Date startDate, Team teamA, Team teamB, Member member) {
 		super(status, type, startDate, teamA, teamB);
 		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;
 		this.setName(name);
 		this.setCreator(member);
-		initalizeGame();
+		initalizeGame(setsRule);
 	}
-	
-	private void initalizeGame() {
-		this.pointsA = 0;
-		this.pointsB = 0;
+
+	private void initalizeGame(int setsRule) {
+		this.currentSet = 0;
+		this.pointsA = new int[setsRule];
+		this.pointsB = new int[setsRule];
 		this.setsA = 0;
 		this.setsB = 0;
 	}
+
+	public void addA() {
+		// Punkt hinzufügen, wenn +2 zu B und >= pointsRule -> currentSet++;
+		pointsA[currentSet]++;
+		if (pointsA[currentSet] > pointsRule && pointsA[currentSet] >= pointsB[currentSet] + 2 && !gameOver()) {
+			// neuer Satz
+			setsA++;
+			currentSet++;
+			pointsA[currentSet] = 0;
+			pointsB[currentSet] = 0;
+		} else {
+			pointsA[currentSet]++;
+		}
+	}
+
+	public void minusA() {
+		if (pointsA[currentSet] == 0 && pointsB[currentSet] == 0) {
+			// gehe in letzten Satz
+			if (currentSet > 0) {
+				setsA--;
+				currentSet--;
+			}
+		} else {
+			pointsA[currentSet]--;
+		}
+	}
+
+	public void addB() {
+		// Punkt hinzufügen, wenn +2 zu B und >= pointsRule -> currentSet++;
+		pointsB[currentSet]++;
+		if (pointsB[currentSet] > pointsRule && pointsB[currentSet] >= pointsA[currentSet] + 2 && !gameOver()) {
+			// neuer Satz
+			setsB++;
+			currentSet++;
+			pointsB[currentSet] = 0;
+			pointsA[currentSet] = 0;
+		} else {
+			pointsB[currentSet]++;
+		}
+	}
+
+	public void minusB() {
+		if (pointsB[currentSet] == 0 && pointsA[currentSet] == 0) {
+			// gehe in letzten Satz
+			if (currentSet > 0) {
+				setsB--;
+				currentSet--;
+			}
+		} else {
+			pointsB[currentSet]--;
+		}
+	}
+
+	public boolean gameOver() {
+		// TODO: implement game over check
+		return false;
+	}
 	
-	protected Volleyball() {}
-	
+	protected Volleyball() {
+	}
+
 	public int getSetsRule() {
 		return this.setsRule;
 	}
-	
+
 	public int getPointsRule() {
 		return this.pointsRule;
 	}
-	
+
 	public boolean getTiebreakRule() {
 		return this.tiebreakRule;
 	}
-	
+
 	public void setSets(int setsRule) {
 		this.setsRule = setsRule;
 	}
-	
+
 	public void setPoints(int pointsRule) {
 		this.pointsRule = pointsRule;
 	}
-	
+
 	public void setTiebreak(boolean tiebreakRule) {
 		this.tiebreakRule = tiebreakRule;
 	}
-	
-	public void addPoint(String team) {
-		if(team.equals("a")) {
-			
-		} else if(team.equals("b")) {
-			
-		}
-	}
-	
+
 	public int getPointsA() {
-		return pointsA;
+		return pointsA[currentSet];
 	}
 
 	public void setPointsA(int pointsA) {
-		this.pointsA = pointsA;
+		this.pointsA[currentSet] = pointsA;
 	}
 
 	public int getPointsB() {
-		return pointsB;
+		return pointsB[currentSet];
 	}
 
 	public void setPointsB(int pointsB) {
-		this.pointsB = pointsB;
+		this.pointsB[currentSet] = pointsB;
 	}
 
 	public int getSetsA() {
@@ -115,7 +169,7 @@ public class Volleyball extends Game{
 	public void setSetsB(int setsB) {
 		this.setsB = setsB;
 	}
-	
+
 	public void setSetsRule(int setsRule) {
 		this.setsRule = setsRule;
 	}
@@ -127,5 +181,5 @@ public class Volleyball extends Game{
 	public void setTiebreakRule(boolean tiebreakRule) {
 		this.tiebreakRule = tiebreakRule;
 	}
-	
+
 }

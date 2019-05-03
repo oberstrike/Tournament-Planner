@@ -7,6 +7,9 @@
 <body>
 	<div class="container">
 		<div th:replace="fragments/general.html :: header"></div>
+		<script src="jscolor.js" type="text/javascript"></script>
+		<input class="jscolor" autocomplete="off" id="teamcolor"
+			name="teamcolor" value="9c1006">
 		<!-- 
 		<div class="input-group mb-3 justify-content-end">
 			<form th:action="@{/teams/search}" method="GET" class="form-inline">
@@ -28,16 +31,16 @@
 						href="" aria-haspopup="true" aria-expanded="false">Team
 							erstellen</a>
 						<div class="dropdown-menu">
-							<form th:action="@{/team}" method="POST"
-								th:object="${teamForm}">
+							<form th:action="@{/team}" method="POST" th:object="${teamForm}">
 								<div class="container pb-3">
 									<input type="text" class="form-control" id="teamname"
 										name="teamname" placeholder="Teamname">
 								</div>
 								<p>
 								<div class="container pb-3">
-									<input type="color" class="form-control" id="teamcolor"
-										name="teamcolor" placeholder="Farbe angeben">
+									<script src="./public/jscolor.js" type="text/javascript"></script>
+									<input class="jscolor" autocomplete="off" id="teamcolor"
+										name="teamcolor" value="9c1006">
 								</div>
 								<p>
 								<div class="container">

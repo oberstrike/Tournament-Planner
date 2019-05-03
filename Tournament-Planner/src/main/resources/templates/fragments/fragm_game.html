@@ -1,5 +1,15 @@
-<div th:fragment="showGame(game)">
+<!-- Notiz: beide Fragmente werden noch umgezogen in die eigentliche HTML, momentan bleiben diese aber noch hier für die Entwicklung -->
 
+<!--  HTML code
+<p id="my-paragraph">Hello!  I'll disappear if you click the button below!</p>
+<button id="hide-paragraph-button" type="button">Click me</button>
+
+// JS code
+document.getElementById('hide-paragraph-button').addEventListener('click', event => {
+  document.getElementById('my-paragraph').setAttribute('style', 'display: none');
+}); -->
+
+<div th:fragment="showGame(game)">
 	<div class="container">
 		<table class="table table-borderless">
 			<tbody>
@@ -30,14 +40,16 @@
 					style="font-size: 3vw;"></div>
 			</div>
 			<div class="row">
-				<div class="col text-center" th:text="${game.getPointsA()}"
-					style="font-size: 12vw;"></div>
+				<div id="pointsA" class="col text-center"
+					th:text="${game.getPointsA()}" style="font-size: 12vw;"></div>
 				<div class="col text-center" th:text="${game.getPointsB()}"
 					style="font-size: 12vw;"></div>
 			</div>
 		</div>
 		<!-- Bereich für den Creator -->
-		<div th:if="${isCreator}">CREATOR</div>
+		<div th:if="${isCreator}">
+			<p>Du bist berechtigt dieses Spiel zu ändern!</p>
+		</div>
 	</div>
 </div>
 
