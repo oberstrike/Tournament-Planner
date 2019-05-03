@@ -1,0 +1,35 @@
+<div th:fragment="defaultGame">
+	<div class="form-row">
+		<div class="col">
+			<label>Spielname:</label>
+		</div>
+		<div class="col">
+			<input type="text" class="form-control" id="name" name="name">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col">
+			<label>Startzeit:</label>
+		</div>
+		<div class="col">
+			<input type="text" class="form-control" id="startDate"
+				name="startDate" placeholder="TT.MM.JJJJ HH:MM">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col">
+			<select class="custom-select" name="teamA">
+				<option th:each="team : ${teams}" th:text="${team.getName()}"
+					th:value="${team}"></option>
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col">
+			<select class="custom-select" name="teamB">
+				<option th:each="team : ${teams}" th:text="${team.getName()}"
+					th:value="${team}"></option>
+			</select>
+		</div>
+	</div>
+</div>

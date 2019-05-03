@@ -35,9 +35,9 @@ public class Volleyball extends Game {
 		initalizeGame(setsRule);
 	}
 
-	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus status, GameType type,
-			Date startDate, Team teamA, Team teamB, Member member) {
-		super(status, type, startDate, teamA, teamB);
+	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus gameStatus,
+			GameType gameType, Date startDate, Team teamA, Team teamB, Member member) {
+		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate, teamA, teamB);
 		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;
@@ -110,7 +110,7 @@ public class Volleyball extends Game {
 		// TODO: implement game over check
 		return false;
 	}
-	
+
 	protected Volleyball() {
 	}
 
