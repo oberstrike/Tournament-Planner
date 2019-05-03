@@ -3,10 +3,11 @@
 <div
 	th:replace="fragments/general.html :: headerdata (title='Mitglied')"></div>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div th:replace="fragments/general.html :: header"></div>
 		<div th:if="${memberForm}">
-			<table class="table">
+			<div class="table-responsive-xs">
+				<table class="table">
 				<thead class="thead-dark">
 					<tr>
 						<th scope="col">ID</th>
@@ -55,6 +56,7 @@
 								
 				</tbody>
 			</table>
+			</div>
 		</div>
 		<div th:replace="fragments/general.html :: footer"></div>
 		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
