@@ -73,6 +73,7 @@ public class TournamentPlannerApplication {
 			
 			//Init game
 			Game game = new Volleyball(3, 25, true, "Spiel 1",GameStatus.PENDING, GameType.VOLLEYBALL, new Date(System.currentTimeMillis()), team, team2, member2);
+			game.setVideo("https://www.youtube.com/watch?v=KyWMlJ987jg");
 			game.setCreator(member);
 			
 			//Save All

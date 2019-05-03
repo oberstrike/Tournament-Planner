@@ -76,6 +76,11 @@ public class GameController {
 	public String teams(Model model) {
 		return "/games";
 	}
+	
+	@GetMapping("/game/Volleyball")
+	public String volleybal() {
+		return "/volleyball";
+	}
 
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public class GameNotFoundException extends RuntimeException{

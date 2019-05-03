@@ -69,7 +69,7 @@ public class TeamController {
 		model.addAttribute("isCreator", principal.getName().equals(team.getCreator().getUsername()));
 		
 		
-		return "team";
+		return "teams";
 	}
 	
 	

@@ -49,8 +49,7 @@ public class PlayerController {
 		playerValidator.validate(playerForm, bindingResult);
 		
 		if(bindingResult.hasErrors()) {
-			return "redirect:/team?id=" + teamId;
-			
+			return "redirect:/team?id=" + teamId;		
 		}
 
 		if(!playerService.findByName(playerForm.getName()).isPresent())

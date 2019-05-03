@@ -31,8 +31,6 @@ public class MainController {
 			System.out.println(type);
 			model.addAttribute("gameForm", new Game(GameType.VOLLEYBALL));
 		}
-
-		
 		model.addAttribute("gametypes", Arrays.asList(sArray));
 		return "home";
 	}

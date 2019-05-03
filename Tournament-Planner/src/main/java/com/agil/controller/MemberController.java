@@ -122,11 +122,12 @@ public class MemberController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth == null)
 			return "redirect:/login";
-		String name = ((Principal) auth.getPrincipal()).getName();
+		String name = auth.getName();
 		Member member = memberService.findByUsername(name);
 		model.addAttribute("memberForm", member);
-		
-		return "profile";
+		model.addAttribute("isCreator", true);
+
+		return "member";
 	}
 	
 	
