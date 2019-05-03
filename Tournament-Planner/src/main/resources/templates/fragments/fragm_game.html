@@ -35,6 +35,13 @@
 				<div class="col text-center" th:text="${game.getPointsB()}"
 					style="font-size: 12vw;"></div>
 			</div>
+			<div class="row" th:if="${game.getVideo()}">
+			<!-- 
+				
+			 -->
+			<iframe width="560" height="315" th:src="${game.getVideo()}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			
+			</div>
 		</div>
 		<!-- Bereich für den Creator -->
 		<div th:if="${isCreator}">CREATOR</div>

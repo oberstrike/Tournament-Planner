@@ -1,7 +1,7 @@
 package com.agil.utility;
 
 public enum GameType {
-	VOLLEYBALL;
+	VOLLEYBALL, LEAGUEOFLEGENDS;
 
 	public static GameType fromLowerCase(String lowerCase) {
 		return valueOf(lowerCase.toUpperCase().trim());
@@ -18,5 +18,7 @@ public enum GameType {
 		}
 		return new String(result);
 	}
+	
+
 
 }

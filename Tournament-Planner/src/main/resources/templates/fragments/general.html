@@ -30,7 +30,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarText">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" href="home">Home</a>
+					<li class="nav-item active"><a class="nav-link" href="/home">Home</a>
 					</li>
 					<li class="nav-item"><a
 						class="nav-link active dropdown-toggle" data-toggle="dropdown"
@@ -40,9 +40,9 @@
 						</div>
 					</li>
 					<li class="nav-item active"><a class="nav-link"
-						href="teams/search/all">Teams</a></li>
+						href="/teams/search/all">Teams</a></li>
 					<li class="nav-item active"><a class="nav-link"
-						href="games/search/all">Spiele</a></li>
+						href="/games/search/all">Spiele</a></li>
 				</ul>
 				<th:block sec:authorize="isAnonymous()">
 					<ul class="navbar-nav">
@@ -73,7 +73,7 @@
 				<th:block sec:authorize="isAuthenticated()">
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link active"
-							th:href="home"><span sec:authentication="name"></span></a>
+							href="/profile"><span sec:authentication="name"></span></a>
 						<li class="nav-item"><a class="nav-link active"
 							th:href="@{/logout}">Ausloggen</a></li>
 					</ul>

@@ -53,6 +53,8 @@ public class Game {
 	private Team teamB;
 
 	private String name;
+	
+	private String video;
 
 	public Game(GameStatus status, GameType type, Date startDate, Team teamA, Team teamB) {
 		super();
@@ -160,6 +162,17 @@ public class Game {
 
 	public void setTeamB(Team teamB) {
 		this.teamB = teamB;
+	}
+
+	public String getVideo() {
+		return video;
+	}
+
+	public void setVideo(String video) {
+		
+		// https://www.youtube.com/watch?v=KyWMlJ987jg
+		String youtubeId = video.split("=")[1];
+		this.video = "https://www.youtube.com/embed/" + youtubeId;
 	}
 
 }

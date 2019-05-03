@@ -31,16 +31,10 @@ public class MainController {
 			System.out.println(type);
 			model.addAttribute("gameForm", new Game(GameType.VOLLEYBALL));
 		}
-
-		
 		model.addAttribute("gametypes", Arrays.asList(sArray));
 		return "home";
 	}
 
-	@GetMapping("/**")
-	public String getMain(Model model) {
-		return "redirect:/home";
-	}
 
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String accessDenied(Principal user) {
