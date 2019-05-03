@@ -37,6 +37,16 @@ public class MainController {
 		return "home";
 	}
 
+	@GetMapping("/dataprotection")
+	public String getDataprotection(Model model) {
+		return "dataprotection";
+	}
+	
+	@GetMapping("/impressum")
+	public String getImpressum(Model model) {
+		return "impressum";
+	}
+	
 	@GetMapping("/**")
 	public String getMain(Model model) {
 		return "redirect:/home";
