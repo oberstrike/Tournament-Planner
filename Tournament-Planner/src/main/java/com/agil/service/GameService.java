@@ -20,6 +20,8 @@ public interface GameService {
 	List<Game> findByNameIgnoreCaseContaining(String name);
 	
 	void save(@Valid Game game);
+
+	public Game findByType(String type);
 	
 	
 }

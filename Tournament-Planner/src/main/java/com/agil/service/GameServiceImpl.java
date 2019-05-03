@@ -54,6 +54,11 @@ public class GameServiceImpl implements GameService {
 		repo.save(game);
 	}
 
+	@Override
+	public Game findByType(String type) {
+		return repo.findByType(type);
+	}
+
 	
 	
 	

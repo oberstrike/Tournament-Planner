@@ -65,9 +65,8 @@ public class GameController {
 			@RequestParam(name = "type", required = false) String type, Model model) {
 		if(name != null)
 			model.addAttribute("games", gameService.findByNameIgnoreCaseContaining(name));
-		if(type != null) {
-		
-		}
+		if(type != null) 
+			model.addAttribute("games", gameService.findByType(type));
 		
 		return "/games";
 	}
