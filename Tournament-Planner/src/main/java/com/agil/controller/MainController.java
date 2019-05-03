@@ -41,6 +41,16 @@ public class MainController {
 		return "redirect:home";
 	}
 	
+	@GetMapping("/dataprotection")
+	public String getDataprotection() {
+		return "dataprotection";
+	}
+	
+	@GetMapping("/impressum")
+	public String getImpressum() {
+		return "impressum";
+	}
+	
 	
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String accessDenied(Principal user) {
