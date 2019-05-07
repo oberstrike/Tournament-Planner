@@ -10,6 +10,7 @@ import javax.persistence.InheritanceType;
 import com.agil.model.Game;
 import com.agil.model.Member;
 import com.agil.model.Team;
+import com.agil.service.TeamService;
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
 
@@ -27,8 +28,8 @@ public class Volleyball extends Game {
 	private int setsB;
 
 	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, GameStatus status, GameType type,
-			Date startDate, Team teamA, Team teamB) {
-		super(status, type, startDate, teamA, teamB);
+			Date startDate, String teamAName, String teamBName) {
+		super(status, type, startDate, teamAName, teamBName);
 		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;
@@ -36,8 +37,8 @@ public class Volleyball extends Game {
 	}
 
 	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus gameStatus,
-			GameType gameType, Date startDate, Team teamA, Team teamB, Member member) {
-		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate, teamA, teamB);
+			GameType gameType, Date startDate, String teamAName, String teamBName, Member member) {
+		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate, teamAName, teamBName);
 		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;
