@@ -5,11 +5,8 @@
 <div
 	th:replace="fragments/general.html :: headerdata(title='Teamübersicht')"></div>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div th:replace="fragments/general.html :: header"></div>
-		<script src="jscolor.js" type="text/javascript"></script>
-		<input class="jscolor" autocomplete="off" id="teamcolor"
-			name="teamcolor" value="9c1006">
 		<!-- 
 		<div class="input-group mb-3 justify-content-end">
 			<form th:action="@{/teams/search}" method="GET" class="form-inline">
@@ -38,7 +35,7 @@
 								</div>
 								<p>
 								<div class="container pb-3">
-									<script src="./public/jscolor.js" type="text/javascript"></script>
+									<script src="js/jscolor.js"></script>
 									<input class="jscolor" autocomplete="off" id="teamcolor"
 										name="teamcolor" value="9c1006">
 								</div>
@@ -93,7 +90,8 @@
 					<tr>
 						<td th:text="*{id}"></td>
 						<td th:text="*{name}"></td>
-						<td text="     " th:style="'background-color: ' + ${teamForm.teamcolor} + ';'"></td>
+						<td text="     "
+							th:style="'background-color: ' + ${teamForm.teamcolor} + ';'"></td>
 						<td th:if="*{players}">
 							<div th:each="player: ${teamForm.players}">
 								<div th:if="${player.member}">
@@ -108,11 +106,10 @@
 					</tr>
 					<tr>
 						<td>
-						<div class="container" th:if="${isCreator}")>
-								<form th:action="@{'/player?tid=' + ${teamForm.id}}" method="POST"
-									th:object="${playerForm}">
-									<label>Spieler hinzuf&uuml;gen</label> 
-									<input type="text"
+							<div class="container" th:if="${isCreator}" )>
+								<form th:action="@{'/player?tid=' + ${teamForm.id}}"
+									method="POST" th:object="${playerForm}">
+									<label>Spieler hinzuf&uuml;gen</label> <input type="text"
 										name="name" id="name" class="form-control"
 										placeholder="Spielernamen" />
 									<button type="submit" class="btn btn-primary float-right">Hinzuf&uuml;gen</button>
@@ -122,7 +119,7 @@
 				</tbody>
 			</table>
 		</div>
-		
+
 		<div th:replace="fragments/general.html :: footer"></div>
 		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 	</div>

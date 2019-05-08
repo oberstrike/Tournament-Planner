@@ -4,6 +4,8 @@
 
 
 		<div th:case="'LEAGUEOFLEGENDS'">
+			<div
+				th:replace="fragments/fragm_defaultGame"></div>
 			<label>Best Of:</label> <input type="number" min="1" step="1"
 				id="mode" name="mode" placeholder="Siegpunkte">
 		</div>
@@ -20,34 +22,45 @@
 
 
 		<div th:case='VOLLEYBALL'>
-			<div class="form-row">
-				<div class="col">
-					<label>Gewinnsätze:</label>
+			<form th:action="@{/volleyball}" method="POST"
+				th:object="${volleyballForm}">
+				<div
+					th:replace="fragments/fragm_defaultGame"></div>
+				<div class="form-row">
+					<div class="col">
+						<label>Gewinnsätze:</label>
+					</div>
+					<div class="col">
+						<input type="number" class="form-control" min="1" step="1"
+							id="setsRule" name="setsRule" value="2" placeholder="Gewinnsätze">
+					</div>
 				</div>
-				<div class="col">
-					<input type="number" class="form-control" min="1" step="1"
-						id="setsRule" name="setsRule" value="2" placeholder="Gewinnsätze">
+				<div class="form-row">
+					<div class="col">
+						<label>Gewinnpunkte:</label>
+					</div>
+					<div class="col">
+						<input type="number" class="form-control" min="2" step="1"
+							id="pointsRule" name="pointsRule" value="25"
+							placeholder="Gewinnpunkte">
+					</div>
 				</div>
-			</div>
-			<div class="form-row">
-				<div class="col">
-					<label>Gewinnpunkte:</label>
+				<div class="form-row">
+					<div class="col">
+						<label>Tie-Break?</label>
+					</div>
+					<div class="col">
+						<input type="checkbox" class="form-control" id="tiebreakRule"
+							name="tiebreakRule">
+					</div>
 				</div>
-				<div class="col">
-					<input type="number" class="form-control" min="2" step="1"
-						id="pointsRule" name="pointsRule" value="25"
-						placeholder="Gewinnpunkte">
+				<div class="form-row">
+					<div class="col">
+						<button type="submit" class="btn btn-primary"
+							value="Spiel erstellen">Spiel erstellen</button>
+					</div>
 				</div>
-			</div>
-			<div class="form-row">
-				<div class="col">
-					<label>Tie-Break?</label>
-				</div>
-				<div class="col">
-					<input type="checkbox" class="form-control" id="tiebreakRule"
-						name="tiebreakRule">
-				</div>
-			</div>
+			</form>
 		</div>
 
 

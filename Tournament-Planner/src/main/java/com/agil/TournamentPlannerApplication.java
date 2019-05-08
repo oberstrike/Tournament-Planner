@@ -59,8 +59,8 @@ public class TournamentPlannerApplication {
 			
 			
 			//Init teams
-			Team team = new Team("Team Solo Mid", "Blue");
-			Team team2 = new Team("Team Liquid", "Red");
+			Team team = new Team("Team Solo Mid", "0015FF");
+			Team team2 = new Team("Team Liquid", "FF1E01");
 			team.addPlayer(player);
 			team.addPlayer(player2);
 			team2.addPlayer(player2);

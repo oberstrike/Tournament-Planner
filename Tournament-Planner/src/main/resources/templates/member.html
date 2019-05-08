@@ -3,17 +3,20 @@
 <div
 	th:replace="fragments/general.html :: headerdata (title='Mitglied')"></div>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div th:replace="fragments/general.html :: header"></div>
 		<div th:if="${memberForm}">
-			<table class="table">
+			<div class="table-responsive-xs">
+				<table class="table">
 				<thead class="thead-dark">
 					<tr>
 						<th scope="col">ID</th>
 						<th scope="col">Username</th>
 						<th scope="col">Teams</th>
 						<th scope="col">Spiele</th>
-						<th scope="col">Verbundener Spielername</th>	
+						<th scope="col">Verbundener Spielername</th>
+						<th scope="col" th:if=${isCreator}>Passwort</th>
+						<th scope="col" th:if="${isCreator}">E-Mail</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,15 +38,25 @@
 							
 							</div>
 						</td>
+						<td th:if="${isCreator}">
+							*******
+						</td>
+						<td th:if="${isCreator}">
+							<div th:text="${memberForm.email}"></div>
+						
+						</td>
 					</tr>	
 					<tr th:if="${isCreator}">
 						<td>
-						 	<button name="change" type="button" class="btn btn-primary">&Auml;;ndern</button>
+				   		  <a href="#" class="btn btn-info btn-lg">
+         					 <span class="glyphicon glyphicon-pencil"></span> &Auuml;ndern 
+      					  </a>
 						<td>
 					</tr>
 								
 				</tbody>
 			</table>
+			</div>
 		</div>
 		<div th:replace="fragments/general.html :: footer"></div>
 		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>

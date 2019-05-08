@@ -17,5 +17,7 @@ public interface GameRepository extends CrudRepository<Game, Long>{
 	List<Game> findByNameIgnoreCase(String name);
 
 	List<Game> findByNameIgnoreCaseContaining(String name);
+
+	Game findByType(String type);
 	
 }
