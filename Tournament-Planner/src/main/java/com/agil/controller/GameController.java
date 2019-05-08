@@ -61,9 +61,11 @@ public class GameController {
 	@PostMapping("/volleyball")
 	public String addVolleyballGame(@Valid @ModelAttribute("volleyballForm") Volleyball volleyballForm,
 			BindingResult bindingResult, Principal principal) {
+		System.out.println("New /volleyball:");
+		System.out.println("Errors:");
 		System.out.println(bindingResult);
 		if (bindingResult.hasErrors())
-			return "/games/search/all";
+			return "redirect:/games/search/all";
 		// return "/game";
 		String username = principal.getName();
 		Member creator = memberService.findByUsername(username);
@@ -109,7 +111,7 @@ public class GameController {
 
 	@GetMapping("/game/Volleyball")
 	public String volleybal() {
-		return "/volleyball";
+		return "/games/search?type=volleyball";
 	}
 
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)

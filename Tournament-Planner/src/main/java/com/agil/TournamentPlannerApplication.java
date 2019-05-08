@@ -30,35 +30,32 @@ public class TournamentPlannerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TournamentPlannerApplication.class, args);
 	}
-	
+
 	@Autowired
 	public BCryptPasswordEncoder encoder;
-	
+
 	@Bean
-	CommandLineRunner init(TeamRepository teamRepository,
-			MemberRepository memberRepository,
-			GameRepository gameRepository,
-			PlayerRepository playerRepository) {
+	CommandLineRunner init(TeamRepository teamRepository, MemberRepository memberRepository,
+			GameRepository gameRepository, PlayerRepository playerRepository) {
 		return (args) -> {
-			//Init members
-			Member member = new Member("oberstrike", encoder.encode("mewtu123"), "markus.juergens@gmx.de");		
+			// Init members
+			Member member = new Member("oberstrike", encoder.encode("mewtu123"), "markus.juergens@gmx.de");
 			Member member2 = new Member("eikorn", encoder.encode("eic123abc"), "markus.juergens@gmx.de");
-			//Save members
+			// Save members
 			memberRepository.save(member);
 			memberRepository.save(member2);
-			
-			//Init players
+
+			// Init players
 			Player player = new Player("oberstrike");
 			Player player2 = new Player("eikorn");
 
-			//Save players
+			// Save players
 			playerRepository.save(player);
 			playerRepository.save(player2);
 			member.setPlayer(player);
 			member2.setPlayer(player2);
-			
-			
-			//Init teams
+
+			// Init teams
 			Team team = new Team("Team Solo Mid", "0015FF");
 			Team team2 = new Team("Team Liquid", "FF1E01");
 			team.addPlayer(player);
@@ -66,17 +63,18 @@ public class TournamentPlannerApplication {
 			team2.addPlayer(player2);
 			team.setCreator(member);
 			team2.setCreator(member2);
-			
-			//Save teams
+
+			// Save teams
 			teamRepository.save(team);
 			teamRepository.save(team2);
-			
-			//Init game
-			Game game = new Volleyball(3, 25, true, "Spiel 1",GameStatus.PENDING, GameType.VOLLEYBALL, new Date(System.currentTimeMillis()), team, team2, member2);
+
+			// Init game
+			Game game = new Volleyball(3, 25, true, "Spiel 1", GameStatus.PENDING, GameType.VOLLEYBALL,
+					new Date(System.currentTimeMillis()), team, team2, member2);
 			game.setVideo("https://www.youtube.com/watch?v=KyWMlJ987jg");
 			game.setCreator(member);
-			
-			//Save All
+
+			// Save All
 			gameRepository.save(game);
 			teamRepository.save(team);
 			teamRepository.save(team2);
@@ -84,6 +82,5 @@ public class TournamentPlannerApplication {
 			memberRepository.save(member2);
 		};
 	}
-
 
 }

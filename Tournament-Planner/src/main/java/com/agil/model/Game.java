@@ -66,6 +66,8 @@ public class Game {
 		this.status = status;
 		this.type = type;
 		this.startDate = startDate;
+		this.teamA = teamA;
+		this.teamB = teamB;
 //		this.teamA = teamService.findOneByName(teamAName);
 //		this.teamB = teamService.findOneByName(teamBName);
 	}
