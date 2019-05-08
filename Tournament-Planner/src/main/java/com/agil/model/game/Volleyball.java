@@ -28,8 +28,8 @@ public class Volleyball extends Game {
 	private int setsB;
 
 	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, GameStatus status, GameType type,
-			Date startDate, String teamAName, String teamBName) {
-		super(status, type, startDate, teamAName, teamBName);
+			Date startDate, Team teamA, Team teamB) {
+		super(status, type, startDate, teamA, teamB);
 		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;
@@ -37,8 +37,8 @@ public class Volleyball extends Game {
 	}
 
 	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus gameStatus,
-			GameType gameType, Date startDate, String teamAName, String teamBName, Member member) {
-		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate, teamAName, teamBName);
+			GameType gameType, Date startDate, Team teamA, Team teamB, Member member) {
+		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate, teamA, teamB);
 		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;

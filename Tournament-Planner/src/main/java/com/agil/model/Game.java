@@ -18,6 +18,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.agil.service.TeamService;
+import com.agil.service.TeamServiceImpl;
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
 
@@ -25,6 +27,8 @@ import com.agil.utility.GameType;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Game {
 
+//	private TeamService teamService;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
@@ -58,11 +62,12 @@ public class Game {
 
 	public Game(GameStatus status, GameType type, Date startDate, Team teamA, Team teamB) {
 		super();
+//		this.teamService = new TeamServiceImpl();
 		this.status = status;
 		this.type = type;
 		this.startDate = startDate;
-		this.teamA = teamA;
-		this.teamB = teamB;
+//		this.teamA = teamService.findOneByName(teamAName);
+//		this.teamB = teamService.findOneByName(teamBName);
 	}
 
 	public Game() {
