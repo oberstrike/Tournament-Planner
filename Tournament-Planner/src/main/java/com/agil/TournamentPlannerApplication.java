@@ -69,13 +69,23 @@ public class TournamentPlannerApplication {
 			teamRepository.save(team2);
 
 			// Init game
-			Game game = new Volleyball(3, 25, true, "Spiel 1", GameStatus.PENDING, GameType.VOLLEYBALL,
-					new Date(System.currentTimeMillis()), team, team2, member2);
+			Game game = new Volleyball(3, 25, true, "Spiel 1", GameStatus.PENDING,
+					new Date(System.currentTimeMillis()), team.getName(), team2.getName(), member2);
+			game.setTeamA(team);
+			game.setTeamB(team2);
 			game.setVideo("https://www.youtube.com/watch?v=KyWMlJ987jg");
 			game.setCreator(member);
+			
+			Game game2 = new Volleyball(2, 21, false, "Spiel 2", GameStatus.PENDING,
+					new Date(System.currentTimeMillis()), team.getName(), team2.getName(), member2);
+			game2.setTeamA(team);
+			game2.setTeamB(team2);
+			game2.setVideo("https://www.youtube.com/watch?v=KyWMlJ987jg");
+			game2.setCreator(member);
 
 			// Save All
 			gameRepository.save(game);
+			gameRepository.save(game2);
 			teamRepository.save(team);
 			teamRepository.save(team2);
 			memberRepository.save(member);

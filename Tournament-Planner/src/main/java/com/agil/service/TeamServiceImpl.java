@@ -66,9 +66,4 @@ public class TeamServiceImpl implements TeamService {
 		return teamRepository.findByName(name);
 	}
 	
-//	@Override
-//	public Team findOneByName(String name) {
-//		return teamRepository.findByName(name).get();
-//	}
-	
 }

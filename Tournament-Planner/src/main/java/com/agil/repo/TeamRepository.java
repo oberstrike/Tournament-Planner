@@ -19,4 +19,5 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
 	List<Team> findByNameIgnoreCase(String name);
 
 	List<Team> findByNameIgnoreCaseContaining(String name);
+	
 }
