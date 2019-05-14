@@ -71,7 +71,7 @@ public class MemberController {
 		return "registration";
 	}
 
-	@PostMapping
+	@PostMapping("/registration")
 	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
 	public String registration(@Valid @ModelAttribute("memberForm") Member memberForm, BindingResult bindingResult) {
 		memberValidator.validate(memberForm, bindingResult);
