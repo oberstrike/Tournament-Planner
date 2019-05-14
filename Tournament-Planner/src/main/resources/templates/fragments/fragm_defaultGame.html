@@ -18,7 +18,7 @@
 	</div>
 	<div class="form-row">
 		<div class="col">
-			<select class="custom-select" id="tempTeamAName" name="tempTeamAName">
+			<select class="custom-select" name="teamAName">
 				<option th:each="team : ${teams}" th:text="${team.getName()}"
 					th:value="${team.getName()}"></option>
 			</select>
@@ -26,7 +26,7 @@
 	</div>
 	<div class="form-row">
 		<div class="col">
-			<select class="custom-select" id="tempTeamBName" name="tempTeamBName">
+			<select class="custom-select" name="teamBName">
 				<option th:each="team : ${teams}" th:text="${team.getName()}"
 					th:value="${team.getName()}"></option>
 			</select>

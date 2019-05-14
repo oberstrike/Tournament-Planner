@@ -1,15 +1,15 @@
 package com.agil;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.agil.model.Game;
@@ -22,13 +22,17 @@ import com.agil.repo.MemberRepository;
 import com.agil.repo.PlayerRepository;
 import com.agil.repo.TeamRepository;
 import com.agil.utility.GameStatus;
-import com.agil.utility.GameType;
 
 @SpringBootApplication
-public class TournamentPlannerApplication {
+public class TournamentPlannerApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
 		SpringApplication.run(TournamentPlannerApplication.class, args);
+	}
+	
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(TournamentPlannerApplication.class);
 	}
 
 	@Autowired
@@ -69,18 +73,17 @@ public class TournamentPlannerApplication {
 			teamRepository.save(team2);
 
 			// Init game
-			Game game = new Volleyball(3, 25, true, "Spiel 1", GameStatus.PENDING,
-					new Date(System.currentTimeMillis()), team.getName(), team2.getName(), member2);
+			Game game = new Volleyball(3, 25, true, "Spiel 1", GameStatus.PENDING, new Date(System.currentTimeMillis()),
+					team.getName(), team2.getName(), member2);
 			game.setTeamA(team);
 			game.setTeamB(team2);
 			game.setVideo("https://www.youtube.com/watch?v=KyWMlJ987jg");
 			game.setCreator(member);
-			
-			Game game2 = new Volleyball(2, 21, false, "Spiel 2", GameStatus.PENDING,
+
+			Game game2 = new Volleyball(2, 5, true, "Spiel 2", GameStatus.PENDING,
 					new Date(System.currentTimeMillis()), team.getName(), team2.getName(), member2);
 			game2.setTeamA(team);
 			game2.setTeamB(team2);
-			game2.setVideo("https://www.youtube.com/watch?v=KyWMlJ987jg");
 			game2.setCreator(member);
 
 			// Save All
