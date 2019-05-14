@@ -9,6 +9,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.agil.utility.GameType;
@@ -17,6 +18,13 @@ import com.agil.utility.GameType;
 @EnableWebMvc
 @ComponentScan
 public class AppConfiguration implements WebMvcConfigurer {
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry
+				.addResourceHandler("/webjars/**")
+				.addResourceLocations("/webjars/");
+	}
 
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
