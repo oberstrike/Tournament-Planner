@@ -2,7 +2,7 @@
 <html>
 <div th:replace="fragments/general.html :: headerdata (title='Spiele')"></div>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div th:replace="fragments/general.html :: header"></div>
 		<div class="input-group mb-3 justify-content-end">
 			<form th:action="@{/games/search}" method="GET" class="form-inline">

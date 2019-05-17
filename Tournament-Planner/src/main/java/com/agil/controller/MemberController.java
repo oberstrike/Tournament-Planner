@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.agil.model.Member;
+import com.agil.model.PasswordChange;
 import com.agil.model.Player;
 import com.agil.service.MemberService;
 import com.agil.service.MemberServiceImpl;
@@ -65,7 +66,7 @@ public class MemberController {
 		return "registration";
 	}
 
-	@PostMapping
+	@PostMapping("/registration")
 	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
 	public String registration(@Valid @ModelAttribute("memberForm") Member memberForm, BindingResult bindingResult) {
 		memberValidator.validate(memberForm, bindingResult);
@@ -112,19 +113,22 @@ public class MemberController {
 	}
 	
 	@PostMapping("/member/update")
-	public String updateMember(@ModelAttribute Member memberForm) throws InvalidActivityException {
+	public String updateMember(@ModelAttribute PasswordChange passwordChange) throws InvalidActivityException {
+		if(!passwordChange.getConfirmPassword().equals(passwordChange.getPassword()))
+			throw new InvalidActivityException();
+		
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication(); 
 		if(auth == null)
 			return "redirect:/login";
 		String name = auth.getName();
 		
-		String oldPassword = (String) memberForm.getPasswordConfirm();
+		String oldPassword = (String) passwordChange.getOldPassword();
 		Member member = memberService.findByUsername(name);
 
-		if(!memberService.checkIfValidOldPassword(member, oldPassword)) {
+		if(!memberService.checkIfValidOldPassword(member, oldPassword))
 			throw new InvalidActivityException();
-		}
-		memberService.changeMemberPassword(member, memberForm.getPassword());
+		memberService.changeMemberPassword(member, passwordChange.getPassword());
 		
 		return "redirect:/home";
 	}
@@ -138,6 +142,7 @@ public class MemberController {
 		String name = auth.getName();
 		Member member = memberService.findByUsername(name);
 		model.addAttribute("memberForm", member);
+		model.addAttribute("changePassword", new PasswordChange());
 		model.addAttribute("isCreator", true);
 
 		return "member";

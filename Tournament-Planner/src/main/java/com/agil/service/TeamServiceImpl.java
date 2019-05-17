@@ -66,5 +66,4 @@ public class TeamServiceImpl implements TeamService {
 		return teamRepository.findByName(name);
 	}
 	
-	
 }

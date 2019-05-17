@@ -24,7 +24,7 @@ public class Team {
 	@Size(min=6, message="{teamname.badformat}")
 	private String name;
 
-	// Kann zum Individuellisieren genutzt werden
+	// Kann zum Individualisieren genutzt werden
 	private String teamcolor;
 
 	// Member die verknüpft sind

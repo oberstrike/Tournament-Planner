@@ -16,15 +16,18 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.agil.service.TeamService;
+import com.agil.service.TeamServiceImpl;
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Game {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
@@ -34,7 +37,7 @@ public class Game {
 	private GameStatus status;
 
 	@Enumerated(EnumType.STRING)
-	@NotNull(message = "{game.type.notempty}")
+//	@NotNull(message = "{game.type.notempty}")
 	private GameType type;
 
 	@NotNull(message = "{game.startDate.notempty}")
@@ -56,13 +59,12 @@ public class Game {
 	
 	private String video;
 
-	public Game(GameStatus status, GameType type, Date startDate, Team teamA, Team teamB) {
+	public Game(GameStatus status, GameType gameType, Date startDate) {
 		super();
 		this.status = status;
-		this.type = type;
+		this.type = gameType;
+//		this.type = GameType.VOLLEYBALL;
 		this.startDate = startDate;
-		this.teamA = teamA;
-		this.teamB = teamB;
 	}
 
 	public Game() {

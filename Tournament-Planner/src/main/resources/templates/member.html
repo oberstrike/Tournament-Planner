@@ -48,16 +48,20 @@
 					</tr>	
 					<tr th:if="${isCreator}">		
 						<td>
-							<form th:action="@{/member/update}" method="POST" th:object="${memberForm}">
+							<form th:action="@{/member/update}" method="POST" th:object="${passwordChange}">
 	
 								<div class="container pb-3">
+									<label for="oldPassword">Altes Passwort:</label><input type="password"
+									name="oldPassword" id="oldPassword" class="form-control"
+									placeholder="Passwort" />
+								</div>
+									<div class="container pb-3">
 									<label for="password">Neues Passwort:</label><input type="password"
 									name="password" id="password" class="form-control"
 									placeholder="Passwort" />
 								</div>
-								
 								<div class="container pb-3">
-									<label for="confirmPassword">Altes Passwort:</label><input type="password"
+									<label for="confirmPassword">Neues Passwort best&auml;tigen</label><input type="password"
 									name="confirmPassword" id="confirmPassword" class="form-control"
 									placeholder="Passwort Best&auml;tigung" />
 								</div>

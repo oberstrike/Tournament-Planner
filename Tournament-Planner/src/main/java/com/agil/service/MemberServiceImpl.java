@@ -44,7 +44,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public boolean checkIfValidOldPassword(Member member, String password) {
-		if(encoder.encode(password).equals(member.getPassword())) {
+		
+		if(encoder.matches(password, member.getPassword())) {
 			return true;
 		}
 		return false;

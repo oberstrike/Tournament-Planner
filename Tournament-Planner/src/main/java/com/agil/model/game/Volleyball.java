@@ -1,5 +1,6 @@
 package com.agil.model.game;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import javax.persistence.InheritanceType;
 import com.agil.model.Game;
 import com.agil.model.Member;
 import com.agil.model.Team;
+import com.agil.service.TeamService;
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
 
@@ -25,19 +27,20 @@ public class Volleyball extends Game {
 	private int pointsB[];
 	private int setsA;
 	private int setsB;
+	private String tempTeamAName;
+	private String tempTeamBName;
 
-	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, GameStatus status, GameType type,
+	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, GameStatus status,
 			Date startDate, Team teamA, Team teamB) {
-		super(status, type, startDate, teamA, teamB);
+		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate);
 		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;
 		initalizeGame(setsRule);
 	}
 
-	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus gameStatus,
-			GameType gameType, Date startDate, Team teamA, Team teamB, Member member) {
-		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate, teamA, teamB);
+	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus gameStatus, Date startDate, String tempTeamAName, String tempTeamBName, Member member) {
+		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate);
 		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;
@@ -52,6 +55,14 @@ public class Volleyball extends Game {
 		this.pointsB = new int[setsRule];
 		this.setsA = 0;
 		this.setsB = 0;
+	}
+
+	public String getTempTeamAName() {
+		return tempTeamAName;
+	}
+
+	public String getTempTeamBName() {
+		return tempTeamBName;
 	}
 
 	public void addA() {
@@ -180,6 +191,14 @@ public class Volleyball extends Game {
 
 	public void setTiebreakRule(boolean tiebreakRule) {
 		this.tiebreakRule = tiebreakRule;
+	}
+
+	@Override
+	public String toString() {
+		return "Volleyball [setsRule=" + setsRule + ", pointsRule=" + pointsRule + ", tiebreakRule=" + tiebreakRule
+				+ ", pointsA=" + Arrays.toString(pointsA) + ", currentSet=" + currentSet + ", pointsB="
+				+ Arrays.toString(pointsB) + ", setsA=" + setsA + ", setsB=" + setsB + ", tempTeamAName="
+				+ tempTeamAName + ", tempTeamBName=" + tempTeamBName + "]";
 	}
 
 }

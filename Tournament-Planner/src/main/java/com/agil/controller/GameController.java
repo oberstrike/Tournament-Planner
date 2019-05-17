@@ -61,12 +61,18 @@ public class GameController {
 	@PostMapping("/volleyball")
 	public String addVolleyballGame(@Valid @ModelAttribute("volleyballForm") Volleyball volleyballForm,
 			BindingResult bindingResult, Principal principal) {
+		System.out.println("New /volleyball:");
+		System.out.println("Errors:");
 		System.out.println(bindingResult);
+		System.out.println("V-Form: ");
+		System.out.println(volleyballForm.toString());
 		if (bindingResult.hasErrors())
-			return "/games/search/all";
+			return "redirect:/games/search/all";
 		// return "/game";
 		String username = principal.getName();
 		Member creator = memberService.findByUsername(username);
+		volleyballForm.setTeamA(teamService.findByName(volleyballForm.getTempTeamAName()).get());
+		volleyballForm.setTeamB(teamService.findByName(volleyballForm.getTempTeamBName()).get());
 		volleyballForm.setCreator(creator);
 		volleyballForm.setStatus(GameStatus.PENDING);
 		volleyballForm.setType(GameType.VOLLEYBALL);
@@ -109,7 +115,7 @@ public class GameController {
 
 	@GetMapping("/game/Volleyball")
 	public String volleybal() {
-		return "/volleyball";
+		return "/games/search?type=volleyball";
 	}
 
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)

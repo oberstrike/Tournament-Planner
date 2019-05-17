@@ -18,17 +18,17 @@
 	</div>
 	<div class="form-row">
 		<div class="col">
-			<select class="custom-select" name="teamA">
+			<select class="custom-select" id="tempTeamAName" name="tempTeamAName">
 				<option th:each="team : ${teams}" th:text="${team.getName()}"
-					th:value="${team}"></option>
+					th:value="${team.getName()}"></option>
 			</select>
 		</div>
 	</div>
 	<div class="form-row">
 		<div class="col">
-			<select class="custom-select" name="teamB">
+			<select class="custom-select" id="tempTeamBName" name="tempTeamBName">
 				<option th:each="team : ${teams}" th:text="${team.getName()}"
-					th:value="${team}"></option>
+					th:value="${team.getName()}"></option>
 			</select>
 		</div>
 	</div>

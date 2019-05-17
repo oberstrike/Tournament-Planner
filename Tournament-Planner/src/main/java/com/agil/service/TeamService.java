@@ -24,6 +24,5 @@ public interface TeamService {
 
 	public Optional<Team> findByName(String name);
 
-
 }
 
