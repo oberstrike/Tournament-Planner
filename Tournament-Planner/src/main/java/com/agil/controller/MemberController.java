@@ -1,16 +1,13 @@
 package com.agil.controller;
 
-import java.security.Principal;
 import java.util.Optional;
 
+import javax.activity.InvalidActivityException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -49,9 +46,6 @@ public class MemberController {
 
 	@Autowired
 	private final MemberValidator memberValidator;
-	
-	private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
-
 	
 	public MemberController(MemberServiceImpl memberService, SecurityServiceImpl securityService,
 			MemberValidator memberValidator, PlayerService playerService) {
@@ -116,6 +110,25 @@ public class MemberController {
 		return "member";
 		
 	}
+	
+	@PostMapping("/member/update")
+	public String updateMember(@ModelAttribute Member memberForm) throws InvalidActivityException {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication(); 
+		if(auth == null)
+			return "redirect:/login";
+		String name = auth.getName();
+		
+		String oldPassword = (String) memberForm.getPasswordConfirm();
+		Member member = memberService.findByUsername(name);
+
+		if(!memberService.checkIfValidOldPassword(member, oldPassword)) {
+			throw new InvalidActivityException();
+		}
+		memberService.changeMemberPassword(member, memberForm.getPassword());
+		
+		return "redirect:/home";
+	}
+	
 	
 	@GetMapping("/profile")
 	public String getMember(Model model) {

@@ -46,14 +46,28 @@
 						
 						</td>
 					</tr>	
-					<tr th:if="${isCreator}">
+					<tr th:if="${isCreator}">		
 						<td>
-				   		  <a href="#" class="btn btn-info btn-lg">
-         					 <span class="glyphicon glyphicon-pencil"></span> &Auuml;ndern 
-      					  </a>
-						<td>
-					</tr>
+							<form th:action="@{/member/update}" method="POST" th:object="${memberForm}">
+	
+								<div class="container pb-3">
+									<label for="password">Neues Passwort:</label><input type="password"
+									name="password" id="password" class="form-control"
+									placeholder="Passwort" />
+								</div>
 								
+								<div class="container pb-3">
+									<label for="confirmPassword">Altes Passwort:</label><input type="password"
+									name="confirmPassword" id="confirmPassword" class="form-control"
+									placeholder="Passwort Best&auml;tigung" />
+								</div>
+								
+								<div class="container">
+									<button type="submit" class="btn btn-primary">&Auml;ndern</button>
+								</div>
+							</form>			
+						<td>
+					</tr>				
 				</tbody>
 			</table>
 			</div>
