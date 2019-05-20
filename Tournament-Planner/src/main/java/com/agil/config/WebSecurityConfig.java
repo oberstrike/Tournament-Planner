@@ -30,20 +30,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/webjars/**").permitAll()
-		.antMatchers("/registration").permitAll()
-		.antMatchers("/teams/**").permitAll()
-		.antMatchers("/games/**").permitAll()
-		.antMatchers("/api/**").permitAll()
-		.antMatchers("/dataprotection").permitAll()
-		.antMatchers("/impressum").permitAll()
-		.anyRequest().authenticated()
-		.and()
-			.formLogin().loginPage("/login").permitAll()
-		.and()
-			.logout().logoutSuccessUrl("/login").permitAll()
-		.and()
-			.exceptionHandling().accessDeniedPage("/403");
+			.antMatchers("/registration").permitAll()
+			.antMatchers("/webjars/**").permitAll()
+			.antMatchers("/teams/**").permitAll()
+			.antMatchers("/games/**").permitAll()
+			.antMatchers("/api/**").permitAll()
+			.antMatchers("/dataprotection").permitAll()
+			.antMatchers("/impressum").permitAll()
+			.anyRequest().authenticated()
+				.and().formLogin().loginPage("/login").permitAll()
+				.and().logout()
+			.logoutSuccessUrl("/login").permitAll()
+				.and().exceptionHandling().accessDeniedPage("/403");
 	}
 
 	@Bean
@@ -57,4 +55,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 }
-

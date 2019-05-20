@@ -18,14 +18,20 @@ import com.agil.utility.GameType;
 @EnableWebMvc
 @ComponentScan
 public class AppConfiguration implements WebMvcConfigurer {
- 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 
-        registry.setOrder(1);
-    }
-    
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+//
+//        registry.setOrder(1);
+//    }
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
+		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+	}
+
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 //		// TODO Auto-generated method stub
@@ -37,21 +43,20 @@ public class AppConfiguration implements WebMvcConfigurer {
 			}
 		});
 	}
-	
+
 	@Bean
 	public MessageSource messageSource() {
-	    ReloadableResourceBundleMessageSource messageSource
-	      = new ReloadableResourceBundleMessageSource();
-	     
-	    messageSource.setBasename("classpath:messages");
-	    messageSource.setDefaultEncoding("UTF-8");
-	    return messageSource;
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+
+		messageSource.setBasename("classpath:messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
 	}
 
 	@Bean
 	public LocalValidatorFactoryBean getValidator() {
-	    LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-	    bean.setValidationMessageSource(messageSource());
-	    return bean;
+		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+		bean.setValidationMessageSource(messageSource());
+		return bean;
 	}
 }
