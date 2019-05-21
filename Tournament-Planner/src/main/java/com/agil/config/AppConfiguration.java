@@ -19,17 +19,10 @@ import com.agil.utility.GameType;
 @ComponentScan
 public class AppConfiguration implements WebMvcConfigurer {
 
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-//
-//        registry.setOrder(1);
-//    }
-
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
-		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
 	}
 
 	@Override
