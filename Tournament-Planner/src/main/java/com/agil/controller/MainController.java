@@ -65,7 +65,6 @@ public class MainController {
 		return "impressum";
 	}
 	
-	
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String accessDenied(Principal user) {
 		if (user != null) {

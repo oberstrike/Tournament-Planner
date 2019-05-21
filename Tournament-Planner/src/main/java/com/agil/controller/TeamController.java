@@ -50,8 +50,7 @@ public class TeamController {
 			return "/team";
 		String username = principal.getName();
 		Member creator = memberService.findByUsername(username);
-		
-		teamForm.addPlayer(creator.getPlayer());
+		teamForm.setTeamcolor('#' + teamForm.getTeamcolor());
 		teamForm.setCreator(creator);
 		teamService.save(teamForm);
 		

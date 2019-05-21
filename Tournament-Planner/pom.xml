@@ -13,6 +13,7 @@
 	<artifactId>Tournament-Planner</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Tournament-Planner</name>
+	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -80,6 +81,11 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>webjars-locator</artifactId>
 			<version>0.30</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>momentjs</artifactId>
+			<version>2.24.0</version>
 		</dependency>
 	</dependencies>
 
