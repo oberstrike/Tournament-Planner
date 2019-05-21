@@ -17,6 +17,7 @@
 						<th scope="col">Verbundener Spielername</th>
 						<th scope="col" th:if=${isCreator}>Passwort</th>
 						<th scope="col" th:if="${isCreator}">E-Mail</th>
+						<th scope="col" >Bild</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -43,8 +44,14 @@
 						</td>
 						<td th:if="${isCreator}">
 							<div th:text="${memberForm.email}"></div>
-						
 						</td>
+						
+						
+						<!-- <td th:if="${memberForm.}"> <form action='' method='Post' enctype='multipart/form-data'>
+						Bild einfügen: <input type='file' name='bild'> <input type='submit' name='upload' value='hochladen'>
+						</form>
+						 </td>
+						 -->
 					</tr>	
 					<tr th:if="${isCreator}">		
 						<td>
@@ -69,7 +76,18 @@
 								<div class="container">
 									<button type="submit" class="btn btn-primary">&Auml;ndern</button>
 								</div>
-							</form>			
+							</form>	<br>
+							<form:form method="POST" action="/spring-mvc-xml/uploadFile" enctype="multipart/form-data">
+	  						 	<table>
+	        						<tr>
+	          							<td><form:label path="file">Bild zum Dateiupload</form:label></td>
+	          							<td><input type="file" name="file" /></td>
+	        						</tr>
+	       							<tr>
+	            						<td><input type="submit" value="Bestätigen" /></td>
+	        						</tr>
+	    						</table>
+							</form>		
 						<td>
 					</tr>				
 				</tbody>
