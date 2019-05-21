@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.agil.model.Member;
 import com.agil.model.PasswordChange;
@@ -146,6 +148,12 @@ public class MemberController {
 		model.addAttribute("isCreator", true);
 
 		return "member";
+	}
+	
+	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	public String submit(@RequestParam("file") MultipartFile file, ModelMap modelMap) {
+	    modelMap.addAttribute("file", file);
+	    return "fileUploadView";
 	}
 	
 	
