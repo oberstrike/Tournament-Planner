@@ -13,6 +13,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 
+ * @author Markus
+ * 
+ *
+ */
+
 @Entity
 public class Player {
 

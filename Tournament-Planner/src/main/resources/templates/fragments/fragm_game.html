@@ -69,7 +69,7 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 		<td scope="col"><a class="text-dark"
 			th:href="@{'/game?id=' + ${game.id}}" th:text="${game.startDate}"></a></td>
 		<td scope="col"><a class="text-dark"
-			th:href="@{'/team?id=' + ${game.getTeamA()}}"
+			th:href="@{'/team?id=' + ${game.getTeamA().getId()}}"
 			th:text="${game.getTeamA().getName()}"></a></td>
 		<td scope="col"><a class="text-dark"
 			th:href="@{'/team?id=' + ${game.getTeamB().getId()}}"

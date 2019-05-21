@@ -26,6 +26,14 @@ import javax.validation.constraints.Size;
 
 import com.agil.utility.MemberRole;
 
+/***
+ * 
+ * @author Markus 
+ * @category Model
+ *
+ */
+
+
 @Entity
 public class Member {
 

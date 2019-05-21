@@ -76,6 +76,7 @@ public class TournamentPlannerApplication {
 			game.setVideo("https://www.youtube.com/watch?v=KyWMlJ987jg");
 			game.setCreator(member);
 			
+			// Init game
 			Game game2 = new Volleyball(2, 21, false, "Spiel 2", GameStatus.PENDING,
 					new Date(System.currentTimeMillis()), team.getName(), team2.getName(), member2);
 			game2.setTeamA(team);
@@ -83,7 +84,7 @@ public class TournamentPlannerApplication {
 			game2.setVideo("https://www.youtube.com/watch?v=KyWMlJ987jg");
 			game2.setCreator(member);
 
-			// Save All
+			// Save all
 			gameRepository.save(game);
 			gameRepository.save(game2);
 			teamRepository.save(team);

@@ -49,7 +49,9 @@
 					<tr th:if="${isCreator}">		
 						<td>
 							<form th:action="@{/member/update}" method="POST" th:object="${passwordChange}">
-	
+								<div class="container pb-3">
+									<h2>Passwort &auml;ndern</h2>
+								</div>	
 								<div class="container pb-3">
 									<label for="oldPassword">Altes Passwort:</label><input type="password"
 									name="oldPassword" id="oldPassword" class="form-control"
