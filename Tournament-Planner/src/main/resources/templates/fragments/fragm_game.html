@@ -72,14 +72,10 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 				</div>
 			</div>
 			<div class="row" th:if="${game.getVideo()}">
-				<!-- 
-				
-			 -->
 				<iframe width="560" height="315" th:src="${game.getVideo()}"
 					frameborder="0"
 					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 					allowfullscreen></iframe>
-
 			</div>
 		</div>
 	</div>

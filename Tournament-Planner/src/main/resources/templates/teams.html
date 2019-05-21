@@ -7,49 +7,38 @@
 <body>
 	<div class="container-fluid">
 		<div th:replace="fragments/general.html :: header"></div>
-		<!-- 
-		<div class="input-group mb-3 justify-content-end">
-			<form th:action="@{/teams/search}" method="GET" class="form-inline">
-				<input type="text" name="name" class="form-control"
-					placeholder="Team suchen..." aria-label="Team suchen...">
-				<div class="input-group-append">
-					<button class="btn btn-outline-primary" type="submit">
-						<i class="fa fa-search"></i>
-					</button>
-				</div>
-			</form>
-		</div> -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-info">
 			<!-- <div class="collapse navbar-collapse" id="navbarText"> -->
 			<th:block sec:authorize="isAuthenticated()">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a
-						class="nav-link active dropdown-toggle" data-toggle="dropdown"
-						href="" aria-haspopup="true" aria-expanded="false">Team
-							erstellen</a>
-						<div class="dropdown-menu">
-							<form th:action="@{/team}" method="POST" th:object="${teamForm}">
-								<div class="container pb-3">
-									<input type="text" class="form-control" id="teamname"
-										name="teamname" placeholder="Teamname">
-								</div>
-								<p>
-								<div class="container pb-3">
-									<input class="jscolor" name="teamcolor" value="9c1006">
-								</div>
-								<p>
-								<div class="container">
-									<button type="submit" class="btn btn-primary"
-										value="Team erstellen">Team erstellen</button>
-								</div>
-							</form>
-						</div></li>
-				</ul>
+				<th:block th:if="${teams}">
+					<form th:action="@{/team}" method="POST" th:object="${teamForm}">
+						<ul class="navbar-nav mr-auto">
+							<li><input type="text" class="form-control" id="teamname"
+								name="teamname" placeholder="Teamname"></li>
+							<li><input class="form-control jscolor" name="teamcolor"
+								value="FFFFFF"></li>
+							<li><button type="submit" class="btn btn-primary"
+									value="Team erstellen">Team erstellen</button></li>
+						</ul>
+					</form>
+				</th:block>
+				<th:block th:if="${teamForm}">
+					<form th:action="@{'/player?tid=' + ${teamForm.id}}" method="POST"
+						th:object="${playerForm}">
+						<ul class="navbar-nav mr-auto">
+							<li><input type="text" name="name" id="name"
+								class="form-control" placeholder="Spielernamen"></li>
+							<li>
+								<button type="submit" class="btn btn-primary float-right">Hinzuf&uuml;gen</button>
+							</li>
+						</ul>
+					</form>
+				</th:block>
 			</th:block>
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active"><div class="input-group mb-3">
-						<form th:action="@{/teams/search}" method="GET"
-							class="form-inline">
+			<form th:action="@{/teams/search}" method="GET">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<div class="input-group">
 							<input type="text" name="name" class="form-control"
 								placeholder="Team suchen..." aria-label="Team suchen...">
 							<div class="input-group-append">
@@ -57,10 +46,10 @@
 									<i class="fa fa-search"></i>
 								</button>
 							</div>
-						</form>
-					</div></li>
-			</ul>
-			<!-- </div> -->
+						</div>
+					</li>
+				</ul>
+			</form>
 		</nav>
 		<div class="container"></div>
 		<div th:if="${teams}">
@@ -101,18 +90,6 @@
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<td>
-							<div class="container" th:if="${isCreator}" )>
-								<form th:action="@{'/player?tid=' + ${teamForm.id}}"
-									method="POST" th:object="${playerForm}">
-									<label>Spieler hinzuf&uuml;gen</label> <input type="text"
-										name="name" id="name" class="form-control"
-										placeholder="Spielernamen" />
-									<button type="submit" class="btn btn-primary float-right">Hinzuf&uuml;gen</button>
-								</form>
-							</div>
-						</td>
 				</tbody>
 			</table>
 		</div>

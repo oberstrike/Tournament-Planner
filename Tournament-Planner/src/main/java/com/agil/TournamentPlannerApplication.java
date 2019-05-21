@@ -60,8 +60,8 @@ public class TournamentPlannerApplication extends SpringBootServletInitializer{
 			member2.setPlayer(player2);
 
 			// Init teams
-			Team team = new Team("Team Solo Mid", "0015FF");
-			Team team2 = new Team("Team Liquid", "FF1E01");
+			Team team = new Team("Team Solo Mid", "#0015FF");
+			Team team2 = new Team("Team Liquid", "#FF1E01");
 			team.addPlayer(player);
 			team.addPlayer(player2);
 			team2.addPlayer(player2);
