@@ -42,4 +42,19 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepo.findById(id);
 	}
 
+	@Override
+	public boolean checkIfValidOldPassword(Member member, String password) {
+		
+		if(encoder.matches(password, member.getPassword())) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void changeMemberPassword(Member member, String password) {
+		member.setPassword(encoder.encode(password));
+		memberRepo.save(member);
+	}
+
 }

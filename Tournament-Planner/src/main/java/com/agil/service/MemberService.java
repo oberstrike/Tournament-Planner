@@ -14,5 +14,9 @@ public interface MemberService {
 	Member findByEmail(String email);
 
 	Optional<Member> findById(long id);
+
+	boolean checkIfValidOldPassword(Member member, String password);
+
+	void changeMemberPassword(Member member, String password);
 	
 }
