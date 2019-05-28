@@ -15,26 +15,6 @@
 				</div>
 			</form>
 		</div>
-		<div class="container">
-			<form th:action="@{/gametypes}" method="GET">
-				<div class="input-group">
-					<select class="custom-select" name="type">
-						<option selected disabled="disabled">Bitte Typ
-							auswählen...</option>
-						<option th:each="gametype : ${gametypes}" th:text="${gametype}"
-							th:value="${gametype}"></option>
-					</select>
-					<div class="input-group-append">
-						<button type="submit" class="btn btn-primary float-right">Auswählen</button>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div th:if="${type != null}" class="container">
-
-			<div th:replace="fragments/fragm_createGame :: newGame"></div>
-
-		</div>
 		<div th:if="${games}">
 			<th:block th:switch="${#lists.size(games)}">
 				<div th:case="'0'">Keine Spiele gefunden</div>

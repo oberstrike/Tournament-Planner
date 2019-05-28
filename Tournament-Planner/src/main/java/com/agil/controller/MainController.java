@@ -44,7 +44,6 @@ public class MainController {
 			model.addAttribute("gameForm", new Game(GameType.VOLLEYBALL));
 		}
 		model.addAttribute("gametypes", Arrays.asList(sArray));
-		
 		model.addAttribute("teams", teamService.getAll());
 		return "home";
 	}
