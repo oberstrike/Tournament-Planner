@@ -162,7 +162,7 @@ public class GameController {
 
 	@GetMapping("/game/Volleyball")
 	public String getVolleyballGames() {
-		return "/games/search?type=volleyball";
+		return "redirect:/games/search?type=volleyball";
 	}
 
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)

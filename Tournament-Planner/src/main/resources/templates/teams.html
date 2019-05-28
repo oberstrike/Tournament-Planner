@@ -13,8 +13,8 @@
 				<th:block th:if="${teams}">
 					<form th:action="@{/team}" method="POST" th:object="${teamForm}">
 						<ul class="navbar-nav mr-auto">
-							<li><input type="text" class="form-control" id="teamname"
-								name="teamname" placeholder="Teamname"></li>
+							<li><input type="text" class="form-control" id="name"
+								name="name" placeholder="Teamname"></li>
 							<li><input class="form-control jscolor" name="teamcolor"
 								value="FFFFFF"></li>
 							<li><button type="submit" class="btn btn-primary"
