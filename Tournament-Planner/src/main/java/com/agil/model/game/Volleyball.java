@@ -338,6 +338,14 @@ public class Volleyball extends Game {
 		this.tiebreakRule = tiebreakRule;
 	}
 
+	public String[] getCompleteScore() {
+		String[] completeScore = new String[setsRule];
+		for(int i = 0; i < completeScore.length; i++) {
+			completeScore[i] = pointsA[i] + "-" + pointsB[i];
+		}
+		return completeScore;
+	}
+	
 	@Override
 	public String toString() {
 		return "Volleyball [setsRule=" + setsRule + ", pointsRule=" + pointsRule + ", tiebreakRule=" + tiebreakRule
