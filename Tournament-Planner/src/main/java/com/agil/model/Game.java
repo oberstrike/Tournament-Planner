@@ -177,4 +177,10 @@ public class Game {
 		this.video = "https://www.youtube.com/embed/" + youtubeId;
 	}
 
+	@Override
+	public String toString() {
+		return "Game [id=" + id + ", status=" + status + ", type=" + type + ", startDate=" + startDate + ", creator="
+				+ creator.getUsername() + ", teamA=" + teamA.getName() + ", teamB=" + teamB.getName() + ", name=" + name + ", video=" + video + "]";
+	}
+
 }

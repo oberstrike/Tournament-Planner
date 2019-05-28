@@ -53,8 +53,7 @@ public class TeamController {
 		teamForm.setTeamcolor('#' + teamForm.getTeamcolor());
 		teamForm.setCreator(creator);
 		teamService.save(teamForm);
-		
-		return "redirect:/team?id=" + teamForm.getId();
+			return "redirect:/team?id=" + teamForm.getId();
 
 	}
 	
@@ -62,9 +61,11 @@ public class TeamController {
 	public String getTeamById(@RequestParam(name="id", required=false) Long id, Team team, Player player, Principal principal, Model model) {
 		if(id != null)
 			team = teamService.findOne(id).orElseThrow(TeamNotFoundException::new);
+		else
+			throw new TeamNotFoundException();
+		
 		model.addAttribute("teamForm", team);
 		model.addAttribute("playerForm", player);
-		System.out.println("isCreator " + principal.getName().equals(team.getCreator().getUsername()));
 		model.addAttribute("isCreator", principal.getName().equals(team.getCreator().getUsername()));
 		return "teams";
 	}

@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.agil.model.Game;
-import com.agil.model.Team;
+import com.agil.utility.GameType;
 
 @Repository
 public interface GameRepository extends CrudRepository<Game, Long>{
@@ -18,6 +18,6 @@ public interface GameRepository extends CrudRepository<Game, Long>{
 
 	List<Game> findByNameIgnoreCaseContaining(String name);
 
-	Game findByType(String type);
+	List<Game> findByType(GameType type);
 	
 }

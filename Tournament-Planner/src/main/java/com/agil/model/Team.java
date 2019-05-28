@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 @Entity
 public class Team {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -72,8 +71,7 @@ public class Team {
 	}
 
 
-	protected Team() {
-		// TODO Auto-generated constructor stub
+	public Team() {
 	}
 
 	public Set<Player> getPlayers() {

@@ -29,6 +29,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.agil.utility.MemberRole;
 
+/***
+ * 
+ * @author Markus 
+ * @category Model
+ *
+ */
+
+
 @Entity
 public class Member {
 

@@ -8,6 +8,7 @@ import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.agil.model.Member;
 import com.agil.model.Team;
 import com.agil.repo.TeamRepository;
 
@@ -64,6 +65,15 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public Optional<Team> findByName(String name) {
 		return teamRepository.findByName(name);
+	}
+
+
+	@Override
+	public void createByMemberName(Team teamForm,Member creator) {
+		teamForm.setCreator(creator);
+		save(teamForm);
+		
+		
 	}
 	
 }

@@ -21,7 +21,7 @@ public interface GameService {
 	
 	void save(@Valid Game game);
 
-	public Game findByType(String type);
+	public List<Game> findByType(String type);
 	
 	
 }

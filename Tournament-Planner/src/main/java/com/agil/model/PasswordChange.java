@@ -1,5 +1,14 @@
 package com.agil.model;
 
+/***
+ * 
+ * @author Markus
+ * @category Model
+ *
+ *
+ *
+ */
+
 public class PasswordChange {
 
 	private String password;
