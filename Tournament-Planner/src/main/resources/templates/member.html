@@ -24,8 +24,8 @@
 					<tr>
 						<td th:text="${memberForm.id}"></td>
 						<td th:text="${memberForm.username}"></td>
-						<td th:if="${memberForm.teams}">
-							<div th:each="team: ${memberForm.teams}">
+						<td th:if="${memberForm.player.teams}">
+							<div th:each="team: ${memberForm.player.teams}">
 								<a th:href="@{'/team?id=' + ${team.id}}" th:text="${team.name}"></a>
 							</div>
 						</td>

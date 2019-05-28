@@ -66,8 +66,6 @@ public class TeamController {
 		model.addAttribute("playerForm", player);
 		System.out.println("isCreator " + principal.getName().equals(team.getCreator().getUsername()));
 		model.addAttribute("isCreator", principal.getName().equals(team.getCreator().getUsername()));
-		
-		
 		return "teams";
 	}
 	

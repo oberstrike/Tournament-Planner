@@ -28,6 +28,7 @@ import com.agil.service.MemberService;
 import com.agil.service.TeamService;
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
+import com.agil.utility.GameValidator;
 
 @Controller
 public class GameController {
@@ -35,6 +36,9 @@ public class GameController {
 	@Autowired
 	private GameService gameService;
 
+	@Autowired
+	private GameValidator gameValidator;
+	
 	@Autowired
 	private final MemberService memberService;
 
@@ -51,6 +55,7 @@ public class GameController {
 	@PostMapping("/game")
 	public String addGame(@Valid @ModelAttribute("gameForm") Game gameForm, BindingResult bindingResult,
 			Principal principal) {
+		gameValidator.validate(gameForm, bindingResult);
 		System.out.println(bindingResult);
 		if (bindingResult.hasErrors())
 			return "/game";
@@ -143,11 +148,13 @@ public class GameController {
 	@GetMapping("/games/search")
 	public String getGamesByName(@RequestParam(name = "name", required = false) String name,
 			@RequestParam(name = "type", required = false) String type, Model model) {
-		if (name != null)
+		if (name != null) {
 			model.addAttribute("games", gameService.findByNameIgnoreCaseContaining(name));
-		if (type != null)
+		
+		}
+		if (type != null) {
 			model.addAttribute("games", gameService.findByType(type));
-
+		}
 		return "/games";
 	}
 
