@@ -21,9 +21,9 @@ public class AppConfiguration implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry
-				.addResourceHandler("/webjars/**")
-				.addResourceLocations("/webjars/");
+		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
+		registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img");
 	}
 
 	@Override
@@ -37,21 +37,20 @@ public class AppConfiguration implements WebMvcConfigurer {
 			}
 		});
 	}
-	
+
 	@Bean
 	public MessageSource messageSource() {
-	    ReloadableResourceBundleMessageSource messageSource
-	      = new ReloadableResourceBundleMessageSource();
-	     
-	    messageSource.setBasename("classpath:messages");
-	    messageSource.setDefaultEncoding("UTF-8");
-	    return messageSource;
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+
+		messageSource.setBasename("classpath:messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
 	}
 
 	@Bean
 	public LocalValidatorFactoryBean getValidator() {
-	    LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-	    bean.setValidationMessageSource(messageSource());
-	    return bean;
+		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+		bean.setValidationMessageSource(messageSource());
+		return bean;
 	}
 }

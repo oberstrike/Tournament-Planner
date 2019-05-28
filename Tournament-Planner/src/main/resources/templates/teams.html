@@ -35,9 +35,7 @@
 								</div>
 								<p>
 								<div class="container pb-3">
-									<script src="js/jscolor.js"></script>
-									<input class="jscolor" autocomplete="off" id="teamcolor"
-										name="teamcolor" value="9c1006">
+									<input class="jscolor" name="teamcolor" value="9c1006">
 								</div>
 								<p>
 								<div class="container">
@@ -83,7 +81,6 @@
 						<th scope="col">Name</th>
 						<th scope="col">Farbe</th>
 						<th scope="col">Mitglieder</th>
-						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -122,6 +119,7 @@
 
 		<div th:replace="fragments/general.html :: footer"></div>
 		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+		<script th:src="@{~/js/jscolor.js}" src="../../static/js/jscolor.js"></script>
 	</div>
 </body>
 </html>

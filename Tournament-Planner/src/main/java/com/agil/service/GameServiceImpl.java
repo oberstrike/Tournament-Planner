@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.agil.model.Game;
 import com.agil.repo.GameRepository;
+import com.agil.utility.GameType;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -55,8 +56,8 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public Game findByType(String type) {
-		return repo.findByType(type);
+	public List<Game> findByType(String type) {
+		return repo.findByType(GameType.fromLowerCase(type.toUpperCase()));
 	}
 
 	

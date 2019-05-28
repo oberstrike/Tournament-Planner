@@ -22,13 +22,8 @@ import com.agil.utility.GameType;
 public class MainController {
 
 	@Autowired
-	private final TeamService teamService;
+	private TeamService teamService;
 	
-	@Autowired
-	public MainController(TeamServiceImpl teamServiceImpl) {
-		super();
-		this.teamService = teamServiceImpl;
-	}
 	
 	@GetMapping("/home")
 	public String getHome(@RequestParam(name = "type", required = false) String type, Model model, HttpServletRequest request) {

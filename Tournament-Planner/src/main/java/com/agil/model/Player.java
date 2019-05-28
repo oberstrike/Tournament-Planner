@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * 
  * @author Markus
@@ -22,11 +24,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Player {
-
-	@Override
-	public String toString() {
-		return "Player [id=" + id + ", name=" + name + ", member=" + member + ", teams=" + teams + "]";
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -45,17 +45,42 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 				<div class="col text-center" th:text="${game.getPointsB()}"
 					style="font-size: 12vw;"></div>
 			</div>
+			<div class="row" th:if="${isCreator}">
+				<div class="col">
+					<form th:action="@{/change/Volleyball}" method="POST">
+						<input type="hidden" name="id" th:value="${game.getId()}">
+						<input type="hidden" name="optionID" value="1">
+						<button class="btn btn-success" value="Add Point A">+</button>
+					</form>
+					<form th:action="@{/change/Volleyball}" method="POST">
+						<input type="hidden" name="id" th:value="${game.getId()}">
+						<input type="hidden" name="optionID" value="2">
+						<button class="btn btn-danger" value="Minus Point A">-</button>
+					</form>
+				</div>
+				<div class="col">
+					<form th:action="@{/change/Volleyball}" method="POST">
+						<input type="hidden" name="id" th:value="${game.getId()}">
+						<input type="hidden" name="optionID" value="3">
+						<button class="btn btn-success" value="Add Point B">+</button>
+					</form>
+					<form th:action="@{/change/Volleyball}" method="POST">
+						<input type="hidden" name="id" th:value="${game.getId()}">
+						<input type="hidden" name="optionID" value="4">
+						<button class="btn btn-danger" value="Minus Point B">-</button>
+					</form>
+				</div>
+			</div>
 			<div class="row" th:if="${game.getVideo()}">
-			<!-- 
+				<!-- 
 				
 			 -->
-			<iframe width="560" height="315" th:src="${game.getVideo()}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			
+				<iframe width="560" height="315" th:src="${game.getVideo()}"
+					frameborder="0"
+					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen></iframe>
+
 			</div>
-		</div>
-		<!-- Bereich für den Creator -->
-		<div th:if="${isCreator}">
-			<p>Du bist berechtigt dieses Spiel zu ändern!</p>
 		</div>
 	</div>
 </div>
@@ -74,5 +99,7 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 		<td scope="col"><a class="text-dark"
 			th:href="@{'/team?id=' + ${game.getTeamB().getId()}}"
 			th:text="${game.getTeamB().getName()}"></a></td>
+		<td scope="col"><a class="text-dark"
+			th:text="${game.getStatus().toString()}"><a></td>
 	</tr>
 </div>

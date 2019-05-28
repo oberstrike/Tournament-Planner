@@ -1,6 +1,7 @@
 package com.agil.controller;
 
 import java.security.Principal;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -58,27 +59,73 @@ public class GameController {
 		return "redirect:/games/search?name=" + gameForm.getName();
 	}
 
-	@PostMapping("/volleyball")
-	public String addVolleyballGame(@Valid @ModelAttribute("volleyballForm") Volleyball volleyballForm,
-			BindingResult bindingResult, Principal principal) {
+	@PostMapping("/game/Volleyball")
+	public String addVolleyballGame(@RequestParam(name = "teamAName", required = true) String teamAName,
+			@RequestParam(name = "teamBName", required = true) String teamBName,
+			@Valid @ModelAttribute("volleyballForm") Volleyball volleyballForm, BindingResult bindingResult,
+			Principal principal) {
 		System.out.println("New /volleyball:");
 		System.out.println("Errors:");
 		System.out.println(bindingResult);
 		System.out.println("V-Form: ");
 		System.out.println(volleyballForm.toString());
+		System.out.println("Team A:");
+		System.out.println(teamService.findByName(teamAName));
 		if (bindingResult.hasErrors())
-			return "redirect:/games/search/all";
-		// return "/game";
+			return "/home";
 		String username = principal.getName();
 		Member creator = memberService.findByUsername(username);
-		volleyballForm.setTeamA(teamService.findByName(volleyballForm.getTempTeamAName()).get());
-		volleyballForm.setTeamB(teamService.findByName(volleyballForm.getTempTeamBName()).get());
+		volleyballForm.setTeamA(teamService.findByName(teamAName).get());
+		volleyballForm.setTeamB(teamService.findByName(teamBName).get());
 		volleyballForm.setCreator(creator);
 		volleyballForm.setStatus(GameStatus.PENDING);
 		volleyballForm.setType(GameType.VOLLEYBALL);
+		volleyballForm.initVolleyballGame();
 		gameService.save(volleyballForm);
 
-		return "redirect:/games/search?name=" + volleyballForm.getName();
+		return "redirect:/game?id=" + volleyballForm.getId();
+	}
+
+	@PostMapping("/change/Volleyball")
+	public String changeVolleyballGame(@RequestParam(name = "id", required = true) String id,
+			@RequestParam(name = "optionID", required = true) int optionID) {
+		Volleyball volleyball = (Volleyball) gameService.findOne(Long.parseLong(id))
+				.orElseThrow(GameNotFoundException::new);
+		if (volleyball.getType() != GameType.VOLLEYBALL) {
+			System.out.println("GameType incorrect");
+			return "/home";
+		}
+		switch (optionID) {
+		case 1:
+			// add A
+			System.out.println("Add A");
+			volleyball.addA();
+			System.out.println(volleyball.toString());
+			break;
+		case 2:
+			System.out.println("Minus B");
+			volleyball.minusA();
+			System.out.println(volleyball.toString());
+			// substract A
+			break;
+		case 3:
+			System.out.println("Add B");
+			volleyball.addB();
+			System.out.println(volleyball.toString());
+			// add B
+			break;
+		case 4:
+			System.out.println("Minus B");
+			volleyball.minusB();
+			System.out.println(volleyball.toString());
+			// subtract B
+			break;
+		default:
+			break;
+		}
+		gameService.save(volleyball);
+
+		return "redirect:/game?id=" + volleyball.getId();
 	}
 
 	@GetMapping("/game")
@@ -95,9 +142,10 @@ public class GameController {
 	public String getGamesByName(@RequestParam(name = "name", required = false) String name,
 			@RequestParam(name = "type", required = false) String type, Model model) {
 		if (name != null)
-			model.addAttribute("games", gameService.findByNameIgnoreCaseContaining(name));
+			model.addAttribute("games",
+					gameService.findByNameIgnoreCaseContaining(name).stream().limit(10).collect(Collectors.toList()));
 		if (type != null)
-			model.addAttribute("games", gameService.findByType(type));
+			model.addAttribute("games", gameService.findByType(type).stream().limit(10).collect(Collectors.toList()));
 
 		return "/games";
 	}
@@ -115,7 +163,7 @@ public class GameController {
 
 	@GetMapping("/game/Volleyball")
 	public String volleybal() {
-		return "/games/search?type=volleyball";
+		return "redirect:/games/search?type=volleyball";
 	}
 
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)

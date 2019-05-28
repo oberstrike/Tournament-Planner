@@ -1,10 +1,16 @@
 <div th:fragment="newGame">
 	<th:block th:switch="${type}">
 		<div th:case='LEAGUEOFLEGENDS'>
-			<div
-				th:replace="fragments/fragm_defaultGame"></div>
+			<div th:replace="fragments/fragm_defaultGame"></div>
 			<label>Best Of:</label> <input type="number" min="1" step="1"
 				id="mode" name="mode" placeholder="Siegpunkte">
+
+			<div class="form-row">
+				<div class="col">
+					<button type="submit" class="btn btn-primary"
+						value="Spiel erstellen">Spiel erstellen</button>
+				</div>
+			</div>
 		</div>
 
 		<div th:case='COUNTERSTRIKEGO'>
@@ -17,10 +23,9 @@
 
 
 		<div th:case='VOLLEYBALL'>
-			<form th:action="@{/volleyball}" method="POST"
+			<form th:action="@{/game/Volleyball}" method="POST"
 				th:object="${volleyballForm}">
-				<div
-					th:replace="fragments/fragm_defaultGame"></div>
+				<div th:replace="fragments/fragm_defaultGame"></div>
 				<div class="form-row">
 					<div class="col">
 						<label>Gewinnsätze:</label>
