@@ -48,8 +48,12 @@ public class TeamController {
 		teamValidator.validate(teamForm, bindingResult);
 		if(bindingResult.hasErrors())
 			return "/team";
-		teamService.createByMemberName(teamForm, memberService.findByUsername(principal.getName()));
-		return "redirect:/team?id=" + teamForm.getId();
+		String username = principal.getName();
+		Member creator = memberService.findByUsername(username);
+		teamForm.setTeamcolor('#' + teamForm.getTeamcolor());
+		teamForm.setCreator(creator);
+		teamService.save(teamForm);
+			return "redirect:/team?id=" + teamForm.getId();
 
 	}
 	

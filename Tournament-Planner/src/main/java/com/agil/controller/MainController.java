@@ -39,7 +39,6 @@ public class MainController {
 			model.addAttribute("gameForm", new Game(GameType.VOLLEYBALL));
 		}
 		model.addAttribute("gametypes", Arrays.asList(sArray));
-		
 		model.addAttribute("teams", teamService.getAll());
 		return "home";
 	}
@@ -59,7 +58,6 @@ public class MainController {
 	public String getImpressum() {
 		return "impressum";
 	}
-	
 	
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String accessDenied(Principal user) {

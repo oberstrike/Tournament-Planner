@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.agil.model.Member;
 import com.agil.model.PasswordChange;
@@ -35,10 +37,9 @@ import com.agil.utility.MemberValidator;
 @Controller
 public class MemberController {
 
-
 	@Autowired
 	private final MemberService memberService;
-	
+
 	@Autowired
 	private final PlayerService playerService;
 
@@ -47,7 +48,7 @@ public class MemberController {
 
 	@Autowired
 	private final MemberValidator memberValidator;
-	
+
 	public MemberController(MemberServiceImpl memberService, SecurityServiceImpl securityService,
 			MemberValidator memberValidator, PlayerService playerService) {
 		super();
@@ -56,8 +57,6 @@ public class MemberController {
 		this.memberValidator = memberValidator;
 		this.playerService = playerService;
 	}
-
-	
 
 	@GetMapping("/registration")
 	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
@@ -101,43 +100,41 @@ public class MemberController {
 		}
 		return "redirect:/login?logout";
 	}
-	
+
 	@GetMapping("/member")
 	public String getMemberById(@RequestParam long id, Model model) {
 		Optional<Member> member = memberService.findById(id);
-		if(!member.isPresent())
+		if (!member.isPresent())
 			return "redirect:/home";
 		model.addAttribute("memberForm", member.get());
 		return "member";
-		
+
 	}
-	
+
 	@PostMapping("/member/update")
 	public String updateMember(@ModelAttribute PasswordChange passwordChange) throws InvalidActivityException {
-		if(!passwordChange.getConfirmPassword().equals(passwordChange.getPassword()))
+		if (!passwordChange.getConfirmPassword().equals(passwordChange.getPassword()))
 			throw new InvalidActivityException();
-		
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication(); 
-		if(auth == null)
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth == null)
 			return "redirect:/login";
 		String name = auth.getName();
-		
+
 		String oldPassword = (String) passwordChange.getOldPassword();
 		Member member = memberService.findByUsername(name);
 
-		if(!memberService.checkIfValidOldPassword(member, oldPassword))
+		if (!memberService.checkIfValidOldPassword(member, oldPassword))
 			throw new InvalidActivityException();
 		memberService.changeMemberPassword(member, passwordChange.getPassword());
-		
+
 		return "redirect:/home";
 	}
-	
-	
+
 	@GetMapping("/profile")
 	public String getMember(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if(auth == null)
+		if (auth == null)
 			return "redirect:/login";
 		String name = auth.getName();
 		Member member = memberService.findByUsername(name);
@@ -147,8 +144,11 @@ public class MemberController {
 
 		return "member";
 	}
-	
-	
-	
+
+	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	public String submitImageUpload(@RequestParam("file") MultipartFile file, Model model) {
+		model.addAttribute("file", file);
+		return "fileUploadView";
+	}
 
 }

@@ -89,9 +89,8 @@ public class GameController {
 	@PostMapping("/change/Volleyball")
 	public String changeVolleyballGame(@RequestParam(name = "id", required = true) String id,
 			@RequestParam(name = "optionID", required = true) int optionID) {
-		Volleyball volleyball = (Volleyball) gameService.findOne(Long.parseLong(id))
-				.orElseThrow(GameNotFoundException::new);
-		if (volleyball.getType() != GameType.VOLLEYBALL) {
+		Volleyball volleyball = (Volleyball) gameService.findOne(Long.parseLong(id)).orElseThrow(GameNotFoundException::new);
+		if(volleyball.getType() != GameType.VOLLEYBALL) {
 			System.out.println("GameType incorrect");
 			return "/home";
 		}
@@ -162,8 +161,8 @@ public class GameController {
 	}
 
 	@GetMapping("/game/Volleyball")
-	public String volleybal() {
-		return "redirect:/games/search?type=volleyball";
+	public String getVolleyballGames() {
+		return "/games/search?type=volleyball";
 	}
 
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
