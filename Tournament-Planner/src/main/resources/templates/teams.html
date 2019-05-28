@@ -57,7 +57,12 @@
 				<div th:case="'0'">Keine Teams gefunden</div>
 				<div th:case="*">
 					<th:block th:each="team: ${teams}">
-						<th:block th:replace="fragments/fragm_team :: showTeam(${team})"></th:block>
+						<div th:text="${team.id}"
+							th:style="'background-color: ' + ${team.getTeamcolor()} + ';'"></div>
+						<a th:href="@{'/team?id=' + ${team.id}}" th:text="${team.name}"
+							class="container"></a>
+						<div th:each="player : ${players}" th:value="${player}"></div>
+						<div class="dropdown-divider pb-3"></div>
 					</th:block>
 				</div>
 			</th:block>
@@ -68,6 +73,8 @@
 					<tr>
 						<th scope="col">ID</th>
 						<th scope="col">Name</th>
+						<th scope="col">Heimspiele</th>
+						<th scope="col">Auswärtsspiele</th>
 						<th scope="col">Farbe</th>
 						<th scope="col">Mitglieder</th>
 					</tr>
@@ -76,6 +83,18 @@
 					<tr>
 						<td th:text="*{id}"></td>
 						<td th:text="*{name}"></td>
+						<td th:if="*{homegames}">
+							<div th:each="homegame : *{homegames}">
+								<a th:href="@{'/game?id=' + ${homegame.id}}"
+									th:text="${homegame.name}"></a>
+							</div>
+						</td>
+						<td th:if="*{awaygames}">
+							<div th:each="awaygame : *{awaygames}">
+								<a th:href="@{'/game?id=' + ${awaygame.id}}"
+									th:text="${awaygame.name}"></a>
+							</div>
+						</td>
 						<td text="     "
 							th:style="'background-color: ' + ${teamForm.teamcolor} + ';'"></td>
 						<td th:if="*{players}">

@@ -94,9 +94,6 @@ public class TournamentPlannerApplication extends SpringBootServletInitializer{
 			memberRepository.save(member);
 			memberRepository.save(member2);
 			
-			System.out.println("TEAMS eikorn:");
-			System.out.println(player2.getTeams().toString());
-			System.out.println(player.getTeams().toString());
 		};
 	}
 
