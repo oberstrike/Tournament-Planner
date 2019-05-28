@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/webjars/**").permitAll()
 			.antMatchers("/teams/**").permitAll()
 			.antMatchers("/games/**").permitAll()
+			.antMatchers("/game/**").permitAll()
 			.antMatchers("/api/**").permitAll()
 			.antMatchers("/dataprotection").permitAll()
 			.antMatchers("/impressum").permitAll()

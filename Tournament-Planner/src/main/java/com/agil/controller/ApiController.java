@@ -1,7 +1,10 @@
 package com.agil.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,6 +57,11 @@ public class ApiController {
 
 		}
 		return gameService.getAll().stream().map(GameDTO::new).collect(Collectors.toList());
+	}
+	
+	@GetMapping("/api/uhrzeit")
+	public long getDate() {
+		return System.currentTimeMillis();
 	}
 
 }
