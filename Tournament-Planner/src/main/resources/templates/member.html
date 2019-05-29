@@ -6,98 +6,98 @@
 	<div class="container-fluid">
 		<div th:replace="fragments/general.html :: header"></div>
 		<div th:if="${memberForm}">
-			<div class="table-responsive-xs">
-				<table class="table">
-				<thead class="thead-dark">
-					<tr>
-						<th scope="col">ID</th>
-						<th scope="col">Username</th>
-						<th scope="col">Teams</th>
-						<th scope="col">Spiele</th>
-						<th scope="col">Verbundener Spielername</th>
-						<th scope="col" th:if=${isCreator}>Passwort</th>
-						<th scope="col" th:if="${isCreator}">E-Mail</th>
-						<th scope="col" >Bild</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td th:text="${memberForm.id}"></td>
-						<td th:text="${memberForm.username}"></td>
-						<td th:if="${memberForm.player.teams}">
-							<div th:each="team: ${memberForm.player.teams}">
-								<a th:href="@{'/team?id=' + ${team.id}}" th:text="${team.name}"></a>
-							</div>
-						</td>
-						<td th:if="${memberForm.games}">
-							<div th:each="game: ${memberForm.games}">
-								<a th:href="@{'/game?id=' + ${game.id}}" th:text="${game.name}"></a>
-							</div>
-						</td>
-						<td th:if="${memberForm.player}">
-							<div th:text="${memberForm.player.name}">
-							
-							</div>
-						</td>
-						<td th:if="${isCreator}">
-							*******
-						</td>
-						<td th:if="${isCreator}">
-							<div th:text="${memberForm.email}"></div>
-						</td>
-						
-						
-						<!-- <td th:if="${memberForm.}"> <form action='' method='Post' enctype='multipart/form-data'>
+			<div class="row">
+				<div class="table-responsive">
+					<table class="table">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Username</th>
+								<th scope="col">Teams</th>
+								<th scope="col">Spiele</th>
+								<th scope="col">Verbundener Spielername</th>
+								<th scope="col" th:if=${isCreator}>Passwort</th>
+								<th scope="col" th:if="${isCreator}">E-Mail</th>
+								<th scope="col">Bild</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td th:text="${memberForm.id}"></td>
+								<td th:text="${memberForm.username}"></td>
+								<td th:if="${memberForm.player.teams}">
+									<div th:each="team: ${memberForm.player.teams}">
+										<a th:href="@{'/team?id=' + ${team.id}}"
+											th:text="${team.name}"></a>
+									</div>
+								</td>
+								<td th:if="${memberForm.games}">
+									<div th:each="game: ${memberForm.games}">
+										<a th:href="@{'/game?id=' + ${game.id}}"
+											th:text="${game.name}"></a>
+									</div>
+								</td>
+								<td th:if="${memberForm.player}">
+									<div th:text="${memberForm.player.name}"></div>
+								</td>
+								<td th:if="${isCreator}">*******</td>
+								<td th:if="${isCreator}">
+									<div th:text="${memberForm.email}"></div>
+								</td>
+
+
+								<!-- <td th:if="${memberForm.}"> <form action='' method='Post' enctype='multipart/form-data'>
 						Bild einfügen: <input type='file' name='bild'> <input type='submit' name='upload' value='hochladen'>
 						</form>
 						 </td>
 						 -->
-					</tr>	
-					<tr th:if="${isCreator}">		
-						<td>
-							<form th:action="@{/member/update}" method="POST" th:object="${passwordChange}">
-								<div class="container pb-3">
-									<h2>Passwort &auml;ndern</h2>
-								</div>	
-								<div class="container pb-3">
-									<label for="oldPassword">Altes Passwort:</label><input type="password"
-									name="oldPassword" id="oldPassword" class="form-control"
-									placeholder="Passwort" />
-								</div>
-									<div class="container pb-3">
-									<label for="password">Neues Passwort:</label><input type="password"
-									name="password" id="password" class="form-control"
-									placeholder="Passwort" />
-								</div>
-								<div class="container pb-3">
-									<label for="confirmPassword">Neues Passwort best&auml;tigen</label><input type="password"
-									name="confirmPassword" id="confirmPassword" class="form-control"
-									placeholder="Passwort Best&auml;tigung" />
-								</div>
-								
-								<div class="container">
-									<button type="submit" class="btn btn-primary">&Auml;ndern</button>
-								</div>
-							</form>	<br>
-							<form:form method="POST" action="/spring-mvc-xml/uploadFile" enctype="multipart/form-data">
-	  						 	<table>
-	        						<tr>
-	          							<td><form:label path="file">Bild zum Dateiupload</form:label></td>
-	          							<td><input type="file" name="file" /></td>
-	        						</tr>
-	       							<tr>
-	            						<td><input type="submit" value="Bestätigen" /></td>
-	        						</tr>
-	    						</table>
-							</form>		
-						<td>
-					</tr>				
-				</tbody>
-			</table>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div th:if="${isCreator}" class="container">
+					<form th:action="@{/member/update}" method="POST"
+						th:object="${passwordChange}">
+						<div class="form-group">
+							<h2>Passwort &auml;ndern</h2>
+						</div>
+						<div class="form-group">
+							<label for="oldPassword">Altes Passwort:</label> <input
+								type="password" class="form-control input-sm" name="oldPassword"
+								id="oldPassword" placeholder="Passwort" />
+						</div>
+						<div class="form-group">
+							<label for="password">Neues Passwort:</label><input
+								type="password" name="password" id="password"
+								class="form-control input-sm" placeholder="Passwort" />
+						</div>
+						<div class="form-group">
+							<label for="confirmPassword">Neues Passwort
+								best&auml;tigen</label><input type="password" name="confirmPassword"
+								id="confirmPassword" class="form-control input-sm"
+								placeholder="Passwort Best&auml;tigung" />
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">&Auml;ndern</button>
+						</div>
+					</form>
+					<br>
+					<form method="POST" action="/spring-mvc-xml/uploadFile"
+						enctype="multipart/form-data">
+						<table>
+							<tr>
+								<td><form:label path="file">Bild zum Dateiupload</form:label></td>
+								<td><input type="file" name="file" /></td>
+							</tr>
+							<tr>
+								<td><input type="submit" value="Bestätigen" /></td>
+							</tr>
+						</table>
+					</form>
+				</div>
 			</div>
+			<div th:replace="fragments/general.html :: footer"></div>
+			<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 		</div>
-		<div th:replace="fragments/general.html :: footer"></div>
-		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
-	</div>
 </body>
 </html>
