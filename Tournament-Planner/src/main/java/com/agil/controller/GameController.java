@@ -25,12 +25,16 @@ import com.agil.service.MemberService;
 import com.agil.service.TeamService;
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
+import com.agil.utility.GameValidator;
 
 @Controller
 public class GameController {
 
 	@Autowired
 	private GameService gameService;
+
+	@Autowired
+	private GameValidator gameValidator;
 
 	@Autowired
 	private final MemberService memberService;
@@ -48,6 +52,7 @@ public class GameController {
 	@PostMapping("/game")
 	public String addGame(@Valid @ModelAttribute("gameForm") Game gameForm, BindingResult bindingResult,
 			Principal principal) {
+		gameValidator.validate(gameForm, bindingResult);
 		System.out.println(bindingResult);
 		if (bindingResult.hasErrors())
 			return "/game";
@@ -89,8 +94,9 @@ public class GameController {
 	@PostMapping("/change/Volleyball")
 	public String changeVolleyballGame(@RequestParam(name = "id", required = true) String id,
 			@RequestParam(name = "optionID", required = true) int optionID) {
-		Volleyball volleyball = (Volleyball) gameService.findOne(Long.parseLong(id)).orElseThrow(GameNotFoundException::new);
-		if(volleyball.getType() != GameType.VOLLEYBALL) {
+		Volleyball volleyball = (Volleyball) gameService.findOne(Long.parseLong(id))
+				.orElseThrow(GameNotFoundException::new);
+		if (volleyball.getType() != GameType.VOLLEYBALL) {
 			System.out.println("GameType incorrect");
 			return "/home";
 		}
@@ -133,13 +139,15 @@ public class GameController {
 		if (id != null)
 			game = gameService.findOne(id).orElseThrow(GameNotFoundException::new);
 		model.addAttribute("gameForm", game);
-		model.addAttribute("isCreator", principal.getName().equals(game.getCreator().getUsername()));
+		if (principal != null)
+			model.addAttribute("isCreator", principal.getName().equals(game.getCreator().getUsername()));
 		return "games";
 	}
 
 	@GetMapping("/games/search")
 	public String getGamesByName(@RequestParam(name = "name", required = false) String name,
 			@RequestParam(name = "type", required = false) String type, Model model) {
+
 		if (name != null)
 			model.addAttribute("games",
 					gameService.findByNameIgnoreCaseContaining(name).stream().limit(10).collect(Collectors.toList()));

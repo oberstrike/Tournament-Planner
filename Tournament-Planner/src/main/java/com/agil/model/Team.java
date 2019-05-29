@@ -32,7 +32,7 @@ public class Team {
 
 	@OneToMany(mappedBy = "teamA")
 	private Set<Game> homegames = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "teamB")
 	private Set<Game> awaygames = new HashSet<>();
 	

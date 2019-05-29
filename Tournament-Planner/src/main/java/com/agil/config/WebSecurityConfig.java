@@ -40,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/impressum").permitAll()
 			.antMatchers("/js/**").permitAll()
 			.antMatchers("/img/**").permitAll()
+			.antMatchers("/game/**").permitAll()
+			.antMatchers("/team/**").permitAll()
 			.anyRequest().authenticated()
 				.and().formLogin().loginPage("/login").permitAll()
 				.and().logout()

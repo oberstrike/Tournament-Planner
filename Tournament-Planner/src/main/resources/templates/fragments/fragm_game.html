@@ -99,3 +99,92 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 			th:text="${game.getStatus().toString()}"><a></td>
 	</tr>
 </div>
+
+<!-- NEW -->
+
+<div th:fragment="showGame2(game)">
+	<div class="container">
+		<div class="row">
+			<div class="col-10" th:text="${game.name}"></div>
+			<div class="col-2">
+				<a
+					th:href="'https://wa.me/?text=Schau%20dir%20das%20Spiel%20' + ${game.getTeamA().getName()} + '%20gegen%20' + ${game.getTeamB().getName()} + '%20im%20Liveticker%20an%3A%0A' + ${#httpServletRequest.requestURL} + '?id=' + ${game.id}"
+					target="_blank"><i
+					class="fa fa-whatsapp bg-success text-white btn-lg"></i></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12" th:text="'Spielbeginn: ' + ${game.startDate}">Datum</div>
+		</div>
+		<div class="row">
+			<!-- Mobile -->
+			<div class="col-6 col-sm-6 d-xs-block d-md-none"
+				th:style="'background-color: ' + ${game.getTeamA().getTeamcolor()} + ';'">&nbsp;</div>
+			<!-- Mobile -->
+			<div class="col-6 col-sm-6 d-xs-block d-md-none"
+				th:style="'background-color: ' + ${game.getTeamB().getTeamcolor()} + ';'">&nbsp;</div>
+			<!-- Desktop -->
+			<div class="col-md-1 d-none d-md-block"
+				th:style="'background-color: ' + ${game.getTeamA().getTeamcolor()} + ';'">
+			</div>
+			<!-- Name -->
+			<div class="col-md-5 col-6 text-left"
+				th:text="${game.getTeamA().getName()}"></div>
+			<!-- Name -->
+			<div class="col-md-5 col-6 text-right"
+				th:text="${game.getTeamB().getName()}"></div>
+			<!-- Desktop -->
+			<div class="col-md-1 d-none d-md-block"
+				th:style="'background-color: ' + ${game.getTeamB().getTeamcolor()} + ';'">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" th:text="${game.getSetsA()}"></div>
+			<div class="col-6" th:text="${game.getSetsB()}"></div>
+		</div>
+		<div class="row">
+			<div class="col-6" th:text="${game.getPointsA()}"></div>
+			<div class="col-6" th:text="${game.getPointsB()}"></div>
+		</div>
+		<div class="row">
+			<!-- Complete Score -->
+			<th:block th:each="set : ${game.getCompleteScore()}">
+				<div class="col-12 col-md-auto text-center" th:text="${set}"></div>
+			</th:block>
+		</div>
+		<div class="row" th:if="${isCreator}">
+			<div class="col-3">
+				<form th:action="@{/change/Volleyball}" method="POST">
+					<input type="hidden" name="id" th:value="${game.getId()}">
+					<input type="hidden" name="optionID" value="1">
+					<button class="btn btn-block btn-success" value="Add Point A">+</button>
+				</form>
+			</div>
+			<div class="col-3">
+				<form th:action="@{/change/Volleyball}" method="POST">
+					<input type="hidden" name="id" th:value="${game.getId()}">
+					<input type="hidden" name="optionID" value="2">
+					<button class="btn btn-block btn-danger" value="Minus Point A">-</button>
+				</form>
+			</div>
+			<div class="col-3">
+				<form th:action="@{/change/Volleyball}" method="POST">
+					<input type="hidden" name="id" th:value="${game.getId()}">
+					<input type="hidden" name="optionID" value="3">
+					<button class="btn btn-block btn-success" value="Add Point B">+</button>
+				</form>
+			</div>
+			<div class="col-3">
+				<form th:action="@{/change/Volleyball}" method="POST">
+					<input type="hidden" name="id" th:value="${game.getId()}">
+					<input type="hidden" name="optionID" value="4">
+					<button class="btn btn-block btn-danger" value="Minus Point B">-</button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">META</div>
+		</div>
+	</div>
+
+</div>

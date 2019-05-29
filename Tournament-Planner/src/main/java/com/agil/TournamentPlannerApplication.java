@@ -93,6 +93,7 @@ public class TournamentPlannerApplication extends SpringBootServletInitializer{
 			teamRepository.save(team2);
 			memberRepository.save(member);
 			memberRepository.save(member2);
+			
 		};
 	}
 

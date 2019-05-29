@@ -193,10 +193,10 @@ public class Volleyball extends Game {
 		if (!getGameOver()) {
 			if (pointsA[currentSet] == 0 && pointsB[currentSet] == 0) {
 				// gehe in letzten Satz
-				if (currentSet > 0) {
+				if (currentSet > 0 && setsA > 0) {
 					setsA--;
 					currentSet--;
-					pointsA[currentSet]--;
+//					pointsA[currentSet]--;
 				}
 			} else {
 				if (pointsA[currentSet] > 0) {
@@ -230,7 +230,7 @@ public class Volleyball extends Game {
 		if (!getGameOver()) {
 			if (pointsB[currentSet] == 0 && pointsA[currentSet] == 0) {
 				// gehe in letzten Satz
-				if (currentSet > 0) {
+				if (currentSet > 0 && setsB > 0) {
 					setsB--;
 					currentSet--;
 				}
@@ -338,6 +338,14 @@ public class Volleyball extends Game {
 		this.tiebreakRule = tiebreakRule;
 	}
 
+	public String[] getCompleteScore() {
+		String[] completeScore = new String[setsRule];
+		for(int i = 0; i < completeScore.length; i++) {
+			completeScore[i] = pointsA[i] + "-" + pointsB[i];
+		}
+		return completeScore;
+	}
+	
 	@Override
 	public String toString() {
 		return "Volleyball [setsRule=" + setsRule + ", pointsRule=" + pointsRule + ", tiebreakRule=" + tiebreakRule
