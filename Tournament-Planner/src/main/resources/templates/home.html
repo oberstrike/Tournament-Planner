@@ -31,7 +31,6 @@
 			</form>
 		</div>
 		<div th:if="${type != null}" class="container">
-
 			<th:block th:switch="${type}">
 				<div th:case='LEAGUEOFLEGENDS'>
 					<div th:replace="fragments/fragm_defaultGame"></div>
@@ -98,19 +97,19 @@
 				<div th:case='FUSSBALL'>
 					<label>Halbzeitl%auml;nge:</label> <input type="number" min="1"
 						step="1" id="halftimelength" name="halftimelength" value="45"
-						placeholder="HalbzeitlÃ¤nge"> <label>VerlÃ¤ngerung?</label>
+						placeholder="Halbzeitl&auml;nge"> <label>Verl&auml;ngerung?</label>
 					<input type="checkbox" id="overtime" name="overtime">
 				</div>
 
 				<div th:case='HANDBALL'>
 					<label>HalbzeitlÃ¤nge:</label> <input type="number" min="1"
 						step="1" id="halftimelength" name="halftimelength" value="30"
-						placeholder="HalbzeitlÃ¤nge"> <label>VerlÃ¤ngerung?</label>
+						placeholder="Halbzeitl&auml;¤nge"> <label>Verl&auml;ngerung?</label>
 					<input type="checkbox" id="overtime" name="overtime">
 				</div>
 
 				<div th:case="*">
-					<p>Bitte gÃ¼ltigen Spieltyp wÃ¤hlen!
+					<p>Bitte g&uml;ltigen Spieltyp w&auml;hlen!
 					<p>
 					<div th:text="${type}"></div>
 				</div>

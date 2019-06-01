@@ -20,4 +20,7 @@ public interface GameRepository extends CrudRepository<Game, Long>{
 
 	List<Game> findByType(GameType type);
 	
+	List<Game> findByTeamA_Players_Name(String name);
+
+	List<Game> findByTeamB_Players_Name(String name);
 }

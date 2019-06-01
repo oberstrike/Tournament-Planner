@@ -34,7 +34,8 @@
 						class="nav-link active dropdown-toggle" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false" href="">Sportarten</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" th:href="@{/games?type=Volleyball}">Volleyball</a>
+							<a class="dropdown-item" th:href="@{/games/search?type=Volleyball}">Volleyball</a>
+							<a class="dropdown-item" th:href="@{/games/search?type=LeagueOfLegends}">League of Legends</a>
 						</div></li>
 					<li class="nav-item active"><a class="nav-link"
 						href="/teams/search/all">Teams</a></li>
@@ -96,7 +97,11 @@
 				<div class="uhr">
 					&zwj;
 				</div>
+				<div class="nSpiel">
+					&zwj;
+				</div>
 			</div>
+				
 		</div> 
 	</div>
 
@@ -118,8 +123,6 @@
 		<script th:src="@{/webjars/popper.js/1.14.7/popper.min.js}"></script>
 		<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 		<script>
-		
-			
 			function update(date){
 				$(".uhr").html(date.getHours() + ":" + 
 						(date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()) + ":" +
@@ -127,18 +130,22 @@
 			}
 
 			$(document).ready(function() {			
-				$.get("http://localhost:8080/api/uhrzeit").done(
+				$.get("/api/uhrzeit").done(
 					function(data) {
-						console.log(data)
-						date = new Date(data)
-			
+						var date = new Date(data)
+						update(date)
 						setInterval(function() {
 							update(date)				
 							date.setSeconds(date.getSeconds() + 1);
 						}, 1000)
 				})
 				
-				
+				$.get("/api/games").done( function(data) {
+					if(data.length > 0){
+						var date = new Date(data[0].startDate)
+						$(".nSpiel").html("Nächstes Spiel startet: " + date.toString())
+					}
+				})
 			})
 		</script>
 		

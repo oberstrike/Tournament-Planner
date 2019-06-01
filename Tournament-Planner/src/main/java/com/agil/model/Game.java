@@ -26,7 +26,7 @@ import com.agil.utility.GameType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Game {
+public class Game implements Comparable<Game>{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -171,7 +171,6 @@ public class Game {
 	}
 
 	public void setVideo(String video) {
-		
 		// https://www.youtube.com/watch?v=KyWMlJ987jg
 		String youtubeId = video.split("=")[1];
 		this.video = "https://www.youtube.com/embed/" + youtubeId;
@@ -181,6 +180,11 @@ public class Game {
 	public String toString() {
 		return "Game [id=" + id + ", status=" + status + ", type=" + type + ", startDate=" + startDate + ", creator="
 				+ creator.getUsername() + ", teamA=" + teamA.getName() + ", teamB=" + teamB.getName() + ", name=" + name + ", video=" + video + "]";
+	}
+
+	@Override
+	public int compareTo(Game o) {
+		return startDate.compareTo(o.getStartDate());
 	}
 
 }

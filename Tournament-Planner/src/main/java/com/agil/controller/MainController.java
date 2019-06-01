@@ -24,6 +24,9 @@ public class MainController {
 	@Autowired
 	private TeamService teamService;
 	
+	/* Gib mir meine nächsten Spiele...
+	 * 
+	 */
 	
 	@GetMapping("/home")
 	public String getHome(@RequestParam(name = "type", required = false) String type, Model model, HttpServletRequest request) {
@@ -35,7 +38,6 @@ public class MainController {
 
 		if (type != null) {
 			model.addAttribute("type", type.toUpperCase());
-			System.out.println(type);
 			model.addAttribute("gameForm", new Game(GameType.VOLLEYBALL));
 		}
 		model.addAttribute("gametypes", Arrays.asList(sArray));

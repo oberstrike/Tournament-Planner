@@ -1,23 +1,18 @@
 package com.agil.controller;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.agil.controller.GameController.GameNotFoundException;
 import com.agil.dto.GameDTO;
 import com.agil.dto.TeamDTO;
 import com.agil.model.Game;
@@ -50,14 +45,21 @@ public class ApiController {
 	}
 
 	@GetMapping("/api/games")
-	public List<GameDTO> getGames(@RequestParam(required = false) Long id) {
+	public List<GameDTO> getGames(@RequestParam(required = false) Long id, Principal principal) {
 		if (id != null) {
 			Game game = gameService.findOne(id).orElse(new Game());
 			return new ArrayList<>(Arrays.asList(new GameDTO(game)));
-
+		}else if(id == null && principal != null) {
+			List<Game> gameA = gameService.findByTeamA_Players_Name(principal.getName());
+			List<Game> gameB = gameService.findByTeamB_Players_Name(principal.getName());
+			gameA.addAll(gameB);
+			return gameA.stream().sorted().map(GameDTO::new).collect(Collectors.toList());
+		
 		}
+		
+		
 		return gameService.getAll().stream().map(GameDTO::new).collect(Collectors.toList());
-	}
+	}	
 	
 	@GetMapping("/api/uhrzeit")
 	public long getDate() {

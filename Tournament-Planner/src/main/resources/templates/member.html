@@ -82,18 +82,14 @@
 						</div>
 					</form>
 					<br>
-					<form method="POST" action="/spring-mvc-xml/uploadFile"
-						enctype="multipart/form-data">
-						<table>
-							<tr>
-								<td><form:label path="file">Bild zum Dateiupload</form:label></td>
-								<td><input type="file" name="file" /></td>
-							</tr>
-							<tr>
-								<td><input type="submit" value="Bestätigen" /></td>
-							</tr>
-						</table>
-					</form>
+					<div>
+						<form method="POST" enctype="multipart/form-data" action="/profile/update">
+							<table>
+								<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+								<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+							</table>
+						</form>
+					</div>
 				</div>
 			</div>
 			<div th:replace="fragments/general.html :: footer"></div>
