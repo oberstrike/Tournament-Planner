@@ -4,18 +4,19 @@
 <body>
 	<div class="container-fluid">
 		<div th:replace="fragments/general.html :: header"></div>
-		<div class="input-group mb-3 justify-content-end">
-			<form th:action="@{/games/search}" method="GET" class="form-inline">
-				<input type="text" name="name" class="form-control"
-					placeholder="Spiel suchen..." aria-label="Spiel suchen...">
-				<div class="input-group-append">
-					<button class="btn btn-outline-primary" type="submit">
-						<i class="fa fa-search"></i>
-					</button>
-				</div>
-			</form>
-		</div>
 		<div th:if="${games}">
+			<div class="input-group mb-3 justify-content-end">
+				<form th:action="@{/games/search}" method="GET" class="form-inline">
+					<input type="text" name="name" class="form-control"
+						placeholder="Spiel suchen..." aria-label="Spiel suchen...">
+					<div class="input-group-append">
+						<button class="btn btn-outline-primary" type="submit">
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+<!-- Suchleiste nur bei allen Spielen angezeigt, sonst hier wieder die if-Bedingung einfügen -->
 			<th:block th:switch="${#lists.size(games)}">
 				<div th:case="'0'">Keine Spiele gefunden</div>
 				<div th:case="*">
@@ -47,8 +48,8 @@
 		<div th:replace="fragments/general.html :: footer"></div>
 		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 	</div>
-	
-	
-	
+
+
+
 </body>
 </html>
