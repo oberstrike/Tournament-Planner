@@ -60,7 +60,15 @@ public class GameServiceImpl implements GameService {
 		return repo.findByType(GameType.fromLowerCase(type.toUpperCase()));
 	}
 
-	
+	@Override
+	public List<Game> findByTeamA_Players_Name(String name) {
+		return repo.findByTeamA_Players_Name(name);
+	}
+
+	@Override
+	public List<Game> findByTeamB_Players_Name(String name) {
+		return repo.findByTeamB_Players_Name(name);
+	}
 	
 	
 }

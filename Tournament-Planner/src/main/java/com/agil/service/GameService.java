@@ -23,5 +23,8 @@ public interface GameService {
 
 	public List<Game> findByType(String type);
 	
+	public List<Game> findByTeamA_Players_Name(String name);
+	
+	public List<Game> findByTeamB_Players_Name(String name);
 	
 }

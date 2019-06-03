@@ -145,8 +145,8 @@ public class MemberController {
 		return "member";
 	}
 
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-	public String submitImageUpload(@RequestParam("file") MultipartFile file, Model model) {
+	@PostMapping("/profile/upload")
+	public String imageUpload(@RequestParam("file") MultipartFile file, Model model) {
 		model.addAttribute("file", file);
 		return "fileUploadView";
 	}

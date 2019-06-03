@@ -147,7 +147,6 @@ public class GameController {
 	@GetMapping("/games/search")
 	public String getGamesByName(@RequestParam(name = "name", required = false) String name,
 			@RequestParam(name = "type", required = false) String type, Model model) {
-
 		if (name != null)
 			model.addAttribute("games",
 					gameService.findByNameIgnoreCaseContaining(name).stream().limit(10).collect(Collectors.toList()));
