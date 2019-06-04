@@ -1,5 +1,7 @@
 package com.agil.controller;
 
+import java.io.File;
+import java.security.Principal;
 import java.util.Optional;
 
 import javax.activity.InvalidActivityException;
@@ -8,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.agil.model.Member;
@@ -130,6 +133,27 @@ public class MemberController {
 
 		return "redirect:/home";
 	}
+	
+	@Value("${avatar.upload.path}")
+	private String uploadPath;
+	
+	@RequestMapping(method = { RequestMethod.POST }, value =  "/profile/upload", consumes = {"multipart/form-data"})
+	@ResponseBody
+	public String imageUpload(@Valid @RequestParam("file") MultipartFile file, Principal principal, Model model) {
+		try {
+			int length = file.getBytes().length;
+			if(length < 10000) {
+				Member member = memberService.findByUsername(principal.getName());
+				File newFile = new File(uploadPath + String.valueOf( member.getId() ));
+				newFile.createNewFile();
+				file.transferTo(newFile);
+			}
+		}catch (Exception e) {
+			
+		}
+		
+		return "redirect:/profile";
+	}
 
 	@GetMapping("/profile")
 	public String getMember(Model model) {
@@ -145,10 +169,6 @@ public class MemberController {
 		return "member";
 	}
 
-	@PostMapping("/profile/upload")
-	public String imageUpload(@RequestParam("file") MultipartFile file, Model model) {
-		model.addAttribute("file", file);
-		return "fileUploadView";
-	}
+
 
 }

@@ -28,8 +28,6 @@ public class AppConfiguration implements WebMvcConfigurer {
 
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
-//		// TODO Auto-generated method stub
-//		WebMvcConfigurer.super.addFormatters(registry);
 		registry.addConverter(new Converter<String, GameType>() {
 			@Override
 			public GameType convert(String source) {

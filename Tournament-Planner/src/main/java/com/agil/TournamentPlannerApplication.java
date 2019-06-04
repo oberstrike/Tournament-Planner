@@ -1,6 +1,7 @@
 package com.agil;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,9 @@ public class TournamentPlannerApplication extends SpringBootServletInitializer{
 	CommandLineRunner init(TeamRepository teamRepository, MemberRepository memberRepository,
 			GameRepository gameRepository, PlayerRepository playerRepository) {
 		return (args) -> {
+			
+			
+			
 			// Init members
 			Member member = new Member("oberstrike", encoder.encode("mewtu123"), "markus.juergens@gmx.de");
 			Member member2 = new Member("eikorn", encoder.encode("eic123abc"), "markus.juergens@gmx.de");

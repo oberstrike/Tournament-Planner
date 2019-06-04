@@ -43,10 +43,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/game/**").permitAll()
 			.antMatchers("/team/**").permitAll()
 			.anyRequest().authenticated()
-				.and().formLogin().loginPage("/login").permitAll()
-				.and().logout()
-			.logoutSuccessUrl("/login").permitAll()
-				.and().exceptionHandling().accessDeniedPage("/403");
+			.and()
+				.formLogin().loginPage("/login").permitAll()
+			.and()
+				.logout().logoutSuccessUrl("/login").permitAll()
+			.and()
+				.exceptionHandling().accessDeniedPage("/403")
+			.and()
+				.csrf().disable();
 	}
 
 	@Bean

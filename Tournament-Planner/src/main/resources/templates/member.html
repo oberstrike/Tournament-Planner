@@ -82,12 +82,10 @@
 						</div>
 					</form>
 					<br>
-					<div>
-						<form method="POST" enctype="multipart/form-data" action="/profile/update">
-							<table>
-								<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-								<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-							</table>
+					<div class="container"> 
+						<form method="POST" enctype="multipart/form-data" action="/profile/upload">
+								<input type="file" name="file" id="name"/>
+								<input type="submit" value="Hochladen">
 						</form>
 					</div>
 				</div>
