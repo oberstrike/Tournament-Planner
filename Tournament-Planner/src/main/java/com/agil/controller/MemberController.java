@@ -147,6 +147,7 @@ public class MemberController {
 				File newFile = new File(uploadPath + String.valueOf( member.getId() ) + ".jpeg");
 				newFile.createNewFile();
 				file.transferTo(newFile);
+				memberService.save(member);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

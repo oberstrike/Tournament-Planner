@@ -43,6 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/game/**").permitAll()
 			.antMatchers("/team/**").permitAll()
+			.antMatchers("/avatar/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 				.formLogin().loginPage("/login").permitAll()
