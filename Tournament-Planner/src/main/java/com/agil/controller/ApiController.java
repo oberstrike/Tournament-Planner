@@ -64,9 +64,7 @@ public class ApiController {
 			gameA.addAll(gameB);
 			return gameA.stream().sorted().map(GameDTO::new).collect(Collectors.toList());
 		
-		}
-		
-		
+		}		
 		return gameService.getAll().stream().map(GameDTO::new).collect(Collectors.toList());
 	}	
 	

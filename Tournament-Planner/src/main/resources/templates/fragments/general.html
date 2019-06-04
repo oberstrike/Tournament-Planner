@@ -75,7 +75,9 @@
 				<th:block sec:authorize="isAuthenticated()">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<img src="/avatar/{id}.jpeg" height="50px" weight="50px"/> 
+							<div class="avatar">
+						
+							</div>
 						</li>
 						<li class="nav-item"><a class="nav-link active"
 							href="/profile"><span sec:authentication="name"></span></a>
@@ -149,6 +151,15 @@
 						$(".nSpiel").html("Nächstes Spiel startet: " + date.toString())
 					}
 				})
+				
+				$.get("/api/id").done( function(data) {
+					var img = $('<img id="dynamic">');
+					img.attr("src", "/avatar/" + data + ".jpeg");
+					img.attr("height", "50px");
+					img.attr("width", "50px");
+					img.appendTo(".avatar");
+				})
+				
 			})
 		</script>
 		
