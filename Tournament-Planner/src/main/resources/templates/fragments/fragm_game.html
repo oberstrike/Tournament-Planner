@@ -86,7 +86,7 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 		<div class="d-none d-md-block col-md-1" th:text="${game.getId()}"></div>
 		<div class="d-none d-md-block col-md-1 enum" th:text="${game.getType().getDescription()}"></div>
 		<div class="col-3 col-md-3"><a class="text-dark" th:href="@{'/game?id=' + ${game.id}}" th:text="${game.name}"></a></div>
-		<div class="col-3 col-md-2"><a class="text-dark" th:href="@{'/game?id=' + ${game.id}}" th:text="${game.startDate}"></a></div>
+		<div class="col-3 col-md-2"><a class="text-dark" th:href="@{'/game?id=' + ${game.id}}" th:text="${#dates.format(game.startDate, 'dd.MM.yyyy HH:mm') }"></a></div>
 		<div class="col-3 col-md-2"><a class="text-dark" th:href="@{'/team?id=' + ${game.getTeamA().getId()}}" th:text="${game.getTeamA().getName()}"></a></div>
 		<div class="col-3 col-md-2"><a class="text-dark" th:href="@{'/team?id=' + ${game.getTeamB().getId()}}" th:text="${game.getTeamB().getName()}"></a></div>
 		<div class="d-none d-md-block col-md-1 enum" th:text="${game.getStatus().getDescription()}"></div>
