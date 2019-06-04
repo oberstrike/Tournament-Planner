@@ -24,16 +24,7 @@ public class AppConfiguration implements WebMvcConfigurer {
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
 		registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img/");
-	}
-
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		registry.addConverter(new Converter<String, GameType>() {
-			@Override
-			public GameType convert(String source) {
-				return GameType.fromLowerCase(source);
-			}
-		});
+		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
 	}
 
 	@Bean
