@@ -33,7 +33,7 @@ public class MainController {
 		GameType[] types = GameType.values();
 		String[] sArray = new String[types.length];
 		for (int i = 0; i < types.length; i++) {
-			sArray[i] = types[i].toReadeable();
+			sArray[i] = types[i].getDescription();
 		}
 
 		if (type != null) {

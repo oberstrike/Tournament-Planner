@@ -27,18 +27,6 @@ public class AppConfiguration implements WebMvcConfigurer {
 		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
 	}
 
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-//		// TODO Auto-generated method stub
-//		WebMvcConfigurer.super.addFormatters(registry);
-		registry.addConverter(new Converter<String, GameType>() {
-			@Override
-			public GameType convert(String source) {
-				return GameType.fromLowerCase(source);
-			}
-		});
-	}
-
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();

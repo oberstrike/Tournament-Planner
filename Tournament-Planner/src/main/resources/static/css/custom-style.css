@@ -1,0 +1,77 @@
+.enum {
+	text-transform: capitalize;
+}
+
+@media only screen {
+	.txt {
+		font-size: 1em;
+	}
+	.txt-small {
+		font-size: 0.5em;
+	}
+}
+
+@media only screen and (min-width: 576px) {
+	.txt {
+		font-size: 2em;
+	}
+	.txt-small {
+		font-size: 1em;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.txt {
+		font-size: 3em;
+	}
+	.txt-small {
+		font-size: 1.5em;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	.txt {
+		font-size: 4em;
+	}
+	.txt-small {
+		font-size: 2em;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.txt {
+		font-size: 5em;
+	}
+	.txt-small {
+		font-size: 2.5em;
+	}
+}
+/*@media only screen {
+	[class*="col-"] {
+		font-size: 2em;
+	}	
+}
+
+@media only screen and (min-width: 576px) {
+	[class*="col-sm-"] {
+		font-size: 2em;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	[class*="col-md-"] {
+		font-size: 3em;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	[class*="col-lg-"] {
+		font-size: 4em;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	[class*="col-xl-"] {
+		font-size: 5em;
+	}
+}*/

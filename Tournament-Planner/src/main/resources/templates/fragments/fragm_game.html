@@ -9,19 +9,19 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
   document.getElementById('my-paragraph').setAttribute('style', 'display: none');
 }); -->
 
-<div th:fragment="showGame(game)">
+<div th:fragment="showGameOld(game)">
 	<div class="container">
 		<table class="table table-borderless">
 			<tbody>
 				<tr scope="row">
-					<td scope="col" th:text="${game.name}"></td>
+					<td scope="col" th:text="${game.getName()}"></td>
 					<td scope="col" rowspan="2"><a
 						th:href="'https://wa.me/?text=Schau%20dir%20das%20Spiel%20' + ${game.getTeamA().getName()} + '%20gegen%20' + ${game.getTeamB().getName()} + '%20im%20Liveticker%20an%3A%0A' + ${#httpServletRequest.requestURL} + '?id=' + ${game.id}"
 						target="_blank"><i
 							class="fa fa-whatsapp bg-success text-white btn-lg"></i></a></td>
 				</tr>
 				<tr scope="row">
-					<td scope="col" th:text="${game.startDate}"></td>
+					<td scope="col" th:text="${game.getStartDate()}"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -82,31 +82,43 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 </div>
 
 <div th:fragment="showGames(game)">
+	<div class="row">
+		<div class="d-none d-md-block col-md-1" th:text="${game.getId()}"></div>
+		<div class="d-none d-md-block col-md-1 enum" th:text="${game.getType().getDescription()}"></div>
+		<div class="col-3 col-md-3"><a class="text-dark" th:href="@{'/game?id=' + ${game.id}}" th:text="${game.name}"></a></div>
+		<div class="col-3 col-md-2"><a class="text-dark" th:href="@{'/game?id=' + ${game.id}}" th:text="${game.startDate}"></a></div>
+		<div class="col-3 col-md-2"><a class="text-dark" th:href="@{'/team?id=' + ${game.getTeamA().getId()}}" th:text="${game.getTeamA().getName()}"></a></div>
+		<div class="col-3 col-md-2"><a class="text-dark" th:href="@{'/team?id=' + ${game.getTeamB().getId()}}" th:text="${game.getTeamB().getName()}"></a></div>
+		<div class="d-none d-md-block col-md-1 enum" th:text="${game.getStatus().getDescription()}"></div>
+	</div>
+	<!-- 	<div class="d-lg-none">hide on screens wider than lg</div>
+			<div class="d-none d-lg-block">hide on screens smaller than lg</div> -->
+	<!-- 
 	<tr scope="row">
-		<td scope="col" th:text="${game.id}"></td>
-		<td scope="col" th:text="${game.type}"></td>
-		<td scope="col"><a class="text-dark"
+		<td class="col" scope="col" th:text="${game.id}"></td>
+		<td class="col" scope="col" th:text="${game.type}"></td>
+		<td class="col" scope="col"><a class="text-dark"
 			th:href="@{'/game?id=' + ${game.id}}" th:text="${game.name}"></a></td>
-		<td scope="col"><a class="text-dark"
+		<td class="col" scope="col"><a class="text-dark"
 			th:href="@{'/game?id=' + ${game.id}}" th:text="${game.startDate}"></a></td>
-		<td scope="col"><a class="text-dark"
+		<td class="col" scope="col"><a class="text-dark"
 			th:href="@{'/team?id=' + ${game.getTeamA().getId()}}"
 			th:text="${game.getTeamA().getName()}"></a></td>
-		<td scope="col"><a class="text-dark"
+		<td class="col" scope="col"><a class="text-dark"
 			th:href="@{'/team?id=' + ${game.getTeamB().getId()}}"
 			th:text="${game.getTeamB().getName()}"></a></td>
-		<td scope="col"><a class="text-dark"
+		<td class="col" scope="col"><a class="text-dark"
 			th:text="${game.getStatus().toString()}"><a></td>
-	</tr>
+	</tr> -->
 </div>
 
 <!-- NEW -->
 
-<div th:fragment="showGame2(game)">
+<div th:fragment="showGame(game)">
 	<div class="container">
 		<div class="row">
-			<div class="col-10" th:text="${game.name}"></div>
-			<div class="col-2">
+			<div class="col-10 txt-small" th:text="${game.name}"></div>
+			<div class="col-2 txt-small">
 				<a
 					th:href="'https://wa.me/?text=Schau%20dir%20das%20Spiel%20' + ${game.getTeamA().getName()} + '%20gegen%20' + ${game.getTeamB().getName()} + '%20im%20Liveticker%20an%3A%0A' + ${#httpServletRequest.requestURL} + '?id=' + ${game.id}"
 					target="_blank"><i
@@ -114,7 +126,7 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-12" th:text="'Spielbeginn: ' + ${game.startDate}">Datum</div>
+			<div class="col-12 txt" th:text="'Spielbeginn: ' + ${game.startDate}">Datum</div>
 		</div>
 		<div class="row">
 			<!-- Mobile -->
@@ -128,10 +140,10 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 				th:style="'background-color: ' + ${game.getTeamA().getTeamcolor()} + ';'">
 			</div>
 			<!-- Name -->
-			<div class="col-md-5 col-6 text-left"
+			<div class="col-md-5 col-6 text-left txt"
 				th:text="${game.getTeamA().getName()}"></div>
 			<!-- Name -->
-			<div class="col-md-5 col-6 text-right"
+			<div class="col-md-5 col-6 text-right txt"
 				th:text="${game.getTeamB().getName()}"></div>
 			<!-- Desktop -->
 			<div class="col-md-1 d-none d-md-block"
@@ -139,18 +151,15 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-6" th:text="${game.getSetsA()}"></div>
-			<div class="col-6" th:text="${game.getSetsB()}"></div>
+			<div class="col-6 txt text-right" th:text="${game.getSetsA()}"></div>
+			<div class="col-6 txt text-left" th:text="${game.getSetsB()}"></div>
 		</div>
 		<div class="row">
-			<div class="col-6 my_font_default" th:text="${game.getPointsA()}"></div>
-			<div class="col-6 my_font_default" th:text="${game.getPointsB()}"></div>
+			<div class="col-6 txt text-center" th:text="${game.getPointsA()}"></div>
+			<div class="col-6 txt text-center" th:text="${game.getPointsB()}"></div>
 		</div>
 		<div class="row">
-			<!-- Complete Score -->
-			<th:block th:each="set : ${game.getCompleteScore()}">
-				<div class="col-12 col-md-auto text-center" th:text="${set}"></div>
-			</th:block>
+				<div class="col-12 text-center txt-small" th:text="${game.getCompleteScore()}"></div>
 		</div>
 		<div class="row" th:if="${isCreator}">
 			<div class="col-3">

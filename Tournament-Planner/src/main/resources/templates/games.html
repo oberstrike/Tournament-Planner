@@ -20,30 +20,23 @@
 			<th:block th:switch="${#lists.size(games)}">
 				<div th:case="'0'">Keine Spiele gefunden</div>
 				<div th:case="*">
-					<table class="table">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">Sportart</th>
-								<th scope="col">Spielname</th>
-								<th scope="col">Datum</th>
-								<th scope="col">Heim</th>
-								<th scope="col">Gast</th>
-								<th scope="col">Status</th>
-							</tr>
-						</thead>
-						<tbody>
-							<th:block th:each="game: ${games}">
-								<th:block
-									th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
-							</th:block>
-						</tbody>
-					</table>
+					<div class="row">
+						<div class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">ID</div>
+						<div class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Sportart</div>
+						<div class="col-3 col-md-3 border-bottom bg-dark text-white">Spielname</div>
+						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Datum</div>
+						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Heim</div>
+						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Gast</div>
+						<div class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Status</div>
+					</div>
+					<th:block th:each="game: ${games}">
+						<th:block th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
+					</th:block>
 				</div>
 			</th:block>
 		</div>
 		<div th:if="${gameForm}">
-			<th:block th:replace="fragments/fragm_game :: showGame2(${gameForm})"></th:block>
+			<th:block th:replace="fragments/fragm_game :: showGame(${gameForm})"></th:block>
 		</div>
 		<div th:replace="fragments/general.html :: footer"></div>
 		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
