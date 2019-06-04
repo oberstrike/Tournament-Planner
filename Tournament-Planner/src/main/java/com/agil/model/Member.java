@@ -43,6 +43,8 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
+	private boolean avatar;
 
 	@ElementCollection(targetClass = MemberRole.class)
 	@JoinTable(name = "memberRoles", joinColumns = @JoinColumn(name = "id"))
@@ -176,5 +178,15 @@ public class Member {
 			return;
 		this.teams.add(team);
 	}
+
+	public boolean isAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(boolean hasAvatar) {
+		this.avatar = hasAvatar;
+	}
+	
+
 
 }

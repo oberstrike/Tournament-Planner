@@ -137,19 +137,19 @@ public class MemberController {
 	@Value("${avatar.upload.path}")
 	private String uploadPath;
 	
-	@RequestMapping(method = { RequestMethod.POST }, value =  "/profile/upload", consumes = {"multipart/form-data"})
-	@ResponseBody
+	@PostMapping(value =  "/profile/upload", consumes = {"multipart/form-data"})
 	public String imageUpload(@Valid @RequestParam("file") MultipartFile file, Principal principal, Model model) {
 		try {
 			int length = file.getBytes().length;
-			if(length < 10000) {
+			if(length < 80000) {
 				Member member = memberService.findByUsername(principal.getName());
-				File newFile = new File(uploadPath + String.valueOf( member.getId() ));
+				member.setAvatar(true);
+				File newFile = new File(uploadPath + String.valueOf( member.getId() ) + ".jpeg");
 				newFile.createNewFile();
 				file.transferTo(newFile);
 			}
 		}catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 		
 		return "redirect:/profile";

@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.vote.AuthenticatedVoter;
+import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agil.dto.GameDTO;
 import com.agil.dto.TeamDTO;
 import com.agil.model.Game;
+import com.agil.model.Member;
 import com.agil.model.Team;
 import com.agil.service.GameService;
+import com.agil.service.MemberService;
 import com.agil.service.TeamService;
 import com.agil.utility.GameType;
 
@@ -31,6 +35,9 @@ public class ApiController {
 	@Autowired
 	private TeamService teamService;
 
+	@Autowired
+	private MemberService memberService;
+	
 	@GetMapping("/api/gametypes")
 	public List<GameType> getTypes() {
 		return Arrays.asList(GameType.values());
@@ -67,5 +74,14 @@ public class ApiController {
 	public long getDate() {
 		return System.currentTimeMillis();
 	}
-
+	@GetMapping("/api/id")
+	public long getMyId(Principal principal)
+	{
+		if(principal == null)
+			return 0;
+		Member member = memberService.findByUsername(principal.getName());
+		if(member.isAvatar())
+			return member.getId();
+		return 0;
+	}
 }
