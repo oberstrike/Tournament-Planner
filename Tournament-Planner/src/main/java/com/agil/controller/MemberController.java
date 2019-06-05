@@ -144,9 +144,11 @@ public class MemberController {
 			if(length < 80000) {
 				Member member = memberService.findByUsername(principal.getName());
 				member.setAvatar(true);
-				File newFile = new File(uploadPath + String.valueOf( member.getId() ) + ".jpeg");
-				newFile.createNewFile();
-				file.transferTo(newFile);
+				//Alte Methode:
+				//File newFile = new File(uploadPath + String.valueOf( member.getId() ) + ".jpeg");
+				//newFile.createNewFile();
+				//file.transferTo(newFile);
+				member.setAvatarFile(file.getBytes());
 				memberService.save(member);
 			}
 		}catch (Exception e) {

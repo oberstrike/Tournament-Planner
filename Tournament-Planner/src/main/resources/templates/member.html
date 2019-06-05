@@ -12,18 +12,19 @@
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">ID</th>
+								<th scope="col">Bild</th>
 								<th scope="col">Username</th>
 								<th scope="col">Teams</th>
 								<th scope="col">Spiele</th>
 								<th scope="col">Verbundener Spielername</th>
 								<th scope="col" th:if=${isCreator}>Passwort</th>
 								<th scope="col" th:if="${isCreator}">E-Mail</th>
-								<th scope="col">Bild</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td th:text="${memberForm.id}"></td>
+								<td class="memberAvatar"></td>
 								<td th:text="${memberForm.username}"></td>
 								<td th:if="${memberForm.player.teams}">
 									<div th:each="team: ${memberForm.player.teams}">
@@ -44,13 +45,6 @@
 								<td th:if="${isCreator}">
 									<div th:text="${memberForm.email}"></div>
 								</td>
-
-
-								<!-- <td th:if="${memberForm.}"> <form action='' method='Post' enctype='multipart/form-data'>
-						Bild einfügen: <input type='file' name='bild'> <input type='submit' name='upload' value='hochladen'>
-						</form>
-						 </td>
-						 -->
 							</tr>
 						</tbody>
 					</table>
@@ -93,5 +87,20 @@
 			<div th:replace="fragments/general.html :: footer"></div>
 			<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 		</div>
+					<script th:inline="javascript">
+					$(document).ready(function() {
+						var member = /*[[${memberForm.id}]]*/ 0;
+						var hasAvatar = /*[[${memberForm.avatar}]]*/ false;	
+						if(hasAvatar){
+							var img = $('<img id="dynamic">');
+							img.attr("src", "/avatar/" + member + ".jpg");
+							img.attr("height", "50px");
+							img.attr("width", "50px");
+							$(".memberAvatar").append(img);
+						}
+					});
+			
+			</script>
+		
 </body>
 </html>

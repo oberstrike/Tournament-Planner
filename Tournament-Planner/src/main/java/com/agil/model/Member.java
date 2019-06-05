@@ -45,6 +45,9 @@ public class Member {
 	private long id;
 	
 	private boolean avatar;
+	
+	//Profilbild
+	private byte[] avatarFile;
 
 	@ElementCollection(targetClass = MemberRole.class)
 	@JoinTable(name = "memberRoles", joinColumns = @JoinColumn(name = "id"))
@@ -185,6 +188,14 @@ public class Member {
 
 	public void setAvatar(boolean hasAvatar) {
 		this.avatar = hasAvatar;
+	}
+
+	public byte[] getAvatarFile() {
+		return avatarFile;
+	}
+
+	public void setAvatarFile(byte[] avatarFile) {
+		this.avatarFile = avatarFile;
 	}
 	
 

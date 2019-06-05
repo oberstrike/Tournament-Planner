@@ -156,11 +156,17 @@
 				})
 				
 				$.get("/api/id").done( function(data) {
-					var img = $('<img id="dynamic">');
-					img.attr("src", "/avatar/" + data + ".jpeg");
-					img.attr("height", "50px");
-					img.attr("width", "50px");
-					img.appendTo(".avatar");
+					if(data != 0){
+						
+						var img = $('<img id="dynamic">');
+						img.attr("src", "/avatar/" + data);
+						img.attr("height", "50px");
+						img.attr("width", "50px");
+						img.appendTo(".avatar");
+						
+					}
+						
+				
 				})
 				
 			})
