@@ -18,9 +18,11 @@
 									name="name" placeholder="Teamname"></li>
 								<li><input class="form-control jscolor" name="teamcolor"
 									value="FFFFFF"></li>
+								<p style="margin-bottom: 5px">
 								<li><button type="submit" class="btn btn-primary"
 										value="Team erstellen">Team erstellen</button></li>
 							</ul>
+							<br>
 						</form>
 					</th:block>
 					<th:block th:if="${teamForm}">
@@ -105,7 +107,8 @@
 				<div th:case="*">
 					<th:block th:each="team: ${teams}">
 						<div th:text="${team.id}"
-							th:style="'background-color: ' + ${team.getTeamcolor()} + ';'"></div>
+							th:style="'background-color: ' + ${team.getTeamcolor()} + ';'"
+							class=text-white></div>
 						<a th:href="@{'/team?id=' + ${team.id}}" th:text="${team.name}"
 							class="container"></a>
 						<div th:each="player : ${players}" th:value="${player}"></div>
