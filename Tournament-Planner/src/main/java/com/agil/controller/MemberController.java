@@ -1,8 +1,9 @@
 package com.agil.controller;
 
-import java.io.File;
 import java.security.Principal;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.activity.InvalidActivityException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.agil.model.Member;
@@ -138,17 +138,34 @@ public class MemberController {
 	private String uploadPath;
 	
 	@PostMapping(value =  "/profile/upload", consumes = {"multipart/form-data"})
-	public String imageUpload(@Valid @RequestParam("file") MultipartFile file, Principal principal, Model model) {
+	public String imageUpload( @RequestParam(value="avatar", required=true) MultipartFile avatar, Principal principal, Model model) {
 		try {
-			int length = file.getBytes().length;
-			if(length < 80000) {
+			if(avatar == null)
+				return "redirect:/profile?error";
+			
+			int length = avatar.getBytes().length;
+			if(avatar.getName() == "")
+				return "redirect:/profile?error";
+
+			Pattern p = Pattern.compile("([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)");
+			
+			String name = avatar.getOriginalFilename();
+			Matcher m = p.matcher(name);
+			boolean found = m.matches();
+			
+			if(!found) {
+				return "redirect:/profile?error";
+			}
+	
+			if(length < 200000) {
 				Member member = memberService.findByUsername(principal.getName());
 				member.setAvatar(true);
 				//Alte Methode:
 				//File newFile = new File(uploadPath + String.valueOf( member.getId() ) + ".jpeg");
 				//newFile.createNewFile();
 				//file.transferTo(newFile);
-				member.setAvatarFile(file.getBytes());
+				//Ende
+				member.setAvatarFile(avatar.getBytes());
 				memberService.save(member);
 			}
 		}catch (Exception e) {

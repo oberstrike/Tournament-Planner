@@ -76,31 +76,40 @@
 						</div>
 					</form>
 					<br>
-					<div class="container"> 
-						<form method="POST" enctype="multipart/form-data" action="/profile/upload">
-								<input type="file" name="file" id="name"/>
-								<input type="submit" value="Hochladen">
-						</form>
-					</div>
 				</div>
 			</div>
+			<div class="container">
+				<div th:if="${param.error}"
+					class="container text-danger text-center">Das Bild ist in
+					einem falschen Format.</div>
+				<form th:action="@{/profile/upload}" enctype="multipart/form-data"
+					method="POST">
+					<table>
+						<tr>
+							<th><label for="avatar">Profilbild:</label></th>
+							<td><input name="avatar" type="file"></td>
+						</tr>
+					</table>
+					<input type="submit" value="Import Application Data">
+
+				</form>
+			</div>
+
 			<div th:replace="fragments/general.html :: footer"></div>
 			<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 		</div>
-					<script th:inline="javascript">
-					$(document).ready(function() {
-						var member = /*[[${memberForm.id}]]*/ 0;
-						var hasAvatar = /*[[${memberForm.avatar}]]*/ false;	
-						if(hasAvatar){
-							var img = $('<img id="dynamic">');
-							img.attr("src", "/avatar/" + member + ".jpg");
-							img.attr("height", "50px");
-							img.attr("width", "50px");
-							$(".memberAvatar").append(img);
-						}
-					});
-			
-			</script>
-		
+		<script th:inline="javascript">
+			$(document).ready(function() {
+				var member = /*[[${memberForm.id}]]*/0;
+				var hasAvatar = /*[[${memberForm.avatar}]]*/false;
+				if (hasAvatar) {
+					var img = $('<img id="dynamic">');
+					img.attr("src", "/avatar/" + member + ".jpg");
+					img.attr("height", "50px");
+					img.attr("width", "50px");
+					$(".memberAvatar").append(img);
+				}
+			});
+		</script>
 </body>
 </html>
