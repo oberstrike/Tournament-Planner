@@ -55,6 +55,8 @@ public class ApiController {
 	
 	@GetMapping("/api/nextgame")
 	public String getNextGame(Principal principal) {
+		if(principal == null)
+			return "";
 		List<Game> gameA = gameService.findByTeamA_Players_Name(principal.getName());
 		List<Game> gameB = gameService.findByTeamB_Players_Name(principal.getName());
 		gameA.addAll(gameB);

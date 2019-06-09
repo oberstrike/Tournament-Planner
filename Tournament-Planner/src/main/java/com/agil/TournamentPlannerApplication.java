@@ -18,12 +18,14 @@ import com.agil.model.Game;
 import com.agil.model.Member;
 import com.agil.model.Player;
 import com.agil.model.Team;
+import com.agil.model.game.LeagueOfLegends;
 import com.agil.model.game.Volleyball;
 import com.agil.repo.GameRepository;
 import com.agil.repo.MemberRepository;
 import com.agil.repo.PlayerRepository;
 import com.agil.repo.TeamRepository;
 import com.agil.utility.GameStatus;
+import com.agil.utility.GameType;
 
 @SpringBootApplication
 public class TournamentPlannerApplication extends SpringBootServletInitializer{
@@ -90,10 +92,17 @@ public class TournamentPlannerApplication extends SpringBootServletInitializer{
 			game2.setTeamA(team);
 			game2.setTeamB(team2);
 			game2.setCreator(member);
+			
+			Game game3 = new LeagueOfLegends(GameStatus.PENDING, GameType.LEAGUEOFLEGENDS, new Date(System.currentTimeMillis() + 5000));
+			game3.setTeamA(team);
+			game3.setTeamB(team2);
+			game3.setCreator(member);
+			game3.setName("Game3");
 
 			// Save All
 			gameRepository.save(game);
 			gameRepository.save(game2);
+			gameRepository.save(game3);
 			teamRepository.save(team);
 			teamRepository.save(team2);
 			memberRepository.save(member);

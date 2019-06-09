@@ -84,12 +84,28 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 <div th:fragment="showGames(game)">
 	<div class="row">
 		<div class="d-none d-md-block col-md-1" th:text="${game.getId()}"></div>
-		<div class="d-none d-md-block col-md-1 enum" th:text="${game.getType().getDescription()}"></div>
-		<div class="col-3 col-md-3"><a class="text-dark" th:href="@{'/game?id=' + ${game.id}}" th:text="${game.name}"></a></div>
-		<div class="col-3 col-md-2"><a class="text-dark" th:href="@{'/game?id=' + ${game.id}}" th:text="${#dates.format(game.startDate, 'dd.MM.yyyy HH:mm') }"></a></div>
-		<div class="col-3 col-md-2"><a class="text-dark" th:href="@{'/team?id=' + ${game.getTeamA().getId()}}" th:text="${game.getTeamA().getName()}"></a></div>
-		<div class="col-3 col-md-2"><a class="text-dark" th:href="@{'/team?id=' + ${game.getTeamB().getId()}}" th:text="${game.getTeamB().getName()}"></a></div>
-		<div class="d-none d-md-block col-md-1 enum" th:text="${game.getStatus().getDescription()}"></div>
+		<div class="d-none d-md-block col-md-1 enum"
+			th:text="${game.getType().getDescription()}"></div>
+		<div class="col-3 col-md-3">
+			<a class="text-dark" th:href="@{'/game?id=' + ${game.id}}"
+				th:text="${game.name}"></a>
+		</div>
+		<div class="col-3 col-md-2">
+			<a class="text-dark" th:href="@{'/game?id=' + ${game.id}}"
+				th:text="${#dates.format(game.startDate, 'dd.MM.yyyy HH:mm') }"></a>
+		</div>
+		<div class="col-3 col-md-2">
+			<a class="text-dark"
+				th:href="@{'/team?id=' + ${game.getTeamA().getId()}}"
+				th:text="${game.getTeamA().getName()}"></a>
+		</div>
+		<div class="col-3 col-md-2">
+			<a class="text-dark"
+				th:href="@{'/team?id=' + ${game.getTeamB().getId()}}"
+				th:text="${game.getTeamB().getName()}"></a>
+		</div>
+		<div class="d-none d-md-block col-md-1 enum"
+			th:text="${game.getStatus().getDescription()}"></div>
 	</div>
 	<!-- 	<div class="d-lg-none">hide on screens wider than lg</div>
 			<div class="d-none d-lg-block">hide on screens smaller than lg</div> -->
@@ -114,7 +130,7 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 
 <!-- NEW -->
 
-<div th:fragment="showGame(game)">
+<div th:fragment="showGame(game, isCreator)">
 	<div class="container">
 		<div class="row">
 			<div class="col-10 txt-small" th:text="${game.name}"></div>
@@ -159,7 +175,8 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 			<div class="col-6 txt text-center" th:text="${game.getPointsB()}"></div>
 		</div>
 		<div class="row">
-				<div class="col-12 text-center txt-small" th:text="${game.getCompleteScore()}"></div>
+			<div class="col-12 text-center txt-small"
+				th:text="${game.getCompleteScore()}"></div>
 		</div>
 		<div class="row" th:if="${isCreator}">
 			<div class="col-3">
@@ -192,8 +209,35 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-12">META</div> <!-- wie bspw. creator, status etc. (siehe Notizen von Jasper) -->
+			<div class="col-12">META</div>
+			<!-- wie bspw. creator, status etc. (siehe Notizen von Jasper) -->
 		</div>
 	</div>
+</div>
 
+<div th:fragment="showLeague(gameForm, isCreator)">
+	<div class="container">
+		<div class="row">
+			<div class="col-6 txt text-left"
+				th:text="${gameForm.getTeamA().getName()}">Das ist Team A</div>
+			<div class="col-6 txt text-right"
+				th:text="${gameForm.getTeamB().getName()}">Das ist Team B</div>
+		</div>
+		<div class="row">
+			<div class="col-6 txt text-center"
+				th:text="${gameForm.killsTeamA + ':' + gameForm.killsTeamB}">10:3</div>
+		</div>
+		<div class="row" th:if="${isCreator}">
+			<form th:action="@{/change/Leagueoflegends}" method="Post">
+				<input type="hidden" name="id" th:value="${game.getId()}"> <label
+					for="teamA">Punktestand f&uuml;r Team A</label> <input
+					type="number" id="teamA" name="teamA"><br> <label
+					for="teamN">Punktestand f&uuml;r Team B</label><input type="number"
+					id="teamB" name="teamB">
+				<div class="container">
+					<button type="submit" class="btn btn-primary">Updaten</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>

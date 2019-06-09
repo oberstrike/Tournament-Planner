@@ -54,7 +54,6 @@ public class GameController {
 	public String addGame(@Valid @ModelAttribute("gameForm") Game gameForm, BindingResult bindingResult,
 			Principal principal) {
 		gameValidator.validate(gameForm, bindingResult);
-		System.out.println(bindingResult);
 		if (bindingResult.hasErrors())
 			return "/game";
 		String username = principal.getName();
@@ -106,6 +105,16 @@ public class GameController {
 		return "redirect:/game?id=" + volleyballForm.getId();
 	}
 
+	@PostMapping("change/Leagueoflegends")
+	public String changeLeagueOfLegends(@RequestParam(name = "id", required = true) long id, @RequestParam(name = "teamA", required = false) long teamA, @RequestParam(name = "teamB", required = false) long teamB) {
+		LeagueOfLegends leagueOfLegends = (LeagueOfLegends) gameService.findOne(id).orElseThrow(GameNotFoundException::new);
+		leagueOfLegends.setKillsTeamA(teamA);
+		leagueOfLegends.setKillsTeamB(teamB);
+		gameService.save(leagueOfLegends);
+		
+		return "redirect:/game?id=" + id;
+	}
+	
 	@PostMapping("/change/Volleyball")
 	public String changeVolleyballGame(@RequestParam(name = "id", required = true) String id,
 			@RequestParam(name = "optionID", required = true) int optionID) {

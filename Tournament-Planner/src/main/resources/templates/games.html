@@ -16,18 +16,21 @@
 					</div>
 				</form>
 			</div>
-<!-- Suchleiste nur bei allen Spielen angezeigt, sonst hier wieder die if-Bedingung einfügen -->
+			<!-- Suchleiste nur bei allen Spielen angezeigt, sonst hier wieder die if-Bedingung einfügen -->
 			<th:block th:switch="${#lists.size(games)}">
 				<div th:case="'0'">Keine Spiele gefunden</div>
 				<div th:case="*">
 					<div class="row">
-						<div class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">ID</div>
-						<div class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Sportart</div>
+						<div
+							class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">ID</div>
+						<div
+							class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Sportart</div>
 						<div class="col-3 col-md-3 border-bottom bg-dark text-white">Spielname</div>
 						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Datum</div>
 						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Heim</div>
 						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Gast</div>
-						<div class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Status</div>
+						<div
+							class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Status</div>
 					</div>
 					<th:block th:each="game: ${games}">
 						<th:block th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
@@ -36,7 +39,14 @@
 			</th:block>
 		</div>
 		<div th:if="${gameForm}">
-			<th:block th:replace="fragments/fragm_game :: showGame(${gameForm})"></th:block>
+			<div th:value="${gameForm.type.toString()}"></div>
+			<th:block th:switch="${gameForm.type.toString()}">
+				<div th:case="'VOLLEYBALL'"><th:block  th:replace="fragments/fragm_game :: showGame(${gameForm}, ${isCreator})" > </th:block></div> 
+				<div th:case='*'>
+					<div th:replace="fragments/fragm_game::showLeague(gameForm = ${gameForm}, isCreator=${isCreator})"></div>
+				</div>
+
+			</th:block>
 		</div>
 		<div th:replace="fragments/general.html :: footer"></div>
 		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
