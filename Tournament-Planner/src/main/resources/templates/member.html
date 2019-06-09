@@ -52,6 +52,11 @@
 				<div th:if="${isCreator}" class="container">
 					<form th:action="@{/member/update}" method="POST"
 						th:object="${passwordChange}">
+						<ul th:if="${#fields.hasErrors('*')}"
+							class="list-unstyled text-center border border-danger rounded-lg">
+							<li th:each="err : ${#fields.errors('*')}" th:text="${err}"
+								class="" />
+						</ul>
 						<div class="form-group">
 							<h2>Passwort &auml;ndern</h2>
 						</div>
@@ -72,7 +77,7 @@
 								placeholder="Passwort Best&auml;tigung" />
 						</div>
 						<div class="form-group">
-							<button type="submit" class="btn btn-primary">&Auml;ndern</button>
+							<button disabled id="change" type="submit" class="btn btn-primary">&Auml;ndern</button>
 						</div>
 					</form>
 					<br>
@@ -90,7 +95,7 @@
 							<td><input name="avatar" type="file"></td>
 						</tr>
 					</table>
-					<input type="submit" value="Import Application Data">
+					<input type="submit" value="Hochladen">
 
 				</form>
 			</div>
@@ -109,6 +114,14 @@
 					img.attr("width", "50px");
 					$(".memberAvatar").append(img);
 				}
+				$("#confirmPassword").keyup(function(){
+					if( $("#password").val() == $("#confirmPassword").val()){
+						$("#change").attr("disabled", false)
+					}else{
+						$("#change").attr("disabled", true)
+					}
+					
+				})
 			});
 		</script>
 </body>

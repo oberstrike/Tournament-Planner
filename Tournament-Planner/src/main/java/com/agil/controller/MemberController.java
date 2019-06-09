@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.agil.model.Member;
 import com.agil.model.PasswordChange;
@@ -36,30 +37,25 @@ import com.agil.service.PlayerService;
 import com.agil.service.SecurityService;
 import com.agil.service.SecurityServiceImpl;
 import com.agil.utility.MemberValidator;
+import com.agil.utility.PasswordChangeValidator;
 
 @Controller
 public class MemberController {
 
 	@Autowired
-	private final MemberService memberService;
+	private MemberService memberService;
 
 	@Autowired
-	private final PlayerService playerService;
+	private PlayerService playerService;
 
 	@Autowired
-	private final SecurityService securityService;
+	private SecurityService securityService;
 
 	@Autowired
-	private final MemberValidator memberValidator;
+	private MemberValidator memberValidator;
 
-	public MemberController(MemberServiceImpl memberService, SecurityServiceImpl securityService,
-			MemberValidator memberValidator, PlayerService playerService) {
-		super();
-		this.memberService = memberService;
-		this.securityService = securityService;
-		this.memberValidator = memberValidator;
-		this.playerService = playerService;
-	}
+	@Autowired
+	private PasswordChangeValidator passwordChangeValidator;
 
 	@GetMapping("/registration")
 	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
@@ -115,10 +111,14 @@ public class MemberController {
 	}
 
 	@PostMapping("/member/update")
-	public String updateMember(@ModelAttribute PasswordChange passwordChange) throws InvalidActivityException {
-		if (!passwordChange.getConfirmPassword().equals(passwordChange.getPassword()))
-			throw new InvalidActivityException();
-
+	public String updateMember(@ModelAttribute("passwordChange") PasswordChange passwordChange,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		passwordChangeValidator.validate(passwordChange, bindingResult);
+		if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("passwordChange", passwordChange);	
+        	return "redirect:/profile";
+    		
+		}
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth == null)
 			return "redirect:/login";
@@ -127,51 +127,58 @@ public class MemberController {
 		String oldPassword = (String) passwordChange.getOldPassword();
 		Member member = memberService.findByUsername(name);
 
-		if (!memberService.checkIfValidOldPassword(member, oldPassword))
-			throw new InvalidActivityException();
+		if (!memberService.checkIfValidOldPassword(member, oldPassword)) {
+			bindingResult.reject("password", "password.old.notequal");
+
+            redirectAttributes.addFlashAttribute("passwordChange", passwordChange);	
+        	return "redirect:/profile";	
+		}
+		
 		memberService.changeMemberPassword(member, passwordChange.getPassword());
 
 		return "redirect:/home";
 	}
-	
+
 	@Value("${avatar.upload.path}")
 	private String uploadPath;
-	
-	@PostMapping(value =  "/profile/upload", consumes = {"multipart/form-data"})
-	public String imageUpload( @RequestParam(value="avatar", required=true) MultipartFile avatar, Principal principal, Model model) {
+
+	@PostMapping(value = "/profile/upload", consumes = { "multipart/form-data" })
+	public String imageUpload(@RequestParam(value = "avatar", required = true) MultipartFile avatar,
+			Principal principal, Model model) {
 		try {
-			if(avatar == null)
+			if (avatar == null)
 				return "redirect:/profile?error";
-			
+
 			int length = avatar.getBytes().length;
-			if(avatar.getName() == "")
+			if (avatar.getName() == "")
 				return "redirect:/profile?error";
 
 			Pattern p = Pattern.compile("([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)");
-			
+
 			String name = avatar.getOriginalFilename();
 			Matcher m = p.matcher(name);
 			boolean found = m.matches();
-			
-			if(!found) {
+
+			if (!found) {
 				return "redirect:/profile?error";
 			}
-	
-			if(length < 200000) {
+
+			if (length < 200000) {
 				Member member = memberService.findByUsername(principal.getName());
 				member.setAvatar(true);
-				//Alte Methode:
-				//File newFile = new File(uploadPath + String.valueOf( member.getId() ) + ".jpeg");
-				//newFile.createNewFile();
-				//file.transferTo(newFile);
-				//Ende
+				// Alte Methode:
+				// File newFile = new File(uploadPath + String.valueOf( member.getId() ) +
+				// ".jpeg");
+				// newFile.createNewFile();
+				// file.transferTo(newFile);
+				// Ende
 				member.setAvatarFile(avatar.getBytes());
 				memberService.save(member);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return "redirect:/profile";
 	}
 
@@ -183,12 +190,10 @@ public class MemberController {
 		String name = auth.getName();
 		Member member = memberService.findByUsername(name);
 		model.addAttribute("memberForm", member);
-		model.addAttribute("changePassword", new PasswordChange());
+		model.addAttribute("passwordChange", new PasswordChange());
 		model.addAttribute("isCreator", true);
 
 		return "member";
 	}
-
-
 
 }

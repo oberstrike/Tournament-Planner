@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.agil.model.Game;
 import com.agil.model.Member;
+import com.agil.model.game.LeagueOfLegends;
 import com.agil.model.game.Volleyball;
 import com.agil.service.GameService;
 import com.agil.service.GameServiceImpl;
@@ -63,19 +64,33 @@ public class GameController {
 
 		return "redirect:/games/search?name=" + gameForm.getName();
 	}
+	
+	@PostMapping("/game/leagueoflegends")
+	public String addLeagueOfLegendsGame(@RequestParam(name = "teamAName", required = true) String teamAName,
+			@RequestParam(name = "teamBName", required = true) String teamBName,
+			@Valid @ModelAttribute("volleyballForm") LeagueOfLegends leagueForm, BindingResult bindingResult,
+			Principal principal) {
+		if (bindingResult.hasErrors())
+			return "/home";
+		String username = principal.getName();
+		Member creator = memberService.findByUsername(username);
+		leagueForm.setTeamA(teamService.findByName(teamAName).get());
+		leagueForm.setTeamB(teamService.findByName(teamBName).get());
+		leagueForm.setCreator(creator);
+		leagueForm.setStatus(GameStatus.PENDING);
+		leagueForm.setType(GameType.LEAGUEOFLEGENDS);
+		gameService.save(leagueForm);
+
+		return "redirect:/game?id=" + leagueForm.getId();
+	}
+	
+	
 
 	@PostMapping("/game/Volleyball")
 	public String addVolleyballGame(@RequestParam(name = "teamAName", required = true) String teamAName,
 			@RequestParam(name = "teamBName", required = true) String teamBName,
 			@Valid @ModelAttribute("volleyballForm") Volleyball volleyballForm, BindingResult bindingResult,
 			Principal principal) {
-		System.out.println("New /volleyball:");
-		System.out.println("Errors:");
-		System.out.println(bindingResult);
-		System.out.println("V-Form: ");
-		System.out.println(volleyballForm.toString());
-		System.out.println("Team A:");
-		System.out.println(teamService.findByName(teamAName));
 		if (bindingResult.hasErrors())
 			return "/home";
 		String username = principal.getName();

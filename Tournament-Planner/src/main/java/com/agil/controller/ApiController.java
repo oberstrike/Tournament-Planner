@@ -1,6 +1,7 @@
 package com.agil.controller;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -52,19 +53,22 @@ public class ApiController {
 		return teamService.getAll().stream().map(TeamDTO::new).collect(Collectors.toList());
 	}
 	
+	@GetMapping("/api/nextgame")
+	public String getNextGame(Principal principal) {
+		List<Game> gameA = gameService.findByTeamA_Players_Name(principal.getName());
+		List<Game> gameB = gameService.findByTeamB_Players_Name(principal.getName());
+		gameA.addAll(gameB);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		return gameA.stream().sorted().map(GameDTO::new).map(GameDTO::getStartDate).map(sdf::format).findFirst().get();
+	}
+	
 	
 	@GetMapping("/api/games")
 	public List<GameDTO> getGames(@RequestParam(required = false) Long id, Principal principal) {
 		if (id != null) {
 			Game game = gameService.findOne(id).orElse(new Game());
 			return new ArrayList<>(Arrays.asList(new GameDTO(game)));
-		}else if(id == null && principal != null) {
-			List<Game> gameA = gameService.findByTeamA_Players_Name(principal.getName());
-			List<Game> gameB = gameService.findByTeamB_Players_Name(principal.getName());
-			gameA.addAll(gameB);
-			return gameA.stream().sorted().map(GameDTO::new).collect(Collectors.toList());
-		
-		}		
+		} 
 		return gameService.getAll().stream().map(GameDTO::new).collect(Collectors.toList());
 	}	
 	

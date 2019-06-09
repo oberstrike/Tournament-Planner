@@ -21,8 +21,8 @@
 					<select class="custom-select" name="type">
 						<option selected disabled="disabled">Bitte Typ
 							auswählen...</option>
-						<option th:each="gametype : ${gametypes}" th:text="${gametype}"
-							th:value="${gametype}"></option>
+						<option value="Volleyball">Volleyball</option>
+						<option value="LeagueofLegends">League Of Legends</option>
 					</select>
 					<div class="input-group-append">
 						<button type="submit" class="btn btn-primary float-right">Auswählen</button>
@@ -33,23 +33,7 @@
 		<div th:if="${type != null}" class="container">
 			<th:block th:switch="${type}">
 				<div th:case='LEAGUEOFLEGENDS'>
-					<div th:replace="fragments/fragm_defaultGame"></div>
-					<label>Best Of:</label> <input type="number" min="1" step="1"
-						id="mode" name="mode" placeholder="Siegpunkte">
-
-					<div class="form-row">
-						<div class="col">
-							<button type="submit" class="btn btn-primary"
-								value="Spiel erstellen">Spiel erstellen</button>
-						</div>
-					</div>
-				</div>
-
-				<div th:case='COUNTERSTRIKEGO'>
-					<label>Best Of:</label> <input type="number" min="1" step="1"
-						id="mode" name="mode" placeholder="Siegpunkte"> <label>Runden:</label>
-					<input type="number" min="2" step="1" id="score" name="score"
-						value="30" placeholder="Runden">
+					<div th:replace="fragments/fragm_createGame::newGame"></div>
 				</div>
 
 				<div th:case='VOLLEYBALL'>
@@ -92,20 +76,6 @@
 							</div>
 						</div>
 					</form>
-				</div>
-
-				<div th:case='FUSSBALL'>
-					<label>Halbzeitl%auml;nge:</label> <input type="number" min="1"
-						step="1" id="halftimelength" name="halftimelength" value="45"
-						placeholder="Halbzeitl&auml;nge"> <label>Verl&auml;ngerung?</label>
-					<input type="checkbox" id="overtime" name="overtime">
-				</div>
-
-				<div th:case='HANDBALL'>
-					<label>HalbzeitlÃ¤nge:</label> <input type="number" min="1"
-						step="1" id="halftimelength" name="halftimelength" value="30"
-						placeholder="Halbzeitl&auml;¤nge"> <label>Verl&auml;ngerung?</label>
-					<input type="checkbox" id="overtime" name="overtime">
 				</div>
 
 				<div th:case="*">
