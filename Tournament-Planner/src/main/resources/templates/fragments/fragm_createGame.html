@@ -4,9 +4,15 @@
 		<div th:case='LEAGUEOFLEGENDS'>
 			<form th:action="@{/game/leagueoflegends}" method="POST"
 				th:object="${leagueForm}">
+				<ul th:if="${#fields.hasErrors('*')}"
+					class="list-unstyled text-center border border-danger rounded-lg">
+					<li th:each="err : ${#fields.errors('*')}" th:text="${err}"
+						class="" />
+				</ul>
 				<div th:replace="fragments/fragm_defaultGame"></div>
-				<label>Wie viele Spiele sollen gespielt werden:</label> <input type="number" min="1" step="1"
-					id="mode" name="mode" placeholder="Siegpunkte">
+				<label>Wie viele Spiele sollen gespielt werden:</label> <input
+					type="number" min="1" step="1" id="mode" name="mode"
+					placeholder="Siegpunkte">
 
 				<div class="form-row">
 					<div class="col">
@@ -21,6 +27,12 @@
 		<div th:case='VOLLEYBALL'>
 			<form th:action="@{/game/Volleyball}" method="POST"
 				th:object="${volleyballForm}">
+				<ul th:if="${#fields.hasErrors('*')}"
+					class="list-unstyled text-center border border-danger rounded-lg">
+					<li th:each="err : ${#fields.errors('*')}" th:text="${err}"
+						class="" />
+				</ul>
+
 				<div th:replace="fragments/fragm_defaultGame"></div>
 				<div class="form-row">
 					<div class="col">

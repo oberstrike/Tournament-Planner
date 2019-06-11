@@ -15,17 +15,22 @@
 				Deine Rollen: <span sec:authentication="principal.authorities"></span>
 			</h2>
 		</div>
+
 		<div class="container">
+			<div th:if="${message}">
+				<div class="text-danger" th:text="${message.get('error')}"></div>
+				<div class="text-success" th:text="${message.get('success')}"></div>
+			</div>
 			<form th:action="@{/home}" method="GET">
 				<div class="input-group">
 					<select class="custom-select" name="type">
 						<option selected disabled="disabled">Bitte Typ
-							auswählen...</option>
+							ausw&auml;hlen...</option>
 						<option value="Volleyball">Volleyball</option>
 						<option value="LeagueofLegends">League Of Legends</option>
 					</select>
 					<div class="input-group-append">
-						<button type="submit" class="btn btn-primary float-right">Auswählen</button>
+						<button type="submit" class="btn btn-primary float-right">Ausw&auml;hlen</button>
 					</div>
 				</div>
 			</form>

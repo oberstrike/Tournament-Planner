@@ -1,11 +1,15 @@
 package com.agil.controller;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.security.Principal;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.activity.InvalidActivityException;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -36,6 +40,7 @@ import com.agil.service.MemberServiceImpl;
 import com.agil.service.PlayerService;
 import com.agil.service.SecurityService;
 import com.agil.service.SecurityServiceImpl;
+import com.agil.utility.MapBuilder;
 import com.agil.utility.MemberValidator;
 import com.agil.utility.PasswordChangeValidator;
 
@@ -110,18 +115,26 @@ public class MemberController {
 
 	}
 
+	@ModelAttribute("passwordChange")
+	public PasswordChange newPasswordChange() {
+		return new PasswordChange();
+	}
+
 	@PostMapping("/member/update")
-	public String updateMember(@ModelAttribute("passwordChange") PasswordChange passwordChange,
+	public String updateMember(@ModelAttribute("passwordChange") final PasswordChange passwordChange,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		passwordChangeValidator.validate(passwordChange, bindingResult);
-		if(bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("passwordChange", passwordChange);	
-        	return "redirect:/profile";
-    		
+		String route = "redirect:/profile";
+
+		if (bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("message",
+					new MapBuilder<>().addPair("error", "Überprüfe deine Eingaben.").build());
+			return route;
+
 		}
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth == null)
-			return "redirect:/login";
+			return route;
 		String name = auth.getName();
 
 		String oldPassword = (String) passwordChange.getOldPassword();
@@ -129,14 +142,17 @@ public class MemberController {
 
 		if (!memberService.checkIfValidOldPassword(member, oldPassword)) {
 			bindingResult.reject("password", "password.old.notequal");
-
-            redirectAttributes.addFlashAttribute("passwordChange", passwordChange);	
-        	return "redirect:/profile";	
+			redirectAttributes.addFlashAttribute("message",
+					new MapBuilder<>().addPair("error", "Überprüfe dein eingebenes Passwort.").build());
+			return route;
 		}
-		
+
 		memberService.changeMemberPassword(member, passwordChange.getPassword());
 
-		return "redirect:/home";
+		redirectAttributes.addFlashAttribute("message",
+				new MapBuilder<>().addPair("success", "Das Passwort wurde geändert.").build());
+
+		return route;
 	}
 
 	@Value("${avatar.upload.path}")
@@ -148,31 +164,25 @@ public class MemberController {
 		try {
 			if (avatar == null)
 				return "redirect:/profile?error";
-
-			int length = avatar.getBytes().length;
-			if (avatar.getName() == "")
+			if (avatar.getName().equals(""))
 				return "redirect:/profile?error";
-
-			Pattern p = Pattern.compile("([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)");
-
 			String name = avatar.getOriginalFilename();
-			Matcher m = p.matcher(name);
-			boolean found = m.matches();
 
-			if (!found) {
+			Matcher m = Pattern.compile("([^\\s]+(\\.(?i)(jpeg|png|jpg))$)").matcher(name);
+
+			if (!m.matches()) {
 				return "redirect:/profile?error";
 			}
+			m = Pattern.compile("([^\\s]+(\\.(?i)(png))$)").matcher(name);
 
-			if (length < 200000) {
+			if (avatar.getBytes().length < 200000) {
 				Member member = memberService.findByUsername(principal.getName());
+				File file = new File(uploadPath + String.valueOf(member.getId()) + ".jpeg");
+				avatar.transferTo(file);
+				if(m.matches())
+					file = convertPngToJpg(file);
 				member.setAvatar(true);
-				// Alte Methode:
-				// File newFile = new File(uploadPath + String.valueOf( member.getId() ) +
-				// ".jpeg");
-				// newFile.createNewFile();
-				// file.transferTo(newFile);
-				// Ende
-				member.setAvatarFile(avatar.getBytes());
+				
 				memberService.save(member);
 			}
 		} catch (Exception e) {
@@ -194,6 +204,20 @@ public class MemberController {
 		model.addAttribute("isCreator", true);
 
 		return "member";
+	}
+	
+	public static File convertPngToJpg(File file) {
+		try {
+			File output = new File(file.getAbsolutePath());
+			BufferedImage image = ImageIO.read(file);
+			BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+			result.createGraphics().drawImage(image, 0, 0,Color.WHITE, null);
+			ImageIO.write(result, "jpeg", output);
+			file.delete();
+			return output;	
+		}catch (Exception e) {
+			return null;
+		}
 	}
 
 }

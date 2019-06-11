@@ -3,6 +3,7 @@ package com.agil;
 import java.io.File;
 import java.nio.file.Path;
 import java.sql.Date;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,14 +27,15 @@ import com.agil.repo.PlayerRepository;
 import com.agil.repo.TeamRepository;
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
+import com.agil.utility.MemberRole;
 
 @SpringBootApplication
-public class TournamentPlannerApplication extends SpringBootServletInitializer{
+public class TournamentPlannerApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TournamentPlannerApplication.class, args);
 	}
-	
+
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(TournamentPlannerApplication.class);
@@ -46,18 +48,20 @@ public class TournamentPlannerApplication extends SpringBootServletInitializer{
 	CommandLineRunner init(TeamRepository teamRepository, MemberRepository memberRepository,
 			GameRepository gameRepository, PlayerRepository playerRepository) {
 		return (args) -> {
-			
-			
-			
+
 			// Init members
 			Member member = new Member("oberstrike", encoder.encode("mewtu123"), "markus.juergens@gmx.de");
 			Member member2 = new Member("eikorn", encoder.encode("eic123abc"), "markus.juergens@gmx.de");
+
+			member.addRoles(MemberRole.ROLE_ADMIN);
+
 			// Save members
 			memberRepository.save(member);
 			memberRepository.save(member2);
 
 			// Init players
 			Player player = new Player("oberstrike");
+
 			Player player2 = new Player("eikorn");
 
 			// Save players
@@ -87,16 +91,17 @@ public class TournamentPlannerApplication extends SpringBootServletInitializer{
 			game.setVideo("https://www.youtube.com/watch?v=KyWMlJ987jg");
 			game.setCreator(member);
 
-			Game game2 = new Volleyball(2, 5, true, "Spiel 2", GameStatus.PENDING,
-					new Date(System.currentTimeMillis()), team.getName(), team2.getName(), member2);
+			Game game2 = new Volleyball(2, 5, true, "Spiel 2", GameStatus.PENDING, new Date(System.currentTimeMillis()),
+					team.getName(), team2.getName(), member2);
 			game2.setTeamA(team);
 			game2.setTeamB(team2);
 			game2.setCreator(member);
-			
-			Game game3 = new LeagueOfLegends(GameStatus.PENDING, GameType.LEAGUEOFLEGENDS, new Date(System.currentTimeMillis() + 5000));
+
+			Game game3 = new LeagueOfLegends(GameStatus.PENDING, GameType.LEAGUEOFLEGENDS,
+					new Date(System.currentTimeMillis() + 5000));
 			game3.setTeamA(team);
 			game3.setTeamB(team2);
-			game3.setCreator(member);
+			game3.setCreator(member2);
 			game3.setName("Game3");
 
 			// Save All
@@ -107,7 +112,7 @@ public class TournamentPlannerApplication extends SpringBootServletInitializer{
 			teamRepository.save(team2);
 			memberRepository.save(member);
 			memberRepository.save(member2);
-			
+
 		};
 	}
 

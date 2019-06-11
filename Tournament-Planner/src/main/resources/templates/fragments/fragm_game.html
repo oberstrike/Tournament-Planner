@@ -224,17 +224,29 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 				th:text="${gameForm.getTeamB().getName()}">Das ist Team B</div>
 		</div>
 		<div class="row">
-			<div class="col-6 txt text-center"
+			<div class="col-6 txt text-right"
 				th:text="${gameForm.killsTeamA + ':' + gameForm.killsTeamB}">10:3</div>
 		</div>
 		<div class="row" th:if="${isCreator}">
 			<form th:action="@{/change/Leagueoflegends}" method="Post">
-				<input type="hidden" name="id" th:value="${game.getId()}"> <label
-					for="teamA">Punktestand f&uuml;r Team A</label> <input
-					type="number" id="teamA" name="teamA"><br> <label
-					for="teamN">Punktestand f&uuml;r Team B</label><input type="number"
-					id="teamB" name="teamB">
-				<div class="container">
+			
+				<div class="col-xs-3 col-right">
+					<input type="hidden" name="id" th:value="${game.getId()}">
+					<label for="teamA">Punktestand f&uuml;r Team A</label> <input
+						type="number" id="teamA" name="teamA">
+				</div>
+				<div class="col-xs-3 col-right">
+					<label for="teamB">Punktestand f&uuml;r Team B</label> <input
+						type="number" id="teamB" name="teamB">
+				</div>
+				<div class="col-xs-3 col-right">
+					<select class="custom-select" name="status">
+						<option
+							th:each="state : ${T(com.agil.utility.GameStatus).values()}"
+							th:value="${state}" th:text="${state}"></option>
+					</select>
+				</div>
+				<div class="col-xs-3 col-center">
 					<button type="submit" class="btn btn-primary">Updaten</button>
 				</div>
 			</form>
