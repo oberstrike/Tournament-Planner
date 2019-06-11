@@ -3,126 +3,122 @@
 <div
 	th:replace="fragments/general.html :: headerdata (title='Mitglied')"></div>
 <body>
-	<div class="container-fluid">
-		<div th:replace="fragments/general.html :: header"></div>
-		<div th:if="${memberForm}">
-			<div class="row">
-				<div class="table-responsive">
-					<table class="table">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">Bild</th>
-								<th scope="col">Username</th>
-								<th scope="col">Teams</th>
-								<th scope="col">Spiele</th>
-								<th scope="col">Verbundener Spielername</th>
-								<th scope="col" th:if=${isCreator}>Passwort</th>
-								<th scope="col" th:if="${isCreator}">E-Mail</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td th:text="${memberForm.id}"></td>
-								<td class="memberAvatar"></td>
-								<td th:text="${memberForm.username}"></td>
-								<td th:if="${memberForm.player.teams}">
-									<div th:each="team: ${memberForm.player.teams}">
-										<a th:href="@{'/team?id=' + ${team.id}}"
-											th:text="${team.name}"></a>
-									</div>
-								</td>
-								<td th:if="${memberForm.games}">
-									<div th:each="game: ${memberForm.games}">
-										<a th:href="@{'/game?id=' + ${game.id}}"
-											th:text="${game.name}"></a>
-									</div>
-								</td>
-								<td th:if="${memberForm.player}">
-									<div th:text="${memberForm.player.name}"></div>
-								</td>
-								<td th:if="${isCreator}">*******</td>
-								<td th:if="${isCreator}">
-									<div th:text="${memberForm.email}"></div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div th:if="${isCreator}" class="container">
-					<form th:action="@{/member/update}" method="POST"
-						th:object="${passwordChange}">
-						<ul th:if="${#fields.hasErrors('*')}"
-							class="list-unstyled text-center border border-danger rounded-lg">
-							<li th:each="err : ${#fields.errors('*')}" th:text="${err}"
-								class="" />
-						</ul>
-						<div class="form-group">
-							<h2>Passwort &auml;ndern</h2>
-						</div>
-						<div class="form-group">
-							<label for="oldPassword">Altes Passwort:</label> <input
-								type="password" class="form-control input-sm" name="oldPassword"
-								id="oldPassword" placeholder="Passwort" />
-						</div>
-						<div class="form-group">
-							<label for="password">Neues Passwort:</label><input
-								type="password" name="password" id="password"
-								class="form-control input-sm" placeholder="Passwort" />
-						</div>
-						<div class="form-group">
-							<label for="confirmPassword">Neues Passwort
-								best&auml;tigen</label><input type="password" name="confirmPassword"
-								id="confirmPassword" class="form-control input-sm"
-								placeholder="Passwort Best&auml;tigung" />
-						</div>
-						<div class="form-group">
-							<button disabled id="change" type="submit" class="btn btn-primary">&Auml;ndern</button>
-						</div>
-					</form>
-					<br>
-				</div>
-			</div>
-			<div class="container">
-				<div th:if="${param.error}"
-					class="container text-danger text-center">Das Bild ist in
-					einem falschen Format.</div>
-				<form th:action="@{/profile/upload}" enctype="multipart/form-data"
-					method="POST">
-					<table>
+	<div th:replace="fragments/general.html :: header"></div>
+	<div th:if="${memberForm}">
+		<div class="row-12">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class="thead-dark">
 						<tr>
-							<th><label for="avatar">Profilbild:</label></th>
-							<td><input name="avatar" type="file"></td>
+							<th scope="col">ID</th>
+							<th scope="col">Bild</th>
+							<th scope="col">Username</th>
+							<th scope="col">Teams</th>
+							<th scope="col">Spiele</th>
+							<th scope="col">Verbundener Spielername</th>
+							<th scope="col" th:if=${isCreator}>Passwort</th>
+							<th scope="col" th:if="${isCreator}">E-Mail</th>
 						</tr>
-					</table>
-					<input type="submit" value="Hochladen">
-
-				</form>
+					</thead>
+					<tbody>
+						<tr>
+							<td th:text="${memberForm.id}"></td>
+							<td class="memberAvatar"></td>
+							<td th:text="${memberForm.username}"></td>
+							<td th:if="${memberForm.player.teams}">
+								<div th:each="team: ${memberForm.player.teams}">
+									<a th:href="@{'/team?id=' + ${team.id}}" th:text="${team.name}"></a>
+								</div>
+							</td>
+							<td th:if="${memberForm.games}">
+								<div th:each="game: ${memberForm.games}">
+									<a th:href="@{'/game?id=' + ${game.id}}" th:text="${game.name}"></a>
+								</div>
+							</td>
+							<td th:if="${memberForm.player}">
+								<div th:text="${memberForm.player.name}"></div>
+							</td>
+							<td th:if="${isCreator}">*******</td>
+							<td th:if="${isCreator}">
+								<div th:text="${memberForm.email}"></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-
-			<div th:replace="fragments/general.html :: footer"></div>
-			<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+			<div th:if="${isCreator}" class="container">
+				<form th:action="@{/member/update}" method="POST"
+					th:object="${passwordChange}">
+					<ul th:if="${#fields.hasErrors('*')}"
+						class="list-unstyled text-center border border-danger rounded-lg">
+						<li th:each="err : ${#fields.errors('*')}" th:text="${err}"
+							class="" />
+					</ul>
+					<div class="form-group">
+						<h2>Passwort &auml;ndern</h2>
+					</div>
+					<div class="form-group">
+						<label for="oldPassword">Altes Passwort:</label> <input
+							type="password" class="form-control input-sm" name="oldPassword"
+							id="oldPassword" placeholder="Passwort" />
+					</div>
+					<div class="form-group">
+						<label for="password">Neues Passwort:</label><input
+							type="password" name="password" id="password"
+							class="form-control input-sm" placeholder="Passwort" />
+					</div>
+					<div class="form-group">
+						<label for="confirmPassword">Neues Passwort
+							best&auml;tigen</label><input type="password" name="confirmPassword"
+							id="confirmPassword" class="form-control input-sm"
+							placeholder="Passwort Best&auml;tigung" />
+					</div>
+					<div class="form-group">
+						<button disabled id="change" type="submit" class="btn btn-primary">&Auml;ndern</button>
+					</div>
+				</form>
+				<br>
+			</div>
 		</div>
-		<script th:inline="javascript">
-			$(document).ready(function() {
-				var member = /*[[${memberForm.id}]]*/0;
-				var hasAvatar = /*[[${memberForm.avatar}]]*/false;
-				if (hasAvatar) {
-					var img = $('<img id="dynamic">');
-					img.attr("src", "/avatar/" + member + ".jpg");
-					img.attr("height", "50px");
-					img.attr("width", "50px");
-					$(".memberAvatar").append(img);
+		<div class="container">
+			<div th:if="${param.error}" class="container text-danger text-center">Das
+				Bild ist in einem falschen Format.</div>
+			<form th:action="@{/profile/upload}" enctype="multipart/form-data"
+				method="POST">
+				<table>
+					<tr>
+						<th><label for="avatar">Profilbild:</label></th>
+						<td><input name="avatar" type="file"></td>
+					</tr>
+				</table>
+				<input type="submit" value="Hochladen">
+
+			</form>
+		</div>
+
+		<div th:replace="fragments/general.html :: footer"></div>
+		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+	</div>
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			var member = /*[[${memberForm.id}]]*/0;
+			var hasAvatar = /*[[${memberForm.avatar}]]*/false;
+			if (hasAvatar) {
+				var img = $('<img id="dynamic">');
+				img.attr("src", "/avatar/" + member + ".jpg");
+				img.attr("height", "50px");
+				img.attr("width", "50px");
+				$(".memberAvatar").append(img);
+			}
+			$("#confirmPassword").keyup(function() {
+				if ($("#password").val() == $("#confirmPassword").val()) {
+					$("#change").attr("disabled", false)
+				} else {
+					$("#change").attr("disabled", true)
 				}
-				$("#confirmPassword").keyup(function(){
-					if( $("#password").val() == $("#confirmPassword").val()){
-						$("#change").attr("disabled", false)
-					}else{
-						$("#change").attr("disabled", true)
-					}
-					
-				})
-			});
-		</script>
+
+			})
+		});
+	</script>
 </body>
 </html>

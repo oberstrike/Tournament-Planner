@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +23,7 @@ import com.agil.dto.TeamDTO;
 import com.agil.model.Game;
 import com.agil.model.Member;
 import com.agil.model.Team;
+import com.agil.model.game.Volleyball;
 import com.agil.service.GameService;
 import com.agil.service.MemberService;
 import com.agil.service.TeamService;
@@ -72,7 +74,7 @@ public class ApiController {
 			return new ArrayList<>(Arrays.asList(new GameDTO(game)));
 		} 
 		return gameService.getAll().stream().map(GameDTO::new).collect(Collectors.toList());
-	}	
+	}
 	
 	@GetMapping("/api/uhrzeit")
 	public long getDate() {

@@ -167,12 +167,16 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-6 txt text-right" th:text="${game.getSetsA()}"></div>
-			<div class="col-6 txt text-left" th:text="${game.getSetsB()}"></div>
+			<div class="col-6 txt text-right" id="setsA"
+				th:text="${game.getSetsA()}"></div>
+			<div class="col-6 txt text-left" id="setsB"
+				th:text="${game.getSetsB()}"></div>
 		</div>
 		<div class="row">
-			<div class="col-6 txt text-center" th:text="${game.getPointsA()}"></div>
-			<div class="col-6 txt text-center" th:text="${game.getPointsB()}"></div>
+			<div class="col-6 txt text-center" id="pointsA"
+				th:text="${game.getPointsA()}"></div>
+			<div class="col-6 txt text-center" id="pointsB"
+				th:text="${game.getPointsB()}"></div>
 		</div>
 		<div class="row">
 			<div class="col-12 text-center txt-small"
@@ -212,6 +216,41 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 			<div class="col-12">META</div>
 			<!-- wie bspw. creator, status etc. (siehe Notizen von Jasper) -->
 		</div>
+		<!-- TEST AJAX REFRESH -->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				setInterval(function() {
+					refresh_volleyball("${game.getId()}")
+				}, 1000)
+			});
+		
+			function refresh_volleyball(gameId) {
+
+				$.ajax({
+					type : "GET",
+					contentType : "application/json",
+					url : "/games/search/all",
+					data : JSON.stringify(gameid),
+					dataType : 'json',
+					cache : false,
+					timeout : 600000,
+					success : function(data) {
+						var json = JSON.stringify(data, null, 4);
+						$('#setsA').html(json.setsA);
+						$('#setsB').html(json.setsB);
+						$('#pointsA').html(json.pointsA);
+						$('#pointsB').html(json.pointsB);
+
+						console.log("SUCCESS : ", data);
+						$("#btn-search").prop("disabled", false);
+
+					},
+					error : function(e) {
+						console.log("ERROR : ", e);
+					}
+				});
+			}
+		</script>
 	</div>
 </div>
 

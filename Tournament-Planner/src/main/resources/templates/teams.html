@@ -5,57 +5,55 @@
 <div
 	th:replace="fragments/general.html :: headerdata(title='Teamübersicht')"></div>
 <body>
-	<div class="container-fluid">
-		<div th:replace="fragments/general.html :: header"></div>
-		<!-- NEW TEAM CONTROL -->
-		<div class="row">
-			<div class="col-5">
-				<th:block sec:authorize="isAuthenticated()">
-					<th:block th:if="${teams}">
-						<form th:action="@{/team}" method="POST" th:object="${teamForm}">
-							<ul class="navbar-nav mr-auto">
-								<li><input type="text" class="form-control" id="name"
-									name="name" placeholder="Teamname"></li>
-								<li><input class="form-control jscolor" name="teamcolor"
-									value="FFFFFF"></li>
-								<p style="margin-bottom: 5px">
-								<li><button type="submit" class="btn btn-primary"
-										value="Team erstellen">Team erstellen</button></li>
-							</ul>
-							<br>
-						</form>
-					</th:block>
-					<th:block th:if="${teamForm}">
-						<form th:action="@{'/player?tid=' + ${teamForm.id}}" method="POST"
-							th:object="${playerForm}">
-							<ul class="navbar-nav mr-auto">
-								<li><input type="text" name="name" id="name"
-									class="form-control" placeholder="Spielernamen"></li>
-								<li>
-									<button type="submit" class="btn btn-primary float-right">Hinzuf&uuml;gen</button>
-								</li>
-							</ul>
-						</form>
-					</th:block>
+	<div th:replace="fragments/general.html :: header"></div>
+	<!-- NEW TEAM CONTROL -->
+	<div class="row">
+		<div class="col-5">
+			<th:block sec:authorize="isAuthenticated()">
+				<th:block th:if="${teams}">
+					<form th:action="@{/team}" method="POST" th:object="${teamForm}">
+						<ul class="navbar-nav mr-auto">
+							<li><input type="text" class="form-control" id="name"
+								name="name" placeholder="Teamname"></li>
+							<li><input class="form-control jscolor" name="teamcolor"
+								value="FFFFFF"></li>
+							<li><button type="submit" class="btn btn-primary"
+									value="Team erstellen">Team erstellen</button></li>
+						</ul>
+						<br>
+					</form>
 				</th:block>
-			</div>
-			<div class="col-4"></div>
-			<div class="col-3">
-				<form th:action="@{/teams/search}" method="GET">
-					<div class="input-group">
-						<input type="text" name="name" class="form-control"
-							placeholder="Team suchen..." aria-label="Team suchen...">
-						<div class="input-group-append">
-							<button class="btn btn-outline-light" type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</div>
-					</div>
-				</form>
-			</div>
+				<th:block th:if="${teamForm}">
+					<form th:action="@{'/player?tid=' + ${teamForm.id}}" method="POST"
+						th:object="${playerForm}">
+						<ul class="navbar-nav mr-auto">
+							<li><input type="text" name="name" id="name"
+								class="form-control" placeholder="Spielernamen"></li>
+							<li>
+								<button type="submit" class="btn btn-primary float-right">Hinzuf&uuml;gen</button>
+							</li>
+						</ul>
+					</form>
+				</th:block>
+			</th:block>
 		</div>
-		<!-- END NEW TEAM CONTROL -->
-		<!-- OLD
+		<div class="col-4"></div>
+		<div class="col-3">
+			<form th:action="@{/teams/search}" method="GET">
+				<div class="input-group">
+					<input type="text" name="name" class="form-control"
+						placeholder="Team suchen..." aria-label="Team suchen...">
+					<div class="input-group-append">
+						<button class="btn btn-outline-light" type="submit">
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- END NEW TEAM CONTROL -->
+	<!-- OLD
 			<nav class="navbar navbar-expand-lg navbar-dark bg-info">
 				<th:block sec:authorize="isAuthenticated()">
 					<th:block th:if="${teams}">
@@ -100,96 +98,96 @@
 		</ul>
 	</form>
 	</nav>-->
-		<div class="container"></div>
-		<div th:if="${teams}">
-			<th:block th:switch="${#lists.size(teams)}">
-				<div th:case="'0'">Keine Teams gefunden</div>
-				<div th:case="*">
-					<th:block th:each="team: ${teams}">
-						<div th:text="${team.id}"
-							th:style="'background-color: ' + ${team.getTeamcolor()} + ';'"
-							class=text-white></div>
-						<a th:href="@{'/team?id=' + ${team.id}}" th:text="${team.name}"
-							class="container"></a>
-						<div th:each="player : ${players}" th:value="${player}"></div>
-						<div class="dropdown-divider pb-3"></div>
-					</th:block>
-				</div>
-			</th:block>
+	<div class="container"></div>
+	<div th:if="${teams}">
+		<th:block th:switch="${#lists.size(teams)}">
+			<div th:case="'0'">Keine Teams gefunden</div>
+			<div th:case="*">
+				<th:block th:each="team: ${teams}">
+					<div th:text="${team.id}"
+						th:style="'background-color: ' + ${team.getTeamcolor()} + ';'"
+						class=text-white></div>
+					<a th:href="@{'/team?id=' + ${team.id}}" th:text="${team.name}"
+						class="container"></a>
+					<div th:each="player : ${players}" th:value="${player}"></div>
+					<div class="dropdown-divider pb-3"></div>
+				</th:block>
+			</div>
+		</th:block>
+	</div>
+	<div th:if="${teamForm}" th:object="${teamForm}">
+		<div class="row">
+			<div class="col-12"
+				th:style="'background-color: ' + ${teamForm.teamcolor} + ';'">&nbsp;
+			</div>
 		</div>
-		<div th:if="${teamForm}" th:object="${teamForm}">
-			<div class="row">
-				<div class="col-12"
-					th:style="'background-color: ' + ${teamForm.teamcolor} + ';'">&nbsp;
+		<div class="row">
+			<div class="col-3 txt-small">ID</div>
+			<div class="col-9 txt-small">Name</div>
+		</div>
+		<div class="row">
+			<div class="col-3 txt-small" th:text="*{id}"></div>
+			<div class="col-9 txt-small" th:text="*{name}"></div>
+		</div>
+		<div class="row">
+			<div class="col-4">
+				Heimspiele
+				<div th:if="*{homegames}">
+					<ul class="list-group">
+						<th:block th:each="homegame : *{homegames}">
+							<li class="list-group-item"><a
+								th:href="@{'/game?id=' + ${homegame.getId()}}"
+								th:text="${homegame.getName()}"></a></li>
+						</th:block>
+					</ul>
+				</div>
+				<div th:unless="*{homegames}">
+					<ul class="list-group">
+						<li class="list-group-item">Keine Heimspiele gefunden!</li>
+					</ul>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-3 txt-small">ID</div>
-				<div class="col-9 txt-small">Name</div>
-			</div>
-			<div class="row">
-				<div class="col-3 txt-small" th:text="*{id}"></div>
-				<div class="col-9 txt-small" th:text="*{name}"></div>
-			</div>
-			<div class="row">
-				<div class="col-4">
-					Heimspiele
-					<div th:if="*{homegames}">
-						<ul class="list-group">
-							<th:block th:each="homegame : *{homegames}">
-								<li class="list-group-item"><a
-									th:href="@{'/game?id=' + ${homegame.getId()}}"
-									th:text="${homegame.getName()}"></a></li>
-							</th:block>
-						</ul>
-					</div>
-					<div th:unless="*{homegames}">
-						<ul class="list-group">
-							<li class="list-group-item">Keine Heimspiele gefunden!</li>
-						</ul>
-					</div>
+			<div class="col-4">
+				Auswärtsspiele
+				<div th:if="*{awaygames}">
+					<ul class="list-group">
+						<th:block th:each="awaygame : *{awaygames}">
+							<li class="list-group-item"><a
+								th:href="@{'/game?id=' + ${awaygame.getId()}}"
+								th:text="${awaygame.getName()}"></a></li>
+						</th:block>
+					</ul>
 				</div>
-				<div class="col-4">
-					Auswärtsspiele
-					<div th:if="*{awaygames}">
-						<ul class="list-group">
-							<th:block th:each="awaygame : *{awaygames}">
-								<li class="list-group-item"><a
-									th:href="@{'/game?id=' + ${awaygame.getId()}}"
-									th:text="${awaygame.getName()}"></a></li>
-							</th:block>
-						</ul>
-					</div>
-					<div th:unless="*{awaygames}">
-						<ul class="list-group">
-							<li class="list-group-item">Keine Auswärtsspiele gefunden!</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-4">
-					Mitglieder
-					<div th:if="*{players}">
-						<ul class="list-group">
-							<th:block th:each="player : *{players}">
-								<li class="list-group-item">
-									<div th:if="${player.getMember()}">
-										<a th:href="@{'/member?id=' + ${player.getMember().getId()}}"
-											th:text="${player.getName()}"></a>
-									</div>
-									<div th:unless="${player.getMember()}"
-										th:text="${player.getName()}"></div>
-								</li>
-							</th:block>
-						</ul>
-					</div>
-					<div th:unless="*{players}">
-						<ul class="list-group">
-							<li class="list-group-item">Keine Spieler gefunden!</li>
-						</ul>
-					</div>
+				<div th:unless="*{awaygames}">
+					<ul class="list-group">
+						<li class="list-group-item">Keine Auswärtsspiele gefunden!</li>
+					</ul>
 				</div>
 			</div>
-			<!-- 
+			<div class="col-4">
+				Mitglieder
+				<div th:if="*{players}">
+					<ul class="list-group">
+						<th:block th:each="player : *{players}">
+							<li class="list-group-item">
+								<div th:if="${player.getMember()}">
+									<a th:href="@{'/member?id=' + ${player.getMember().getId()}}"
+										th:text="${player.getName()}"></a>
+								</div>
+								<div th:unless="${player.getMember()}"
+									th:text="${player.getName()}"></div>
+							</li>
+						</th:block>
+					</ul>
+				</div>
+				<div th:unless="*{players}">
+					<ul class="list-group">
+						<li class="list-group-item">Keine Spieler gefunden!</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
@@ -233,11 +231,10 @@
 					</tr>
 				</tbody>
 			</table> -->
-		</div>
-
-		<div th:replace="fragments/general.html :: footer"></div>
-		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
-		<script th:src="@{~/js/jscolor.js}" src="../../static/js/jscolor.js"></script>
 	</div>
+
+	<div th:replace="fragments/general.html :: footer"></div>
+	<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+	<script th:src="@{~/js/jscolor.js}" src="../../static/js/jscolor.js"></script>
 </body>
 </html>

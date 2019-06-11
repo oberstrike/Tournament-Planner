@@ -267,7 +267,7 @@ public class Volleyball extends Game {
 		return false;
 	}
 
-	protected Volleyball() {
+	public Volleyball() {
 	}
 
 	public int getSetsRule() {
