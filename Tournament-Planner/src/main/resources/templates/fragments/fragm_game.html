@@ -123,12 +123,20 @@
 			<div class="col-12">META</div>
 			<!-- wie bspw. creator, status etc. (siehe Notizen von Jasper) -->
 		</div>
-		<!-- TEST AJAX REFRESH -->
+		<script>
+			setTimeout(function() {
+				window.location.reload(1);
+			}, 10000);
+		</script>
 	</div>
 </div>
 
 <div th:fragment="showLeague(gameForm, isCreator)">
 	<div class="container">
+		<div class="pull-right" th:if="${isCreator}">
+			<img src="/img/cross_icon.png" alt="Löschen" width="36" height="auto"
+				id="delete" />
+		</div>
 		<div class="row">
 			<div class="col-6 txt text-left"
 				th:text="${gameForm.getTeamA().getName()}">Das ist Team A</div>
@@ -158,10 +166,28 @@
 							th:value="${state}" th:text="${state}"></option>
 					</select>
 				</div>
+
+				<div class="col-xs-3 col-right">
+					<label for="video">Video:</label> <input type="text" id="video"
+						name="video" />
+				</div>
 				<div class="col-xs-3 col-center">
 					<button type="submit" class="btn btn-primary">Updaten</button>
 				</div>
 			</form>
 		</div>
 	</div>
+	<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			var id = /*[[${gameForm.id}]]*/0;
+			
+			$("#delete").click(function() {
+				$.get("/games/delete/" + id).done(function(data) {
+					console.log("Deleted");
+				});
+			});
+			
+		});
+	</script>
 </div>

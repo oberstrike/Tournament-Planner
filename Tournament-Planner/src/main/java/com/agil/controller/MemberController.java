@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.security.Principal;
 import java.util.Optional;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
@@ -60,9 +61,7 @@ public class MemberController {
 	@Autowired
 	private PasswordChangeValidator passwordChangeValidator;
 
-	private final String ISPICTURE = "([^\\\\s]+(\\\\.(?i)(jpeg|png|jpg))$)";
-
-	private final String ISPNG = "([^\\\\s]+(\\\\.(?i)(png))$)";
+	private final String ISPNG = "([^\\s]+(\\.(?i)(png))$)";
 
 	@Value("${avatar.upload.path}")
 	private String uploadPath;
@@ -172,17 +171,21 @@ public class MemberController {
 			if (avatar.getName().equals(""))
 				return "redirect:/profile?error";
 
-			if (!Pattern.compile(ISPICTURE).matcher(name).matches()) {
+			Pattern pattern = Pattern.compile("([^\\s]+(\\.(?i)(jpeg|png|jpg))$)");
+			Matcher matcher = pattern.matcher(name);
+			boolean isAPic = matcher.matches();
+			
+			if (!isAPic) {
 				return "redirect:/profile?error";
 			}
 			if (avatar.getBytes().length < 200000) {
 				Member member = memberService.findByUsername(principal.getName());
 				File file = new File(uploadPath + String.valueOf(member.getId()) + ".jpeg");
+				file.createNewFile();
 				avatar.transferTo(file);
 				if (Pattern.compile(ISPNG).matcher(name).matches())
 					file = convertPngToJpg(file);
 				member.setAvatar(true);
-
 				memberService.save(member);
 			}
 		} catch (Exception e) {
@@ -213,7 +216,6 @@ public class MemberController {
 			BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
 			result.createGraphics().drawImage(image, 0, 0, Color.WHITE, null);
 			ImageIO.write(result, "jpeg", output);
-			file.delete();
 			return output;
 		} catch (Exception e) {
 			return null;
