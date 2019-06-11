@@ -69,6 +69,11 @@ public class GameServiceImpl implements GameService {
 	public List<Game> findByTeamB_Players_Name(String name) {
 		return repo.findByTeamB_Players_Name(name);
 	}
+
+	@Override
+	public void delete(Game game) {
+		this.repo.delete(game);
+	}
 	
 	
 }

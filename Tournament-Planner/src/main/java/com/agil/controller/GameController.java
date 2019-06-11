@@ -196,4 +196,21 @@ public class GameController {
 		private static final long serialVersionUID = 1L;
 	}
 
+	@PostMapping
+	public String removeGame(@RequestParam("gameId") Long gameId, Principal principal, Model model) {
+		if(gameId == null)
+			return "redirect:/home";
+		if(principal == null)
+			return "redirect:/home";
+		
+		Game game = gameService.findOne(gameId).orElseThrow(GameNotFoundException::new);
+		Member member = memberService.findByUsername(principal.getName());
+		
+		if(!member.equals(game.getCreator()))
+			return "redirect:/home";
+		gameService.delete(game);		
+		model.addAttribute("message", new MapBuilder<>().addPair("success", "Das Spiel wurde erfolgreich gelöscht"));
+		return "/home";
+	}
+	
 }

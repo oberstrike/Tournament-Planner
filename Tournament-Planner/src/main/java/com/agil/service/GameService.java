@@ -27,4 +27,5 @@ public interface GameService {
 	
 	public List<Game> findByTeamB_Players_Name(String name);
 	
+	public void delete(Game game);
 }

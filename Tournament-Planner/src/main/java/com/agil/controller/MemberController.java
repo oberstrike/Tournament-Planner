@@ -5,10 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.security.Principal;
 import java.util.Optional;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.activity.InvalidActivityException;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,10 +34,8 @@ import com.agil.model.Member;
 import com.agil.model.PasswordChange;
 import com.agil.model.Player;
 import com.agil.service.MemberService;
-import com.agil.service.MemberServiceImpl;
 import com.agil.service.PlayerService;
 import com.agil.service.SecurityService;
-import com.agil.service.SecurityServiceImpl;
 import com.agil.utility.MapBuilder;
 import com.agil.utility.MemberValidator;
 import com.agil.utility.PasswordChangeValidator;
@@ -61,6 +57,13 @@ public class MemberController {
 
 	@Autowired
 	private PasswordChangeValidator passwordChangeValidator;
+
+	private final String ISPICTURE = "([^\\\\s]+(\\\\.(?i)(jpeg|png|jpg))$)";
+
+	private final String ISPNG = "([^\\\\s]+(\\\\.(?i)(png))$)";
+
+	@Value("${avatar.upload.path}")
+	private String uploadPath;
 
 	@GetMapping("/registration")
 	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
@@ -155,34 +158,29 @@ public class MemberController {
 		return route;
 	}
 
-	@Value("${avatar.upload.path}")
-	private String uploadPath;
-
 	@PostMapping(value = "/profile/upload", consumes = { "multipart/form-data" })
 	public String imageUpload(@RequestParam(value = "avatar", required = true) MultipartFile avatar,
 			Principal principal, Model model) {
 		try {
 			if (avatar == null)
 				return "redirect:/profile?error";
+
+			String name = avatar.getOriginalFilename();
+		
 			if (avatar.getName().equals(""))
 				return "redirect:/profile?error";
-			String name = avatar.getOriginalFilename();
 
-			Matcher m = Pattern.compile("([^\\s]+(\\.(?i)(jpeg|png|jpg))$)").matcher(name);
-
-			if (!m.matches()) {
+			if (!Pattern.compile(ISPICTURE).matcher(name).matches()) {
 				return "redirect:/profile?error";
 			}
-			m = Pattern.compile("([^\\s]+(\\.(?i)(png))$)").matcher(name);
-
 			if (avatar.getBytes().length < 200000) {
 				Member member = memberService.findByUsername(principal.getName());
 				File file = new File(uploadPath + String.valueOf(member.getId()) + ".jpeg");
 				avatar.transferTo(file);
-				if(m.matches())
+				if (Pattern.compile(ISPNG).matcher(name).matches())
 					file = convertPngToJpg(file);
 				member.setAvatar(true);
-				
+
 				memberService.save(member);
 			}
 		} catch (Exception e) {
@@ -205,17 +203,17 @@ public class MemberController {
 
 		return "member";
 	}
-	
+
 	public static File convertPngToJpg(File file) {
 		try {
 			File output = new File(file.getAbsolutePath());
 			BufferedImage image = ImageIO.read(file);
 			BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
-			result.createGraphics().drawImage(image, 0, 0,Color.WHITE, null);
+			result.createGraphics().drawImage(image, 0, 0, Color.WHITE, null);
 			ImageIO.write(result, "jpeg", output);
 			file.delete();
-			return output;	
-		}catch (Exception e) {
+			return output;
+		} catch (Exception e) {
 			return null;
 		}
 	}

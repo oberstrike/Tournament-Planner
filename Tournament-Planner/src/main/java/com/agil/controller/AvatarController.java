@@ -40,21 +40,13 @@ public class AvatarController {
 		if(!member.isAvatar())
 			return null;
 		byte[] data = Files.readAllBytes(new File(path + id + ".jpeg").toPath());
-		
-		
-		HttpHeaders headers = new HttpHeaders();
-		
+	
+		HttpHeaders headers = new HttpHeaders();	
 		headers.setContentType(MediaType.parseMediaType("application/jpeg"));
-		
-		headers.setContentDispositionFormData("profile.jpeg", "profile.jpeg");
-		
+		headers.setContentDispositionFormData("profile.jpeg", "profile.jpeg");		
 		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-		
-		ResponseEntity<byte[]> response = new ResponseEntity<>(data ,headers, HttpStatus.OK);
-		
-		return response.getBody();
-		
-		
+
+		return new ResponseEntity<>(data ,headers, HttpStatus.OK).getBody();
 	}
 	
 	@ExceptionHandler
