@@ -45,158 +45,182 @@ public class Volleyball extends Game {
 	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, GameStatus status, Date startDate, Team teamA,
 			Team teamB) {
 		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate);
-		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;
-		initalizeGame(setsRule);
+		if (tiebreakRule) {
+			this.setsRule = setsRule + 1;
+		} else {
+			this.setsRule = setsRule;
+		}
+		initVolleyballGame();
 	}
 
 	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus gameStatus,
 			Date startDate, String tempTeamAName, String tempTeamBName, Member member) {
 		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate);
-		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;
+		if (tiebreakRule) {
+			this.setsRule = setsRule + 1;
+		} else {
+			this.setsRule = setsRule;
+		}
 		this.setName(name);
 		this.setCreator(member);
-		initalizeGame(setsRule);
+		initVolleyballGame();
 	}
 
-	/*
-	 * Testen nach Satztyp (Norm, Tie)? Testen ob Satz vorbei? Testen ob Spiel
-	 * vorbei? Punkt hinzufügen! if(!gameOver()) -> Spiel läuft else if(setsA +
-	 * setsB == setsRule) -> Tiebreak -> if(tiebreakRule) else -> GameOver else
-	 * if(setsA == setsRule || setsB == setsRule) -> GameOver else -> Game Running
-	 */
-
 	public void addA() {
-		if (getStatus() == GameStatus.PENDING) {
+
+		if (getStatus().equals(GameStatus.PENDING)) {
 			setStatus(GameStatus.RUNNING);
 		}
-		if (getStatus() == GameStatus.RUNNING) {
-			if (setsA + setsB == setsRule) {
-				if (tiebreakRule) {
-					if (pointsA[pointsA.length - 1] >= 15
-							&& pointsA[pointsA.length - 1] >= pointsB[pointsB.length - 1] + 2
-							|| pointsB[pointsB.length - 1] >= 15
-									&& pointsB[pointsB.length - 1] >= pointsA[pointsA.length - 1] + 2) {
-						setsA++;
-						setGameOver(true);
+		// Spiel läuft
+		if (getStatus().equals(GameStatus.RUNNING)) {
+			// Tiebreak möglich?
+			if (tiebreakRule) {
+				if (setsA + setsB == setsRule - 1 && setsA != setsRule - 1) {
+					// Ich bin im Tiebreak
+					if (pointsA[currentSet] < 15) {
+						// Satz läuft noch
+						pointsA[currentSet]++;
+					} else {
+						if (pointsA[currentSet] - pointsB[currentSet] < 2) {
+							// 2 Vorsprung nicht erreicht
+							pointsA[currentSet]++;
+						} else {
+							// 2 Vorsprung erreicht -> Game Over
+							setsA++;
+							setGameOver(true);
+						}
 					}
-					pointsA[currentSet]++;
-				} else {
+				} else if (setsA == setsRule - 1) {
+					// Ich habe die Gewinnsätze erreicht
 					setGameOver(true);
-				}
-			} else if (setsA == setsRule || setsB == setsRule) {
-				setGameOver(true);
-			} else {
-				// Check current Set and Points
-				if (pointsA[currentSet] >= pointsRule && pointsA[currentSet] >= pointsB[currentSet] + 2) {
-					setsA++;
-					if (currentSet < setsRule - 1) {
-						currentSet++;
-						pointsA[currentSet] = 0;
-						pointsB[currentSet] = 0;
-					}
 				} else {
-					pointsA[currentSet]++;
+					// Ich bin nicht im Tiebreak, aber er ist möglich
+					if (pointsA[currentSet] >= pointsRule && pointsA[currentSet] - pointsB[currentSet] >= 2) {
+						// Ich habe die Punkte Regel und den Vorsprung erreicht
+						setsA++;
+						if (setsRule - 1 > currentSet) {
+							currentSet++;
+						}
+					} else {
+						// Ich bekomme einen Punkt
+						pointsA[currentSet]++;
+					}
+				}
+
+			} else {
+				if (setsA == setsRule || setsB == setsRule || setsA + setsB == setsRule) {
+					// Ein Team hat die Gewinnsätze erreicht oder die Sätze sind gespielt
+					setGameOver(true);
+				} else {
+					// Das Spiel läuft noch und kein Team hat die Satzregel erreicht
+					if (pointsA[currentSet] >= pointsRule && pointsA[currentSet] - pointsB[currentSet] >= 2) {
+						// Ich habe die Punkte Regel und den Vorsprung erreicht
+						setsA++;
+						if (setsRule - 1 > currentSet) {
+							currentSet++;
+						}
+					} else {
+						// Ich bekomme einen Punkt
+						pointsA[currentSet]++;
+					}
+
 				}
 			}
-
 		}
+
 	}
 
 	public void addB() {
-		if (getStatus() == GameStatus.PENDING) {
+
+		if (getStatus().equals(GameStatus.PENDING)) {
 			setStatus(GameStatus.RUNNING);
 		}
-		if (getStatus() == GameStatus.RUNNING) {
-			if (setsA + setsB == setsRule) {
-				if (tiebreakRule) {
-					if (pointsA[pointsA.length - 1] >= 15
-							&& pointsA[pointsA.length - 1] >= pointsB[pointsB.length - 1] + 2
-							|| pointsB[pointsB.length - 1] >= 15
-									&& pointsB[pointsB.length - 1] >= pointsA[pointsA.length - 1] + 2) {
-						setsB++;
-						setGameOver(true);
+		// Spiel läuft
+		if (getStatus().equals(GameStatus.RUNNING)) {
+			// Tiebreak möglich?
+			if (tiebreakRule) {
+				if (setsA + setsB == setsRule - 1 && setsB != setsRule - 1) {
+					// Ich bin im Tiebreak
+					if (pointsB[currentSet] < 15) {
+						// Satz läuft noch
+						pointsB[currentSet]++;
+					} else {
+						if (pointsB[currentSet] - pointsA[currentSet] < 2) {
+							// 2 Vorsprung nicht erreicht
+							pointsB[currentSet]++;
+						} else {
+							// 2 Vorsprung erreicht -> Game Over
+							setsB++;
+							setGameOver(true);
+						}
 					}
-					pointsB[currentSet]++;
-				} else {
+				} else if (setsB == setsRule - 1) {
+					// Ich habe die Gewinnsätze erreicht
 					setGameOver(true);
-				}
-			} else if (setsA == setsRule || setsB == setsRule) {
-				setGameOver(true);
-			} else {
-				// Check current Set and Points
-				if (pointsB[currentSet] >= pointsRule && pointsB[currentSet] >= pointsA[currentSet] + 2) {
-					// neuer Satz
-					setsB++;
-					if (currentSet < setsRule - 1) {
-						currentSet++;
-						pointsA[currentSet] = 0;
-						pointsB[currentSet] = 0;
-					}
 				} else {
-					pointsB[currentSet]++;
+					// Ich bin nicht im Tiebreak, aber er ist möglich
+					if (pointsB[currentSet] >= pointsRule && pointsB[currentSet] - pointsA[currentSet] >= 2) {
+						// Ich habe die Punkte Regel und den Vorsprung erreicht
+						setsB++;
+						if (setsRule - 1 > currentSet) {
+							currentSet++;
+						}
+					} else {
+						// Ich bekomme einen Punkt
+						pointsB[currentSet]++;
+					}
+				}
+
+			} else {
+				if (setsA == setsRule || setsB == setsRule || setsA + setsB == setsRule) {
+					// Ein Team hat die Gewinnsätze erreicht oder die Sätze sind gespielt
+					setGameOver(true);
+				} else {
+					// Das Spiel läuft noch und kein Team hat die Satzregel erreicht
+					if (pointsB[currentSet] >= pointsRule && pointsB[currentSet] - pointsA[currentSet] >= 2) {
+						// Ich habe die Punkte Regel und den Vorsprung erreicht
+						setsB++;
+						if (setsRule - 1 > currentSet) {
+							currentSet++;
+						}
+					} else {
+						// Ich bekomme einen Punkt
+						pointsB[currentSet]++;
+					}
+
 				}
 			}
-
 		}
-	}
 
-	private void initalizeGame(int setsRule) {
-		this.currentSet = 0;
-		this.pointsA = new int[setsRule];
-		this.pointsB = new int[setsRule];
-		for (int i = 0; i < pointsA.length; i++) {
-			pointsA[i] = 0;
-			pointsB[i] = 0;
-		}
-		this.setsA = 0;
-		this.setsB = 0;
 	}
 
 	public void initVolleyballGame() {
+		this.currentSet = 0;
+		this.setsA = 0;
+		this.setsB = 0;
+		if (tiebreakRule) {
+			setsRule++;
+		}
 		this.pointsA = new int[getSetsRule()];
 		this.pointsB = new int[getSetsRule()];
 		for (int i = 0; i < this.pointsA.length; i++) {
 			this.pointsA[i] = 0;
 			this.pointsB[i] = 0;
 		}
+
 	}
 
-//	public void addA() {
-//		// Punkt hinzufügen, wenn +2 zu B und >= pointsRule -> currentSet++;
-//		if (getStatus() == GameStatus.PENDING) {
-//			setStatus(GameStatus.RUNNING);
-//		}
-//		if (getStatus() == GameStatus.RUNNING) {
-////			pointsA[currentSet]++;
-//			if (pointsA[currentSet] > pointsRule && pointsA[currentSet] >= pointsB[currentSet] + 2 && !getGameOver()) {
-//				// neuer Satz
-//				setsA++;
-//				currentSet++;
-//				pointsA[currentSet] = 0;
-//				pointsB[currentSet] = 0;
-//			} else if (isInTiebreak()) {
-//
-//			} else {
-//				pointsA[currentSet]++;
-//			}
-////			pointsA[currentSet]++;
-//
-//		}
-//
-//	}
-
 	public void minusA() {
-		if (!getGameOver()) {
+		if (!isFinished()) {
 			if (pointsA[currentSet] == 0 && pointsB[currentSet] == 0) {
 				// gehe in letzten Satz
 				if (currentSet > 0 && setsA > 0) {
 					setsA--;
 					currentSet--;
-//					pointsA[currentSet]--;
 				}
 			} else {
 				if (pointsA[currentSet] > 0) {
@@ -206,28 +230,8 @@ public class Volleyball extends Game {
 		}
 	}
 
-//	public void addB() {
-//		if (getStatus() == GameStatus.PENDING) {
-//			setStatus(GameStatus.RUNNING);
-//		}
-//		if (getStatus() == GameStatus.RUNNING) {
-//			// Punkt hinzufügen, wenn +2 zu B und >= pointsRule -> currentSet++;
-//			if (pointsB[currentSet] > pointsRule && pointsB[currentSet] >= pointsA[currentSet] + 2 && !getGameOver()) {
-//				// neuer Satz
-//				setsB++;
-//				currentSet++;
-//				pointsB[currentSet] = 0;
-//				pointsA[currentSet] = 0;
-//			} else if (isInTiebreak()) {
-//
-//			} else {
-//				pointsB[currentSet]++;
-//			}
-//		}
-//	}
-
 	public void minusB() {
-		if (!getGameOver()) {
+		if (!isFinished()) {
 			if (pointsB[currentSet] == 0 && pointsA[currentSet] == 0) {
 				// gehe in letzten Satz
 				if (currentSet > 0 && setsB > 0) {
@@ -235,22 +239,9 @@ public class Volleyball extends Game {
 					currentSet--;
 				}
 			} else {
-				pointsB[currentSet]--;
+				if (pointsB[currentSet] > 0)
+					pointsB[currentSet]--;
 			}
-		}
-	}
-
-	private boolean getGameOver() {
-		if (setsA == setsRule || setsB == setsRule) {
-			setStatus(GameStatus.FINISHED);
-		}
-		if (setsA + setsB == setsRule && !tiebreakRule) {
-			setStatus(GameStatus.FINISHED);
-		}
-		if (getStatus() == GameStatus.FINISHED) {
-			return true;
-		} else {
-			return false;
 		}
 	}
 
@@ -261,10 +252,6 @@ public class Volleyball extends Game {
 		if (!state) {
 			setStatus(GameStatus.RUNNING);
 		}
-	}
-
-	public boolean isInTiebreak() {
-		return false;
 	}
 
 	public Volleyball() {
@@ -340,15 +327,15 @@ public class Volleyball extends Game {
 
 	public String getCompleteScore() {
 		String score_output = "";
-		for(int i = 0; i < setsRule; i++) {
+		for (int i = 0; i < setsRule; i++) {
 			score_output += pointsA[i] + "-" + pointsB[i];
-			if(i < setsRule-1){
+			if (i < setsRule - 1) {
 				score_output += ", ";
 			}
 		}
 		return score_output;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Volleyball [setsRule=" + setsRule + ", pointsRule=" + pointsRule + ", tiebreakRule=" + tiebreakRule

@@ -31,8 +31,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.agil.model.Member;
+import com.agil.model.MyUser;
 import com.agil.model.PasswordChange;
 import com.agil.model.Player;
+import com.agil.model.SimpleMember;
 import com.agil.service.MemberService;
 import com.agil.service.PlayerService;
 import com.agil.service.SecurityService;
@@ -119,7 +121,7 @@ public class MemberController {
 	}
 
 	@ModelAttribute("passwordChange")
-	public PasswordChange newPasswordChange() {
+	public PasswordChange newPasswordChange(Authentication authentication) {
 		return new PasswordChange();
 	}
 

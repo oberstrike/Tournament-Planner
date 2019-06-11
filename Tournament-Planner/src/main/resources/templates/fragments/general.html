@@ -101,11 +101,13 @@
 	 -->
 
 <div th:fragment="footer">
-	<div class="row-12">
+	<div class="row">
 		<div class="text-white fixed-bottom float-center bg-primary">
 			<div class="col">
 				<div class="uhr">&zwj;</div>
-				<div class="nSpiel">&zwj;</div>
+				<th:block sec:authorize="isAuthenticated()">
+					<div class="nSpiel">&zwj;</div>
+				</th:block>
 			</div>
 		</div>
 	</div>

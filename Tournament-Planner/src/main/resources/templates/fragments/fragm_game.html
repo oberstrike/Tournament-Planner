@@ -1,86 +1,5 @@
 <!-- Notiz: beide Fragmente werden noch umgezogen in die eigentliche HTML, momentan bleiben diese aber noch hier für die Entwicklung -->
 
-<!--  HTML code
-<p id="my-paragraph">Hello!  I'll disappear if you click the button below!</p>
-<button id="hide-paragraph-button" type="button">Click me</button>
-
-// JS code
-document.getElementById('hide-paragraph-button').addEventListener('click', event => {
-  document.getElementById('my-paragraph').setAttribute('style', 'display: none');
-}); -->
-
-<div th:fragment="showGameOld(game)">
-	<div class="container">
-		<table class="table table-borderless">
-			<tbody>
-				<tr scope="row">
-					<td scope="col" th:text="${game.getName()}"></td>
-					<td scope="col" rowspan="2"><a
-						th:href="'https://wa.me/?text=Schau%20dir%20das%20Spiel%20' + ${game.getTeamA().getName()} + '%20gegen%20' + ${game.getTeamB().getName()} + '%20im%20Liveticker%20an%3A%0A' + ${#httpServletRequest.requestURL} + '?id=' + ${game.id}"
-						target="_blank"><i
-							class="fa fa-whatsapp bg-success text-white btn-lg"></i></a></td>
-				</tr>
-				<tr scope="row">
-					<td scope="col" th:text="${game.getStartDate()}"></td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="container">
-			<!-- Rahmen für die Spielanzeige -->
-			<div class="row">
-				<div class="col text-center" th:text="${game.getTeamA().getName()}"
-					th:style="'font-size: 5vw; background-color: ' + ${game.getTeamA().getTeamcolor()} + ';'"></div>
-				<div class="col text-center" th:text="${game.getTeamB().getName()}"
-					th:style="'font-size: 5vw; background-color: ' + ${game.getTeamB().getTeamcolor()} + ';'"></div>
-			</div>
-			<div class="row">
-				<div class="col text-right" th:text="${game.getSetsA()}"
-					style="font-size: 3vw;"></div>
-				<div class="col text-left" th:text="${game.getSetsB()}"
-					style="font-size: 3vw;"></div>
-			</div>
-			<div class="row">
-				<div id="pointsA" class="col text-center"
-					th:text="${game.getPointsA()}" style="font-size: 12vw;"></div>
-				<div class="col text-center" th:text="${game.getPointsB()}"
-					style="font-size: 12vw;"></div>
-			</div>
-			<div class="row" th:if="${isCreator}">
-				<div class="col">
-					<form th:action="@{/change/Volleyball}" method="POST">
-						<input type="hidden" name="id" th:value="${game.getId()}">
-						<input type="hidden" name="optionID" value="1">
-						<button class="btn btn-success" value="Add Point A">+</button>
-					</form>
-					<form th:action="@{/change/Volleyball}" method="POST">
-						<input type="hidden" name="id" th:value="${game.getId()}">
-						<input type="hidden" name="optionID" value="2">
-						<button class="btn btn-danger" value="Minus Point A">-</button>
-					</form>
-				</div>
-				<div class="col">
-					<form th:action="@{/change/Volleyball}" method="POST">
-						<input type="hidden" name="id" th:value="${game.getId()}">
-						<input type="hidden" name="optionID" value="3">
-						<button class="btn btn-success" value="Add Point B">+</button>
-					</form>
-					<form th:action="@{/change/Volleyball}" method="POST">
-						<input type="hidden" name="id" th:value="${game.getId()}">
-						<input type="hidden" name="optionID" value="4">
-						<button class="btn btn-danger" value="Minus Point B">-</button>
-					</form>
-				</div>
-			</div>
-			<div class="row" th:if="${game.getVideo()}">
-				<iframe width="560" height="315" th:src="${game.getVideo()}"
-					frameborder="0"
-					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen></iframe>
-			</div>
-		</div>
-	</div>
-</div>
-
 <div th:fragment="showGames(game)">
 	<div class="row">
 		<div class="d-none d-md-block col-md-1" th:text="${game.getId()}"></div>
@@ -107,25 +26,6 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 		<div class="d-none d-md-block col-md-1 enum"
 			th:text="${game.getStatus().getDescription()}"></div>
 	</div>
-	<!-- 	<div class="d-lg-none">hide on screens wider than lg</div>
-			<div class="d-none d-lg-block">hide on screens smaller than lg</div> -->
-	<!-- 
-	<tr scope="row">
-		<td class="col" scope="col" th:text="${game.id}"></td>
-		<td class="col" scope="col" th:text="${game.type}"></td>
-		<td class="col" scope="col"><a class="text-dark"
-			th:href="@{'/game?id=' + ${game.id}}" th:text="${game.name}"></a></td>
-		<td class="col" scope="col"><a class="text-dark"
-			th:href="@{'/game?id=' + ${game.id}}" th:text="${game.startDate}"></a></td>
-		<td class="col" scope="col"><a class="text-dark"
-			th:href="@{'/team?id=' + ${game.getTeamA().getId()}}"
-			th:text="${game.getTeamA().getName()}"></a></td>
-		<td class="col" scope="col"><a class="text-dark"
-			th:href="@{'/team?id=' + ${game.getTeamB().getId()}}"
-			th:text="${game.getTeamB().getName()}"></a></td>
-		<td class="col" scope="col"><a class="text-dark"
-			th:text="${game.getStatus().toString()}"><a></td>
-	</tr> -->
 </div>
 
 <!-- NEW -->
@@ -187,30 +87,37 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 				<form th:action="@{/change/Volleyball}" method="POST">
 					<input type="hidden" name="id" th:value="${game.getId()}">
 					<input type="hidden" name="optionID" value="1">
-					<button class="btn btn-block btn-success" value="Add Point A">+</button>
+					<button class="btn btn-block btn-success modifyGame" value="Add Point A">+</button>
 				</form>
 			</div>
 			<div class="col-3">
 				<form th:action="@{/change/Volleyball}" method="POST">
 					<input type="hidden" name="id" th:value="${game.getId()}">
 					<input type="hidden" name="optionID" value="2">
-					<button class="btn btn-block btn-danger" value="Minus Point A">-</button>
+					<button class="btn btn-block btn-danger modifyGame" value="Minus Point A">-</button>
 				</form>
 			</div>
 			<div class="col-3">
 				<form th:action="@{/change/Volleyball}" method="POST">
 					<input type="hidden" name="id" th:value="${game.getId()}">
 					<input type="hidden" name="optionID" value="3">
-					<button class="btn btn-block btn-success" value="Add Point B">+</button>
+					<button class="btn btn-block btn-success modifyGame" value="Add Point B">+</button>
 				</form>
 			</div>
 			<div class="col-3">
 				<form th:action="@{/change/Volleyball}" method="POST">
 					<input type="hidden" name="id" th:value="${game.getId()}">
 					<input type="hidden" name="optionID" value="4">
-					<button class="btn btn-block btn-danger" value="Minus Point B">-</button>
+					<button class="btn btn-block btn-danger modifyGame" value="Minus Point B">-</button>
 				</form>
 			</div>
+			<th:block th:if="${game.isFinished()}">
+				<!-- Disable control -->
+				HALLO
+				<script>
+					document.getElementsByClassName("modifyGame").disabled = true;
+				</script>
+			</th:block>
 		</div>
 		<div class="row">
 			<div class="col-12">META</div>
@@ -234,7 +141,7 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 		</div>
 		<div class="row" th:if="${isCreator}">
 			<form th:action="@{/change/Leagueoflegends}" method="Post">
-			
+
 				<div class="col-xs-3 col-right">
 					<input type="hidden" name="id" th:value="${game.getId()}">
 					<label for="teamA">Punktestand f&uuml;r Team A</label> <input

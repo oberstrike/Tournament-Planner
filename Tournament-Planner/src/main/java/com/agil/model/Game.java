@@ -176,6 +176,14 @@ public class Game implements Comparable<Game> {
 		String youtubeId = video.split("=")[1];
 		this.video = "https://www.youtube.com/embed/" + youtubeId;
 	}
+	
+	public boolean isFinished() {
+		if (this.status.equals(GameStatus.FINISHED)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	@Override
 	public String toString() {

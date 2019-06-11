@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agil.model.Member;
+import com.agil.model.MyUser;
 import com.agil.repo.MemberRepository;
 import com.agil.utility.MemberRole;
 
@@ -35,7 +36,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			grantedAuthorities.add(new SimpleGrantedAuthority(role.toString()));
 		}
 
-		return new User(member.getUsername(), member.getPassword(), grantedAuthorities);
+		return new MyUser(member, true, true, true, true, grantedAuthorities);
 
 	}
 

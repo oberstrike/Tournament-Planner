@@ -6,16 +6,12 @@
 	th:replace="fragments/general.html :: headerdata(title='Userbereich')"></div>
 <body>
 	<div th:replace="fragments/general.html :: header"></div>
-	<div class="container">
 		<h2>
 			Willkommen in deinem Bereich <span sec:authentication="name"></span>!
 		</h2>
 		<h2>
-			Deine Rollen: <span sec:authentication="principal.authorities"></span>
+			Deine Rollen: <span th:text="${#authentication.getPrincipal().getMember().getRolesReadable()}"></span>
 		</h2>
-
-
-	</div>
 	<div class="container">
 		<form th:action="@{/home}" method="GET">
 			<div class="input-group">
