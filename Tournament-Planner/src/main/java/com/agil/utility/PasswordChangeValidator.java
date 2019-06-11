@@ -20,7 +20,7 @@ public class PasswordChangeValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		PasswordChange passwordChange = (PasswordChange) target;
 	
-		if(passwordChange.getPassword().equals(passwordChange.getConfirmPassword())) {
+		if(!passwordChange.getPassword().equals(passwordChange.getConfirmPassword())) {
 			errors.reject("password", "password.notequals");
 		}
 	

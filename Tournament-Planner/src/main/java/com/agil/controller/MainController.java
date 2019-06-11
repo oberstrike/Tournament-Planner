@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.agil.model.Game;
+import com.agil.model.game.LeagueOfLegends;
+import com.agil.model.game.Volleyball;
 import com.agil.service.TeamService;
 import com.agil.service.TeamServiceImpl;
 import com.agil.utility.GameType;
@@ -23,10 +25,6 @@ public class MainController {
 
 	@Autowired
 	private TeamService teamService;
-	
-	/* Gib mir meine nächsten Spiele...
-	 * 
-	 */
 	
 	@GetMapping("/home")
 	public String getHome(@RequestParam(name = "type", required = false) String type, Model model, HttpServletRequest request) {
@@ -38,7 +36,9 @@ public class MainController {
 
 		if (type != null) {
 			model.addAttribute("type", type.toUpperCase());
-			model.addAttribute("gameForm", new Game(GameType.VOLLEYBALL));
+			model.addAttribute("gameForm", new Game());
+			model.addAttribute("volleyballForm", new Volleyball());
+			model.addAttribute("leagueForm", new LeagueOfLegends());
 		}
 		model.addAttribute("gametypes", Arrays.asList(sArray));
 		model.addAttribute("teams", teamService.getAll());

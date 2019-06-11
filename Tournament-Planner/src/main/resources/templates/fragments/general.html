@@ -157,10 +157,8 @@
 			$.get("/api/id").done(function(data) {
 				if (data != 0) {
 
-					var img = $('<img id="dynamic">');
+					var img = $('<img id="dynamic" class="navbarimg">');
 					img.attr("src", "/avatar/" + data);
-					img.attr("height", "50px");
-					img.attr("width", "50px");
 					img.appendTo(".avatar");
 
 				}

@@ -1,7 +1,7 @@
-.enum {
-	text-transform: capitalize;
+.navbarimg {
+	height: auto;
+	width: auto;
 }
-
 @media only screen {
 	.txt {
 		font-size: 1em;

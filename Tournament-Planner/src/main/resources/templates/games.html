@@ -45,9 +45,9 @@
 					th:replace="fragments/fragm_game :: showGame(${gameForm}, ${isCreator})">
 				</th:block>
 			</div>
-			<div th:case='*'>
+			<div th:case='LEAGUEOFLEGENDS'>
 				<div
-					th:replace="fragments/fragm_game::showLeague(gameForm = ${gameForm}, isCreator=${isCreator})"></div>
+					th:replace="fragments/fragm_game::showLeague(${gameForm}, ${isCreator})"></div>
 			</div>
 
 		</th:block>

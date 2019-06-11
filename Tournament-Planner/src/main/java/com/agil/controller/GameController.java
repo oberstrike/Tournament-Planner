@@ -1,6 +1,9 @@
 package com.agil.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -14,19 +17,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.agil.model.Game;
 import com.agil.model.Member;
 import com.agil.model.game.LeagueOfLegends;
 import com.agil.model.game.Volleyball;
 import com.agil.service.GameService;
-import com.agil.service.GameServiceImpl;
 import com.agil.service.MemberService;
 import com.agil.service.TeamService;
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
 import com.agil.utility.GameValidator;
+import com.agil.utility.MapBuilder;
+import com.agil.utility.MemberRole;
 
 @Controller
 public class GameController {
@@ -38,39 +44,25 @@ public class GameController {
 	private GameValidator gameValidator;
 
 	@Autowired
-	private final MemberService memberService;
+	private MemberService memberService;
 
 	@Autowired
-	private final TeamService teamService;
+	private TeamService teamService;
 
-	@Autowired
-	public GameController(GameServiceImpl GameServiceImpl, MemberService memberService, TeamService teamService) {
-		this.gameService = GameServiceImpl;
-		this.memberService = memberService;
-		this.teamService = teamService;
-	}
-
-	@PostMapping("/game")
-	public String addGame(@Valid @ModelAttribute("gameForm") Game gameForm, BindingResult bindingResult,
-			Principal principal) {
-		gameValidator.validate(gameForm, bindingResult);
-		if (bindingResult.hasErrors())
-			return "/game";
-		String username = principal.getName();
-		Member creator = memberService.findByUsername(username);
-		gameForm.setCreator(creator);
-		gameService.save(gameForm);
-
-		return "redirect:/games/search?name=" + gameForm.getName();
+	public static List<Game> getFirst10(List<Game> games) {
+		return games.stream().limit(10).collect(Collectors.toList());
 	}
 	
 	@PostMapping("/game/leagueoflegends")
 	public String addLeagueOfLegendsGame(@RequestParam(name = "teamAName", required = true) String teamAName,
 			@RequestParam(name = "teamBName", required = true) String teamBName,
 			@Valid @ModelAttribute("volleyballForm") LeagueOfLegends leagueForm, BindingResult bindingResult,
-			Principal principal) {
-		if (bindingResult.hasErrors())
-			return "/home";
+			RedirectAttributes redirectAttributes, Principal principal) {
+		gameValidator.validate(leagueForm, bindingResult);
+		if (bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("message", new MapBuilder<>().addPair("error", "Bitte überprüfe deine Eingaben").build());
+			return "redirect:/home?type=Leagueoflegends";
+		}
 		String username = principal.getName();
 		Member creator = memberService.findByUsername(username);
 		leagueForm.setTeamA(teamService.findByName(teamAName).get());
@@ -82,16 +74,17 @@ public class GameController {
 
 		return "redirect:/game?id=" + leagueForm.getId();
 	}
-	
-	
 
 	@PostMapping("/game/Volleyball")
 	public String addVolleyballGame(@RequestParam(name = "teamAName", required = true) String teamAName,
 			@RequestParam(name = "teamBName", required = true) String teamBName,
 			@Valid @ModelAttribute("volleyballForm") Volleyball volleyballForm, BindingResult bindingResult,
-			Principal principal) {
-		if (bindingResult.hasErrors())
-			return "/home";
+			RedirectAttributes redirectAttributes, Principal principal) {
+		gameValidator.validate(volleyballForm, bindingResult);
+		if (bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("message", "Das Spiel konnte nicht erstellt werden");
+			return "redirect:/home?type=Volleyball";
+		}
 		String username = principal.getName();
 		Member creator = memberService.findByUsername(username);
 		volleyballForm.setTeamA(teamService.findByName(teamAName).get());
@@ -101,20 +94,24 @@ public class GameController {
 		volleyballForm.setType(GameType.VOLLEYBALL);
 		volleyballForm.initVolleyballGame();
 		gameService.save(volleyballForm);
-
 		return "redirect:/game?id=" + volleyballForm.getId();
 	}
 
 	@PostMapping("change/Leagueoflegends")
-	public String changeLeagueOfLegends(@RequestParam(name = "id", required = true) long id, @RequestParam(name = "teamA", required = false) long teamA, @RequestParam(name = "teamB", required = false) long teamB) {
-		LeagueOfLegends leagueOfLegends = (LeagueOfLegends) gameService.findOne(id).orElseThrow(GameNotFoundException::new);
+	public String changeLeagueOfLegends(@RequestParam(name = "id", required = true) long id,
+			@RequestParam(name = "teamA", required = false) long teamA,
+			@RequestParam(name = "teamB", required = false) long teamB,
+			@RequestParam(name = "status", required = false) String status) {
+		LeagueOfLegends leagueOfLegends = (LeagueOfLegends) gameService.findOne(id)
+				.orElseThrow(GameNotFoundException::new);
 		leagueOfLegends.setKillsTeamA(teamA);
 		leagueOfLegends.setKillsTeamB(teamB);
+		leagueOfLegends.setStatus(GameStatus.valueOf(status.toUpperCase()));
 		gameService.save(leagueOfLegends);
-		
+
 		return "redirect:/game?id=" + id;
 	}
-	
+
 	@PostMapping("/change/Volleyball")
 	public String changeVolleyballGame(@RequestParam(name = "id", required = true) String id,
 			@RequestParam(name = "optionID", required = true) int optionID) {
@@ -154,7 +151,7 @@ public class GameController {
 		}
 		gameService.save(volleyball);
 
-		return "redirect:/game?id=" + volleyball.getId();
+		return "redirect:/game?id=" + id;
 	}
 
 	@GetMapping("/game")
@@ -163,8 +160,14 @@ public class GameController {
 		if (id != null)
 			game = gameService.findOne(id).orElseThrow(GameNotFoundException::new);
 		model.addAttribute("gameForm", game);
-		if (principal != null)
-			model.addAttribute("isCreator", principal.getName().equals(game.getCreator().getUsername()));
+
+		if (principal != null) {
+			Member member = memberService.findByUsername(principal.getName());
+			boolean isCreator = member.getUsername().equals(game.getCreator().getUsername());
+			boolean isAdmin = member.getRoles().contains(MemberRole.ROLE_ADMIN);
+			model.addAttribute("isCreator", isCreator ? true : isAdmin);
+		}
+
 		return "games";
 	}
 
@@ -172,22 +175,15 @@ public class GameController {
 	public String getGamesByName(@RequestParam(name = "name", required = false) String name,
 			@RequestParam(name = "type", required = false) String type, Model model) {
 		if (name != null)
-			model.addAttribute("games",
-					gameService.findByNameIgnoreCaseContaining(name).stream().limit(10).collect(Collectors.toList()));
+			model.addAttribute("games", getFirst10(gameService.findByNameIgnoreCaseContaining(name)));
 		if (type != null)
-			model.addAttribute("games", gameService.findByType(type).stream().limit(10).collect(Collectors.toList()));
-
+			model.addAttribute("games", getFirst10(gameService.findByType(type)));
 		return "/games";
 	}
 
 	@GetMapping("/games/search/all")
 	public String getGames(Model model) {
 		model.addAttribute("games", gameService.getAll());
-		return "/games";
-	}
-
-	@GetMapping("/games")
-	public String teams(Model model) {
 		return "/games";
 	}
 

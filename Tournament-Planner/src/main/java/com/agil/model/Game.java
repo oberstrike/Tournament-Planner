@@ -26,8 +26,8 @@ import com.agil.utility.GameType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Game implements Comparable<Game>{
-	
+public class Game implements Comparable<Game> {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
@@ -55,8 +55,9 @@ public class Game implements Comparable<Game>{
 	@JoinTable(name = "game_teamb", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
 	private Team teamB;
 
+	@NotNull
 	private String name;
-	
+
 	private String video;
 
 	public Game(GameStatus status, GameType gameType, Date startDate) {
@@ -178,8 +179,7 @@ public class Game implements Comparable<Game>{
 
 	@Override
 	public String toString() {
-		return "Game [id=" + id + ", status=" + status + ", type=" + type + ", startDate=" + startDate + ", creator="
-				+ creator.getUsername() + ", teamA=" + teamA.getName() + ", teamB=" + teamB.getName() + ", name=" + name + ", video=" + video + "]";
+		return "Game [id=" + id + ", status=" + status + ", type=" + type + ", startDate=" + startDate + "]";
 	}
 
 	@Override

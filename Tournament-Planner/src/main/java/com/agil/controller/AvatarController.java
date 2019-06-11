@@ -1,6 +1,10 @@
 package com.agil.controller;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,49 +28,18 @@ public class AvatarController {
 	@Value(value ="${avatar.upload.path}")
 	private String path;
 	
-//	@GetMapping("{filename:.*}")
-//	public byte[] getAvatar(@PathVariable("filename") String filename) throws FileNotFoundException {
-//		
-//		
-//		File file = new File(path + filename);
-//		byte[] bytes;
-//		try {
-//			 bytes = Files.readAllBytes( Paths.get(file.getPath()));
-//			 
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//			
-//			throw new FileNotFoundException();
-//		}
-//		
-//		HttpHeaders headers = new HttpHeaders();
-//		
-//		headers.setContentType(MediaType.parseMediaType("application/jpeg"));
-//		
-//		headers.setContentDispositionFormData("profile.jpeg", filename);
-//		
-//		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-//		
-//		ResponseEntity<byte[]> response = new ResponseEntity<>(bytes ,headers, HttpStatus.OK);
-//		
-//		return response.getBody();
-//		
-//		
-//	
-//	}
-	
 	@Autowired
 	private MemberService memberService;
 	
 	@GetMapping("{id}")
-	public byte[] getAvatarById(@PathVariable("id") Long id) throws FileNotFoundException {
+	public byte[] getAvatarById(@PathVariable("id") Long id) throws IOException {
 		if(id == null)
 			return null;
 		Member member = memberService.findById(id).orElseThrow(FileNotFoundException::new);
 		
 		if(!member.isAvatar())
 			return null;
-		byte[] data = member.getAvatarFile();
+		byte[] data = Files.readAllBytes(new File(path + id + ".jpeg").toPath());
 		
 		
 		HttpHeaders headers = new HttpHeaders();

@@ -198,6 +198,10 @@ public class Member {
 		this.avatarFile = avatarFile;
 	}
 	
+	public void addRoles(MemberRole...memberRoles) {
+		this.roles.addAll(Arrays.asList(memberRoles));
+	}
+	
 
 
 }
