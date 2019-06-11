@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -198,8 +199,8 @@ public class GameController {
 		private static final long serialVersionUID = 1L;
 	}
 
-	@PostMapping("/game/delete/{gameId}")
-	public String removeGame(@RequestParam("gameId") Long gameId, Principal principal, Model model) {
+	@GetMapping("/games/delete/{gameId}")
+	public String removeGame(@PathVariable("gameId") Long gameId, Principal principal, Model model) {
 		if(gameId == null)
 			return "redirect:/home";
 		if(principal == null)
@@ -208,7 +209,7 @@ public class GameController {
 		Game game = gameService.findOne(gameId).orElseThrow(GameNotFoundException::new);
 		Member member = memberService.findByUsername(principal.getName());
 		
-		if(!member.equals(game.getCreator()))
+		if(!member.equals(game.getCreator()) & !member.getRoles().contains(MemberRole.ROLE_ADMIN))
 			return "redirect:/home";
 		gameService.delete(game);		
 		model.addAttribute("message", new MapBuilder<>().addPair("success", "Das Spiel wurde erfolgreich gelöscht"));
