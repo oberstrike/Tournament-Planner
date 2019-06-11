@@ -23,14 +23,6 @@ public class GameValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		Game game = (Game) target;
 
-		if (game.getTeamA() == null || game.getTeamB() == null)
-			errors.reject("game", "game.missingteams");
-		else {
-			if (game.getTeamA().getId() == game.getTeamB().getId()) {
-				errors.rejectValue("game", "game.teamduplicate");
-			}
-		}
-
 		if (gameService.findOne(game.getName()).isPresent()) {
 			errors.rejectValue("game", "game.duplicate");
 		}

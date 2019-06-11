@@ -1,6 +1,8 @@
 <div th:fragment="showTeam(team)">
 	<div th:text="${team.id}" th:style="'background-color: ' + ${team.getTeamcolor()} + ';'"></div>
 	<a th:href="@{'/team?id=' + ${team.id}}" th:text="${team.name}" class="container"></a>
-	<div th:each="member : ${members}" th:value="${member}"></div>
+	<div th:each="player : ${players}" th:value="${player}"></div>
 	<div class="dropdown-divider pb-3"></div>
 </div>
+
+<!-- depreciated -->

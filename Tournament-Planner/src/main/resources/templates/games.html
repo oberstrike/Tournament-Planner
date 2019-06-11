@@ -39,7 +39,6 @@
 			</th:block>
 		</div>
 		<div th:if="${gameForm}">
-			<div th:value="${gameForm.type.toString()}"></div>
 			<th:block th:switch="${gameForm.type.toString()}">
 				<div th:case="'VOLLEYBALL'"><th:block  th:replace="fragments/fragm_game :: showGame(${gameForm}, ${isCreator})" > </th:block></div> 
 				<div th:case='*'>
@@ -51,8 +50,5 @@
 		<div th:replace="fragments/general.html :: footer"></div>
 		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 	</div>
-
-
-
 </body>
 </html>

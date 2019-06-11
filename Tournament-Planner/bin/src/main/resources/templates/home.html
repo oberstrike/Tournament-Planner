@@ -5,7 +5,7 @@
 <div
 	th:replace="fragments/general.html :: headerdata(title='Userbereich')"></div>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div th:replace="fragments/general.html :: header"></div>
 		<div class="container">
 			<h2>
@@ -15,126 +15,80 @@
 				Deine Rollen: <span sec:authentication="principal.authorities"></span>
 			</h2>
 		</div>
+
 		<div class="container">
+			<div th:if="${message}">
+				<div class="text-danger" th:text="${message.get('error')}"></div>
+				<div class="text-success" th:text="${message.get('success')}"></div>
+			</div>
 			<form th:action="@{/home}" method="GET">
 				<div class="input-group">
 					<select class="custom-select" name="type">
-						<option selected>Bitte Typ auswählen...</option>
-						<option th:each="gametype : ${gametypes}" th:text="${gametype}"
-							th:value="${gametype}"></option>
+						<option selected disabled="disabled">Bitte Typ
+							ausw&auml;hlen...</option>
+						<option value="Volleyball">Volleyball</option>
+						<option value="LeagueofLegends">League Of Legends</option>
 					</select>
 					<div class="input-group-append">
-						<button type="submit" class="btn btn-primary float-right">Auswählen</button>
+						<button type="submit" class="btn btn-primary float-right">Ausw&auml;hlen</button>
 					</div>
 				</div>
 			</form>
 		</div>
 		<div th:if="${type != null}" class="container">
-			<form th:action="@{/game}" method="POST"
-				th:object="${gameForm}">
-				<div class="form-row">
-					<div class="col">
-						<label>Spielname:</label>
-					</div>
-					<div class="col">
-						<input type="text" class="form-control" id="name" name="name">
-					</div>
+			<th:block th:switch="${type}">
+				<div th:case='LEAGUEOFLEGENDS'>
+					<div th:replace="fragments/fragm_createGame::newGame"></div>
 				</div>
-				<div class="form-row">
-					<div class="col">
-						<label>Spieltyp:</label>
-					</div>
-					<div class="col">
-						<input type="text" class="form-control" id="type"
-							name="type" th:value="${type}" th:field="*{type}">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="col">
-						<label>Startzeit:</label>
-					</div>
-					<div class="col">
-						<input type="text" class="form-control" id="startDate"
-							name="startDate" placeholder="TT.MM.JJJJ HH:MM">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="col">
-						<label>Spielstatus:</label>
-					</div>
-					<div class="col">
-						<input disabled type="text" class="form-control" id="status"
-							name="status" value="*{status}" th:field="*{status}">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="col">
-						<label>Ersteller:</label>
-					</div>
-					<div class="col">
-						<input type="text" class="form-control" id="creator"
-							name="creator" th:value="${session.username}">
-					</div>
-				</div><!--
-				<div class="form-row">
-					<div class="col">
-						<label>Heimteam:</label>
-					</div>
-					<div class="col">
-						<input type="text" class="form-control" id="teams" name="teams" th:field="*{teams}">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="col">
-						<label>Gastteam:</label>
-					</div>
-					<div class="col">
-						<input type="text" class="form-control" id="teams" name="teams" th:field="*{teams}">
-					</div>
-				</div>-->
-				<div th:replace="fragments/fragm_createGame :: newGame"></div>
-				<div class="form-row">
-					<div class="col">
-						<button type="submit" class="btn btn-primary"
-							value="Spiel erstellen">Spiel erstellen</button>
-					</div>
-				</div>
-			</form>
-		</div>
 
-		<!-- Team erstellen -->
+				<div th:case='VOLLEYBALL'>
+					<form th:action="@{/game/Volleyball}" method="POST"
+						th:object="${volleyballForm}">
+						<div th:replace="fragments/fragm_defaultGame"></div>
+						<div class="form-row">
+							<div class="col">
+								<label>Gewinnsätze:</label>
+							</div>
+							<div class="col">
+								<input type="number" class="form-control" min="1" step="1"
+									id="setsRule" name="setsRule" value="2"
+									placeholder="Gewinnsätze">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label>Gewinnpunkte:</label>
+							</div>
+							<div class="col">
+								<input type="number" class="form-control" min="2" step="1"
+									id="pointsRule" name="pointsRule" value="25"
+									placeholder="Gewinnpunkte">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label>Tie-Break?</label>
+							</div>
+							<div class="col">
+								<input type="checkbox" class="form-control" id="tiebreakRule"
+									name="tiebreakRule">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<button type="submit" class="btn btn-primary"
+									value="Spiel erstellen">Spiel erstellen</button>
+							</div>
+						</div>
+					</form>
+				</div>
 
-		<div class="container">
-			<form th:action="@{/team}" method="POST" th:object="${teamForm}">
-				<!-- <ul th:if="${#fields.hasErrors('*')}" class="list-unstyled text-center border border-danger rounded-lg">
-					<li th:each="err : ${#fields.errors('*')}" th:text="${err}"
-						class="" />
-				</ul> -->
-				<div class="form-row">
-					<div class="col">
-						<label>Teamname:</label>
-					</div>
-					<div class="col">
-						<input type="text" class="form-control" id="teamname"
-							name="teamname">
-					</div>
+				<div th:case="*">
+					<p>Bitte g&uml;ltigen Spieltyp w&auml;hlen!
+					<p>
+					<div th:text="${type}"></div>
 				</div>
-				<div class="form-row">
-					<div class="col">
-						<label>Teamfarbe:</label>
-					</div>
-					<div class="col">
-						<input type="color" class="form-control" id="teamcolor"
-							name="teamcolor">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="col">
-						<button type="submit" class="btn btn-primary"
-							value="Team erstellen">Team erstellen</button>
-					</div>
-				</div>
-			</form>
+			</th:block>
 		</div>
 
 		<div th:replace="fragments/general.html :: footer"></div>
