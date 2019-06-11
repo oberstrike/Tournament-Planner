@@ -59,7 +59,7 @@ public class GameController {
 			@Valid @ModelAttribute("volleyballForm") LeagueOfLegends leagueForm, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Principal principal) {
 		gameValidator.validate(leagueForm, bindingResult);
-		if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors() | teamAName.equals(teamBName)) {
 			redirectAttributes.addFlashAttribute("message", new MapBuilder<>().addPair("error", "Bitte überprüfe deine Eingaben").build());
 			return "redirect:/home?type=Leagueoflegends";
 		}
@@ -70,6 +70,7 @@ public class GameController {
 		leagueForm.setCreator(creator);
 		leagueForm.setStatus(GameStatus.PENDING);
 		leagueForm.setType(GameType.LEAGUEOFLEGENDS);
+		
 		gameService.save(leagueForm);
 
 		return "redirect:/game?id=" + leagueForm.getId();
@@ -97,7 +98,7 @@ public class GameController {
 		return "redirect:/game?id=" + volleyballForm.getId();
 	}
 
-	@PostMapping("change/Leagueoflegends")
+	@PostMapping("/change/Leagueoflegends")
 	public String changeLeagueOfLegends(@RequestParam(name = "id", required = true) long id,
 			@RequestParam(name = "teamA", required = false) long teamA,
 			@RequestParam(name = "teamB", required = false) long teamB,
@@ -197,7 +198,7 @@ public class GameController {
 		private static final long serialVersionUID = 1L;
 	}
 
-	@PostMapping
+	@PostMapping("/game/delete/{gameId}")
 	public String removeGame(@RequestParam("gameId") Long gameId, Principal principal, Model model) {
 		if(gameId == null)
 			return "redirect:/home";

@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -15,12 +14,15 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" type="image/png" href="/img/Project_Logo.png">
+<link rel="stylesheet" type="text/css" href="/css/custom-style.css" media="screen" />
 <title th:text="${title}">Default-Title</title>
 </head>
-<body>
 	<div th:fragment="header">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<a class="navbar-brand" href="home">[o]</a>
+			<a class="navbar-brand" href="/home"><img
+				src="/img/Project_Logo_36.png" width="36" height="auto"
+				alt="Logo der Seite"></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarText" aria-controls="navbarText"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -28,23 +30,28 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarText">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" href="home">Home</a>
+					<li class="nav-item active"><a class="nav-link" href="/home">Home</a>
 					</li>
 					<li class="nav-item"><a
 						class="nav-link active dropdown-toggle" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false" href="">Sportarten</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" th:href="@{/game/${gametype}}"
-								th:each="gametype : ${gametypes}" th:text="${gametype}"></a>
+							<a class="dropdown-item" th:href="@{/games/search?type=Volleyball}">Volleyball</a>
+							<a class="dropdown-item" th:href="@{/games/search?type=LeagueOfLegends}">League of Legends</a>
 						</div></li>
-					<li class="nav-item active"><a class="nav-link" href="teams/search/all">Teams</a>
-					</li>
-					<li class="nav-item active"><a class="nav-link" href="games/search/all">Spiele</a>
-					</li>
+					<li class="nav-item active"><a class="nav-link"
+						href="/teams/search/all">Teams</a></li>
+					<li class="nav-item active"><a class="nav-link"
+						href="/games/search/all">Spiele</a></li>
+					<li class="nav-item active"><a class="nav-link"
+						href="/dataprotection">Datenschutz</a></li>
+					<li class="nav-item active"><a class="nav-link"
+						href="/impressum">Impressum</a></li>
 				</ul>
 				<th:block sec:authorize="isAnonymous()">
 					<ul class="navbar-nav">
-						<li class="nav-item active"><a class="nav-link" href="registration">Registrieren</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="/registration">Registrieren</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link active dropdown-toggle" data-toggle="dropdown"
 							href="" aria-haspopup="true" aria-expanded="false">Anmelden</a>
@@ -69,7 +76,11 @@
 				</th:block>
 				<th:block sec:authorize="isAuthenticated()">
 					<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link active" th:href="home"><span sec:authentication="name"></span></a>
+						<li class="nav-item">
+							<a class="avatar" href="/profile"></a>
+						</li>
+						<li class="nav-item"><a class="nav-link active"
+							href="/profile"><span sec:authentication="name"></span></a>
 						<li class="nav-item"><a class="nav-link active"
 							th:href="@{/logout}">Ausloggen</a></li>
 					</ul>
@@ -85,43 +96,25 @@
 	Jump Up
 	 -->
 
-	<div th:fragment="footer" class="container pt-6">
-		<!-- FOOTER DEAKTIVIERT
-		<div class="container fixed-bottom float-center bg-info">
+	<div th:fragment="footer">
+		<div class="text-white container fixed-bottom float-center bg-primary">
 			<div class="col container">
-				<div class="">
-					<a href="datenschutz"><button class="btn btn-primary">Datenschutz</button></a>
+				<div class="uhr">
+					&zwj;
 				</div>
-				<div class="">
-					<a href="impressum"><button class="btn btn-primary">Impressum</button></a>
+				<div class="nSpiel">
+					&zwj;
 				</div>
 			</div>
-			<div class="col container">
-				<div class="">
-					<div sec:authorize="isAnonymous()">
-						<a href="login"><button class="btn btn-primary">Einloggen</button></a>
-					</div>
-				</div>
-				<div class="">
-					<div sec:authorize="isAnonymous()">
-						<a href="registration"><button class="btn btn-primary">Registrierung</button></a>
-					</div>
-				</div>
-				<div class="">
-					<div sec:authorize="isAuthenticated()">
-						<form th:action="@{/logout}" method="POST">
-							<button type="submit" class="btn btn-primary" value="Ausloggen">Ausloggen</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div> -->
+				
+		</div> 
 	</div>
 
 	<div th:fragment="bootstrapcomponents">
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		<!--
+				<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 			crossorigin="anonymous"></script>
 		<script
@@ -130,8 +123,50 @@
 			crossorigin="anonymous"></script>
 		<script
 			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-			crossorigin="anonymous"></script>
+			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"></script>-->
+		<script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+		<script th:src="@{/webjars/popper.js/1.14.7/popper.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+		<script>
+			function update(date){
+				$(".uhr").html(date.getHours() + ":" + 
+						(date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()) + ":" +
+						(date.getSeconds() < 10 ? "0"+date.getSeconds() : date.getSeconds()))				
+			}
+
+			$(document).ready(function() {			
+				$.get("/api/uhrzeit").done(
+					function(data) {
+						var date = new Date(data)
+						update(date)
+						setInterval(function() {
+							update(date)				
+							date.setSeconds(date.getSeconds() + 1);
+						}, 1000)
+				})
+				
+				$.get("/api/nextgame").done( function(data) {
+						$(".nSpiel").html("Nächstes Spiel startet: " + data)
+				})
+				
+				$.get("/api/id").done( function(data) {
+					if(data != 0){
+						
+						var img = $('<img id="dynamic">');
+						img.attr("src", "/avatar/" + data);
+						img.attr("height", "50px");
+						img.attr("width", "50px");
+						img.appendTo(".avatar");
+						
+					}
+						
+				
+				})
+				
+			})
+		</script>
+		
 	</div>
+
 </body>
 </html>

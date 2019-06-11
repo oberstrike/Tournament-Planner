@@ -2,47 +2,57 @@
 <html>
 <div th:replace="fragments/general.html :: headerdata (title='Spiele')"></div>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div th:replace="fragments/general.html :: header"></div>
-		<div class="input-group mb-3 justify-content-end">
-			<form th:action="@{/games/search}" method="GET" class="form-inline">
-				<input type="text" name="name" class="form-control"
-					placeholder="Spiel suchen..." aria-label="Spiel suchen...">
-				<div class="input-group-append">
-					<button class="btn btn-outline-primary" type="submit">
-						<i class="fa fa-search"></i>
-					</button>
-				</div>
-			</form>
-		</div>
 		<div th:if="${games}">
+			<div class="input-group mb-3 justify-content-end">
+				<form th:action="@{/games/search}" method="GET" class="form-inline">
+					<input type="text" name="name" class="form-control"
+						placeholder="Spiel suchen..." aria-label="Spiel suchen...">
+					<div class="input-group-append">
+						<button class="btn btn-outline-primary" type="submit">
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+			<!-- Suchleiste nur bei allen Spielen angezeigt, sonst hier wieder die if-Bedingung einfügen -->
 			<th:block th:switch="${#lists.size(games)}">
 				<div th:case="'0'">Keine Spiele gefunden</div>
 				<div th:case="*">
-					<table class="table">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">Sportart</th>
-								<th scope="col">Spielname</th>
-								<th scope="col">Datum</th>
-								<th scope="col">Heim</th>
-								<th scope="col">Gast</th>
-							</tr>
-						</thead>
-						<tbody>
-							<th:block th:each="game: ${games}">
-								<th:block
-									th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
-							</th:block>
-						</tbody>
-					</table>
+					<div class="row">
+						<div
+							class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">ID</div>
+						<div
+							class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Sportart</div>
+						<div class="col-3 col-md-3 border-bottom bg-dark text-white">Spielname</div>
+						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Datum</div>
+						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Heim</div>
+						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Gast</div>
+						<div
+							class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Status</div>
+					</div>
+					<th:block th:each="game: ${games}">
+						<th:block th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
+					</th:block>
 				</div>
 			</th:block>
 		</div>
+		<div th:if="${gameForm}">
+			<div th:value="${gameForm.type.toString()}"></div>
+			<th:block th:switch="${gameForm.type.toString()}">
+				<div th:case="'VOLLEYBALL'"><th:block  th:replace="fragments/fragm_game :: showGame(${gameForm}, ${isCreator})" > </th:block></div> 
+				<div th:case='*'>
+					<div th:replace="fragments/fragm_game::showLeague(gameForm = ${gameForm}, isCreator=${isCreator})"></div>
+				</div>
 
+			</th:block>
+		</div>
 		<div th:replace="fragments/general.html :: footer"></div>
 		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 	</div>
+
+
+
 </body>
 </html>

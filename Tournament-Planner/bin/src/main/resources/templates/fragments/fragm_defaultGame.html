@@ -1,0 +1,45 @@
+<div th:fragment="defaultGame">
+	<div class="form-row">
+		<div class="col">
+			<label>Spielname:</label>
+		</div>
+		<div class="col">
+			<input type="text" class="form-control" id="name" name="name">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col">
+			<label>Startzeit:</label>
+		</div>
+		<div class="col">
+			<div class="form-group">
+				<div class="input-group date" id="datetimepicker1">
+					<input type="text" class="form-control" name="startDate"
+						placeholder="TT.MM.JJJJ HH:MM"> <span
+						class="input-group-addon"> <span
+						class="glyphicon glyphicon-calendar"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col">
+			<select class="custom-select" name="teamAName">
+				<option th:each="team : ${teams}" th:text="${team.getName()}"
+					th:value="${team.getName()}"></option>
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col">
+			<select class="custom-select" name="teamBName">
+				<option th:each="team : ${teams}" th:text="${team.getName()}"
+					th:value="${team.getName()}"></option>
+			</select>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$('#datetimepicker1').data("DateTimePicker").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
+	</script>
+</div>
