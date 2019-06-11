@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -151,7 +152,7 @@ public class GameController {
 		}
 		gameService.save(volleyball);
 
-		return "redirect:/game?id=" + volleyball.getId();
+		return "redirect:/game?id=" + id;
 	}
 
 	@GetMapping("/game")

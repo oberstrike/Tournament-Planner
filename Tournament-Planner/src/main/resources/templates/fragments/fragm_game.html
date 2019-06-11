@@ -167,12 +167,16 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-6 txt text-right" th:text="${game.getSetsA()}"></div>
-			<div class="col-6 txt text-left" th:text="${game.getSetsB()}"></div>
+			<div class="col-6 txt text-right" id="setsA"
+				th:text="${game.getSetsA()}"></div>
+			<div class="col-6 txt text-left" id="setsB"
+				th:text="${game.getSetsB()}"></div>
 		</div>
 		<div class="row">
-			<div class="col-6 txt text-center" th:text="${game.getPointsA()}"></div>
-			<div class="col-6 txt text-center" th:text="${game.getPointsB()}"></div>
+			<div class="col-6 txt text-center" id="pointsA"
+				th:text="${game.getPointsA()}"></div>
+			<div class="col-6 txt text-center" id="pointsB"
+				th:text="${game.getPointsB()}"></div>
 		</div>
 		<div class="row">
 			<div class="col-12 text-center txt-small"
@@ -212,6 +216,7 @@ document.getElementById('hide-paragraph-button').addEventListener('click', event
 			<div class="col-12">META</div>
 			<!-- wie bspw. creator, status etc. (siehe Notizen von Jasper) -->
 		</div>
+		<!-- TEST AJAX REFRESH -->
 	</div>
 </div>
 

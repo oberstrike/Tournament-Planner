@@ -5,95 +5,108 @@
 <div
 	th:replace="fragments/general.html :: headerdata(title='Userbereich')"></div>
 <body>
-	<div class="container-fluid">
-		<div th:replace="fragments/general.html :: header"></div>
-		<div class="container">
-			<h2>
-				Willkommen in deinem Bereich <span sec:authentication="name"></span>!
-			</h2>
-			<h2>
-				Deine Rollen: <span sec:authentication="principal.authorities"></span>
-			</h2>
-		</div>
+	<div th:replace="fragments/general.html :: header"></div>
+	<div class="container">
+		<h2>
+			Willkommen in deinem Bereich <span sec:authentication="name"></span>!
+		</h2>
+		<h2>
+			Deine Rollen: <span sec:authentication="principal.authorities"></span>
+		</h2>
 
-		<div class="container">
-			<div th:if="${message}">
-				<div class="text-danger" th:text="${message.get('error')}"></div>
-				<div class="text-success" th:text="${message.get('success')}"></div>
-			</div>
-			<form th:action="@{/home}" method="GET">
-				<div class="input-group">
-					<select class="custom-select" name="type">
-						<option selected disabled="disabled">Bitte Typ
-							ausw&auml;hlen...</option>
-						<option value="Volleyball">Volleyball</option>
-						<option value="LeagueofLegends">League Of Legends</option>
-					</select>
-					<div class="input-group-append">
-						<button type="submit" class="btn btn-primary float-right">Ausw&auml;hlen</button>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div th:if="${type != null}" class="container">
-			<th:block th:switch="${type}">
-				<div th:case='LEAGUEOFLEGENDS'>
-					<div th:replace="fragments/fragm_createGame::newGame"></div>
-				</div>
-
-				<div th:case='VOLLEYBALL'>
-					<form th:action="@{/game/Volleyball}" method="POST"
-						th:object="${volleyballForm}">
-						<div th:replace="fragments/fragm_defaultGame"></div>
-						<div class="form-row">
-							<div class="col">
-								<label>Gewinnsätze:</label>
-							</div>
-							<div class="col">
-								<input type="number" class="form-control" min="1" step="1"
-									id="setsRule" name="setsRule" value="2"
-									placeholder="Gewinnsätze">
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col">
-								<label>Gewinnpunkte:</label>
-							</div>
-							<div class="col">
-								<input type="number" class="form-control" min="2" step="1"
-									id="pointsRule" name="pointsRule" value="25"
-									placeholder="Gewinnpunkte">
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col">
-								<label>Tie-Break?</label>
-							</div>
-							<div class="col">
-								<input type="checkbox" class="form-control" id="tiebreakRule"
-									name="tiebreakRule">
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col">
-								<button type="submit" class="btn btn-primary"
-									value="Spiel erstellen">Spiel erstellen</button>
-							</div>
-						</div>
-					</form>
-				</div>
-
-				<div th:case="*">
-					<p>Bitte g&uml;ltigen Spieltyp w&auml;hlen!
-					<p>
-					<div th:text="${type}"></div>
-				</div>
-			</th:block>
-		</div>
-
-		<div th:replace="fragments/general.html :: footer"></div>
-		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 
 	</div>
+	<div class="container">
+		<form th:action="@{/home}" method="GET">
+			<div class="input-group">
+				<select class="custom-select" name="type"
+					onchange="this.form.submit()">
+					<option selected disabled="disabled">Bitte Typ
+						auswählen...</option>
+					<option value="Volleyball">Volleyball</option>
+					<option value="LeagueofLegends">League Of Legends</option>
+				</select>
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-primary float-right">Auswählen</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div th:if="${type != null}" class="container">
+		<th:block th:switch="${type}">
+			<div th:case='LEAGUEOFLEGENDS'>
+				<form th:action="@{/game/leagueoflegends}" method="POST"
+					th:object="${leagueForm}">
+					<div th:replace="fragments/fragm_defaultGame"></div>
+					<div class="form-row">
+						<div class="col">
+							<label>Wie viele Spiele sollen gespielt werden:</label>
+						</div>
+						<div class="col">
+							<input class="form-control" type="number" min="1" step="1"
+								id="mode" name="mode" placeholder="Siegpunkte">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col">
+							<button type="submit" class="btn btn-primary"
+								value="Spiel erstellen">Spiel erstellen</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div th:case='VOLLEYBALL'>
+				<form th:action="@{/game/Volleyball}" method="POST"
+					th:object="${volleyballForm}">
+					<div th:replace="fragments/fragm_defaultGame"></div>
+					<div class="form-row">
+						<div class="col">
+							<label>Gewinnsätze:</label>
+						</div>
+						<div class="col">
+							<input type="number" class="form-control" min="1" step="1"
+								id="setsRule" name="setsRule" value="2"
+								placeholder="Gewinnsätze">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col">
+							<label>Gewinnpunkte:</label>
+						</div>
+						<div class="col">
+							<input type="number" class="form-control" min="2" step="1"
+								id="pointsRule" name="pointsRule" value="25"
+								placeholder="Gewinnpunkte">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col">
+							<label>Tie-Break?</label>
+						</div>
+						<div class="col">
+							<input type="checkbox" class="form-control" id="tiebreakRule"
+								name="tiebreakRule">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col">
+							<button type="submit" class="btn btn-primary"
+								value="Spiel erstellen">Spiel erstellen</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div th:case="*">
+				<p>Bitte g&uml;ltigen Spieltyp w&auml;hlen!
+				<p>
+				<div th:text="${type}"></div>
+			</div>
+		</th:block>
+	</div>
+
+	<div th:replace="fragments/general.html :: footer"></div>
+	<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 </body>
 </html>

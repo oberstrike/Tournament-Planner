@@ -3,43 +3,42 @@
 <div
 	th:replace="fragments/general.html :: headerdata (title='Registrierung')"></div>
 <body>
-	<div class="container-fluid">
-		<div th:replace="fragments/general.html :: header"></div>
-		<div class="container text-dark text-center">
-			<h4>Jetzt hier registrieren!</h4>
-		</div>
-		<div th:if="${param.error}" class="container text-danger text-center">
-			Die Registrierung ist fehlgeschlagen!</div>
-		<div th:if="${param.logout}"
-			class="container text-success text-center">Die Registrierung war erfolgreich!</div>
-		<div class="container text-center">
-			<form th:action="@{/registration}" method="POST"
-				th:object="${memberForm}">
-				<ul th:if="${#fields.hasErrors('*')}" class="list-unstyled text-center border border-danger rounded-lg">
-					<li th:each="err : ${#fields.errors('*')}" th:text="${err}"
-						class="" />
-				</ul>
-				<div class="col-auto text-center">
-					<div class="">
-						<label>Benutzername:</label>
-					</div>
-					<div class="">
-						<input type="text" class="form-control" id="username"
-							name="username" placeholder="Benutzernamen eingeben"
-							autofocus="autofocus" th:field="*{username}">
-					</div>
+	<div th:replace="fragments/general.html :: header"></div>
+	<div class="container text-dark text-center">
+		<h4>Jetzt hier registrieren!</h4>
+	</div>
+	<div th:if="${param.error}" class="container text-danger text-center">
+		Die Registrierung ist fehlgeschlagen!</div>
+	<div th:if="${param.logout}" class="container text-success text-center">Die
+		Registrierung war erfolgreich!</div>
+	<div class="container text-center">
+		<form th:action="@{/registration}" method="POST"
+			th:object="${memberForm}">
+			<ul th:if="${#fields.hasErrors('*')}"
+				class="list-unstyled text-center border border-danger rounded-lg">
+				<li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="" />
+			</ul>
+			<div class="col-auto text-center">
+				<div class="">
+					<label>Benutzername:</label>
 				</div>
-				<div class="col-auto text-center">
-					<div class="">
-						<label>E-Mail Adresse eingeben:</label>
-					</div>
-					<div class="">
-						<input type="email" class="form-control" id="email" name="email"
-							aria-describedby="emailHelp" placeholder="E-Mail eingeben"
-							autofocus="autofocus">
-					</div>
+				<div class="">
+					<input type="text" class="form-control" id="username"
+						name="username" placeholder="Benutzernamen eingeben"
+						autofocus="autofocus" th:field="*{username}">
 				</div>
-				<!-- E-Mail Bestätigung noch nicht implementiert
+			</div>
+			<div class="col-auto text-center">
+				<div class="">
+					<label>E-Mail Adresse eingeben:</label>
+				</div>
+				<div class="">
+					<input type="email" class="form-control" id="email" name="email"
+						aria-describedby="emailHelp" placeholder="E-Mail eingeben"
+						autofocus="autofocus">
+				</div>
+			</div>
+			<!-- E-Mail Bestätigung noch nicht implementiert
 		<div class="col-auto text-center">
 			<div class="">
 				<label>E-Mail Adresse bestätigen:</label>
@@ -50,37 +49,36 @@
 			</div>
 		</div>
 		-->
-				<div class="col-auto text-center">
-					<div class="">
-						<label for="inputPassword">Passwort eingeben:</label>
-					</div>
-					<div class="">
-						<input type="password" class="form-control" id="password"
-							name="password" placeholder="Passwort eingeben">
-					</div>
+			<div class="col-auto text-center">
+				<div class="">
+					<label for="inputPassword">Passwort eingeben:</label>
 				</div>
-				<div class="col-auto text-center">
-					<div class="">
-						<label for="inputPassword">Passwort best&auml;tigen:</label>
-					</div>
-					<div class="">
-						<input type="password" class="form-control" id="passwordConfirm"
-							name="passwordConfirm" placeholder="Passwort wiederholen">
-					</div>
+				<div class="">
+					<input type="password" class="form-control" id="password"
+						name="password" placeholder="Passwort eingeben">
 				</div>
-				<BR>
-				<div class="container text-center">
-					Bereits registriert? <a href="login.html">Hier</a> einloggen.
+			</div>
+			<div class="col-auto text-center">
+				<div class="">
+					<label for="inputPassword">Passwort best&auml;tigen:</label>
 				</div>
-				<BR>
+				<div class="">
+					<input type="password" class="form-control" id="passwordConfirm"
+						name="passwordConfirm" placeholder="Passwort wiederholen">
+				</div>
+			</div>
+			<BR>
+			<div class="container text-center">
+				Bereits registriert? <a href="login.html">Hier</a> einloggen.
+			</div>
+			<BR>
 
-				<button type="submit" class="btn btn-primary col"
-					value="Registrieren">Absenden</button>
-			</form>
-		</div>
-
-		<div th:replace="fragments/general.html :: footer"></div>
-		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+			<button type="submit" class="btn btn-primary col"
+				value="Registrieren">Absenden</button>
+		</form>
 	</div>
+
+	<div th:replace="fragments/general.html :: footer"></div>
+	<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 </body>
 </html>
