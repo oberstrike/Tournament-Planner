@@ -28,12 +28,6 @@ public class MainController {
 	
 	@GetMapping("/home")
 	public String getHome(@RequestParam(name = "type", required = false) String type, Model model, HttpServletRequest request) {
-		GameType[] types = GameType.values();
-		String[] sArray = new String[types.length];
-		for (int i = 0; i < types.length; i++) {
-			sArray[i] = types[i].getDescription();
-		}
-
 		if (type != null) {
 			model.addAttribute("type", type.toUpperCase());
 			model.addAttribute("gameForm", new Game());
