@@ -1,20 +1,27 @@
 <div th:fragment="defaultGame">
-	<div class="form-row">
-		<div class="col">
+	<div class="row">
+		<div class="col-1 col-md-1"></div>
+		<div class="col-10 col-md-5">
 			<label>Spielname:</label>
 		</div>
-		<div class="col">
+		<div class="col-1 d-md-none"></div>
+		<div class="col-1 d-md-none"></div>
+		<div class="col-10 col-md-5">
 			<input type="text" class="form-control" id="name" name="name">
 		</div>
+		<div class="col-1 col-md-1"></div>
 	</div>
-	<div class="form-row">
-		<div class="col">
+	<div class="row">
+		<div class="col-1 col-md-1"></div>
+		<div class="col-10 col-md-5">
 			<label>Startzeit:</label>
 		</div>
-		<div class="col">
+		<div class="col-1 d-md-none"></div>
+		<div class="col-1 d-md-none"></div>
+		<div class="col-10 col-md-5">
 			<div class="form-group">
-				<div class="input-group date" id="datetimepicker1">
-					<input type="text" class="form-control" name="startDate"
+				<div class="input-group date">
+					<input type="datetime-local" class="form-control" name="startDate"
 						placeholder="TT.MM.JJJJ HH:MM"> <span
 						class="input-group-addon"> <span
 						class="glyphicon glyphicon-calendar"></span>
@@ -22,21 +29,31 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-1 col-md-1"></div>
 	</div>
-	<div class="form-row">
-		<div class="col">
+	<div class="row">
+		<div class="col-1 col-md-1"></div>
+		<div class="col-10 col-md-5">Heim</div>
+		<div class="d-none d-md-block col-md-5">Gast</div>
+		<div class="col-1 col-md-1"></div>
+		<div class="col-1 col-md-1"></div>
+		<div class="col-10 col-md-5">
 			<select class="custom-select" name="teamAName">
 				<option th:each="team : ${teams}" th:text="${team.getName()}"
 					th:value="${team.getName()}"></option>
 			</select>
 		</div>
-	</div>
-	<div class="form-row">
-		<div class="col">
+		<div class="col-1 d-md-none"></div>
+		<div class="col-1 d-md-none"></div>
+		<div class="col-10 d-md-none">Gast</div>
+		<div class="col-1 d-md-none"></div>
+		<div class="col-1 d-md-none"></div>
+		<div class="col-10 col-md-5">
 			<select class="custom-select" name="teamBName">
 				<option th:each="team : ${teams}" th:text="${team.getName()}"
 					th:value="${team.getName()}"></option>
 			</select>
 		</div>
+		<div class="col-1 col-md-1"></div>
 	</div>
 </div>

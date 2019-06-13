@@ -40,7 +40,7 @@ public class MainController {
 			model.addAttribute("volleyballForm", new Volleyball());
 			model.addAttribute("leagueForm", new LeagueOfLegends());
 		}
-		model.addAttribute("gametypes", Arrays.asList(sArray));
+		model.addAttribute("gametypes", GameType.values());
 		model.addAttribute("teams", teamService.getAll());
 		return "home";
 	}

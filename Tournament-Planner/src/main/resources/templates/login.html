@@ -3,27 +3,73 @@
 <div th:replace="fragments/general.html :: headerdata (title='Login')"></div>
 <body>
 	<div th:replace="fragments/general.html :: header"></div>
-	<h4>Einloggen!</h4>
-	<div th:if="${param.error}" class="container text-danger text-center">
-		Das Login ist fehlgeschlagen!</div>
-	<div th:if="${param.login}" class="container text-success text-center">
-		Das Login war erfolgreich!</div>
+	<div class="row">
+		<div class="col-1"></div>
+		<div class="col-10 heading">
+			Willkommen bei deinem Livescoringanbieter!
+		</div>
+		<div class="col-1"></div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<!-- <img src="/img/teaserimg.jpg" alt="Teaserbild für die Homepage"> -->
+		</div>
+	</div>
+	<div class="row">
+		<!-- Teaser txt -->
+		<div class="col-1"></div>
+		<div class="col-10">
+			Erstelle jetzt deine Teams und Spiele und teile den Livescore direkt
+			mit deinen Freunden.
+			<p>Du schaust dir gerne Sport an und hast keine Lust permanent
+				den neugierigen Freunde mitzuteilen, wie der aktuelle Spielstand
+				ist?
+			<p>Dann nutze jetzt unseren Livescoringdienst. Erstelle deine
+				Teams und Partien und teile einen Link direkt über WhatsApp.
+			<p>Du, als Ersteller des Spielst, kannst nun direkt die
+				Spielstände aktualisieren und deine Freunde können diese über den
+				Link verfolgen.
+			<p>Logg dich ein, oder registriere dich einfach und schnell und
+				leg sofort los!
+		</div>
+		<div class="col-1"></div>
+	</div>
+	<div class="row">
+		<div th:if="${param.error}" class="container text-danger text-center">
+			Das Login ist fehlgeschlagen!</div>
+		<div th:if="${param.login}" class="container text-success text-center">
+			Das Login war erfolgreich!</div>
+	</div>
+	<div>
+		<form th:action="@{/login}" method="POST">
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-10 col-md-5 col-lg-3">
+					<label for="username">Benutzername:</label><input type="text"
+						name="username" id="username" class="form-control"
+						placeholder="Benutzername" />
+				</div>
+				<div class="col-1"></div>
+			</div>
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-10 col-md-5 col-lg-3">
+					<label for="password">Passwort:</label><input type="password"
+						name="password" id="password" class="form-control"
+						placeholder="Passwort" />
+				</div>
+				<div class="col-1"></div>
+			</div>
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-10 col-md-5 col-lg-3">
+					<button type="submit" class="btn btn-primary">Einloggen</button>
+				</div>
+				<div class="col-1"></div>
+			</div>
+		</form>
+	</div>
 
-	<form th:action="@{/login}" method="POST">
-		<div class="container pb-3">
-			<label for="username">Benutzername:</label><input type="text"
-				name="username" id="username" class="form-control"
-				placeholder="Benutzername" />
-		</div>
-		<div class="container pb-3">
-			<label for="password">Passwort:</label><input type="password"
-				name="password" id="password" class="form-control"
-				placeholder="Passwort" />
-		</div>
-		<div class="container">
-			<button type="submit" class="btn btn-primary">Einloggen</button>
-		</div>
-	</form>
 
 
 	<div th:replace="fragments/general.html :: footer"></div>

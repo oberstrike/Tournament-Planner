@@ -1,8 +1,26 @@
+body {
+    padding-bottom: 120px;
+    font-size: 1rem;
+}
+.heading {
+	font-size: 2rem;
+}
 .navbarimg {
 	height: 40px;
 	width: auto;
 }
-@media only screen {
+#progressbar-progress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#progressbar-bar{
+  width: 1%;
+  height: 30px;
+  background-color: #4CAF50;
+}
+
+/*@media only screen {
 	.txt {
 		font-size: 1em;
 	}
@@ -46,7 +64,7 @@
 		font-size: 2.5em;
 	}
 }
-/*@media only screen {
+@media only screen {
 	[class*="col-"] {
 		font-size: 2em;
 	}	

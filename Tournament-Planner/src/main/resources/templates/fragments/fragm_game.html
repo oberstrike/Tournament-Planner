@@ -33,8 +33,8 @@
 <div th:fragment="showGame(game, isCreator)">
 	<div class="container">
 		<div class="row">
-			<div class="col-10 txt-small" th:text="${game.name}"></div>
-			<div class="col-2 txt-small">
+			<div class="col-10" th:text="${game.name}"></div>
+			<div class="col-2">
 				<a
 					th:href="'https://wa.me/?text=Schau%20dir%20das%20Spiel%20' + ${game.getTeamA().getName()} + '%20gegen%20' + ${game.getTeamB().getName()} + '%20im%20Liveticker%20an%3A%0A' + ${#httpServletRequest.requestURL} + '?id=' + ${game.id}"
 					target="_blank"><i
@@ -42,7 +42,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-12 txt" th:text="'Spielbeginn: ' + ${game.startDate}">Datum</div>
+			<div class="col-12" th:text="'Spielbeginn: ' + ${game.startDate}">Datum</div>
 		</div>
 		<div class="row">
 			<!-- Mobile -->
@@ -56,10 +56,10 @@
 				th:style="'background-color: ' + ${game.getTeamA().getTeamcolor()} + ';'">
 			</div>
 			<!-- Name -->
-			<div class="col-md-5 col-6 text-left txt"
+			<div class="col-md-5 col-6 text-left"
 				th:text="${game.getTeamA().getName()}"></div>
 			<!-- Name -->
-			<div class="col-md-5 col-6 text-right txt"
+			<div class="col-md-5 col-6 text-right"
 				th:text="${game.getTeamB().getName()}"></div>
 			<!-- Desktop -->
 			<div class="col-md-1 d-none d-md-block"
@@ -67,66 +67,88 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-6 txt text-right" id="setsA"
-				th:text="${game.getSetsA()}"></div>
-			<div class="col-6 txt text-left" id="setsB"
-				th:text="${game.getSetsB()}"></div>
+			<div class="col-6 text-right" id="setsA" th:text="${game.getSetsA()}"></div>
+			<div class="col-6 text-left" id="setsB" th:text="${game.getSetsB()}"></div>
 		</div>
 		<div class="row">
-			<div class="col-6 txt text-center" id="pointsA"
+			<div class="col-6 text-center" id="pointsA"
 				th:text="${game.getPointsA()}"></div>
-			<div class="col-6 txt text-center" id="pointsB"
+			<div class="col-6 text-center" id="pointsB"
 				th:text="${game.getPointsB()}"></div>
 		</div>
 		<div class="row">
-			<div class="col-12 text-center txt-small"
-				th:text="${game.getCompleteScore()}"></div>
+			<div class="col-12 text-center" th:text="${game.getCompleteScore()}"></div>
 		</div>
 		<div class="row" th:if="${isCreator}">
 			<div class="col-3">
 				<form th:action="@{/change/Volleyball}" method="POST">
 					<input type="hidden" name="id" th:value="${game.getId()}">
 					<input type="hidden" name="optionID" value="1">
-					<button class="btn btn-block btn-success modifyGame" value="Add Point A">+</button>
+					<button class="btn btn-block btn-success modifyGame"
+						value="Add Point A">+</button>
 				</form>
 			</div>
 			<div class="col-3">
 				<form th:action="@{/change/Volleyball}" method="POST">
 					<input type="hidden" name="id" th:value="${game.getId()}">
 					<input type="hidden" name="optionID" value="2">
-					<button class="btn btn-block btn-danger modifyGame" value="Minus Point A">-</button>
+					<button class="btn btn-block btn-danger modifyGame"
+						value="Minus Point A">-</button>
 				</form>
 			</div>
 			<div class="col-3">
 				<form th:action="@{/change/Volleyball}" method="POST">
 					<input type="hidden" name="id" th:value="${game.getId()}">
 					<input type="hidden" name="optionID" value="3">
-					<button class="btn btn-block btn-success modifyGame" value="Add Point B">+</button>
+					<button class="btn btn-block btn-success modifyGame"
+						value="Add Point B">+</button>
 				</form>
 			</div>
 			<div class="col-3">
 				<form th:action="@{/change/Volleyball}" method="POST">
 					<input type="hidden" name="id" th:value="${game.getId()}">
 					<input type="hidden" name="optionID" value="4">
-					<button class="btn btn-block btn-danger modifyGame" value="Minus Point B">-</button>
+					<button class="btn btn-block btn-danger modifyGame"
+						value="Minus Point B">-</button>
 				</form>
 			</div>
 			<th:block th:if="${game.isFinished()}">
-				<!-- Disable control -->
-				HALLO
 				<script>
 					document.getElementsByClassName("modifyGame").disabled = true;
 				</script>
 			</th:block>
 		</div>
 		<div class="row">
-			<div class="col-12">META</div>
-			<!-- wie bspw. creator, status etc. (siehe Notizen von Jasper) -->
+			<div class="col-12"><!-- wie bspw. creator, status etc. (siehe Notizen von Jasper) --></div>
+			<div class="col-12">
+				<div class="progress">
+					<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" id="reload-page">Aktualisierung</div>
+				</div>
+			</div>
 		</div>
-		<script>
+		<script src="/js/pace.min.js"></script>
+		<!-- <script>
 			setTimeout(function() {
 				window.location.reload(1);
 			}, 10000);
+		</script> -->
+		<script type="text/javascript">
+			move()
+			
+			function move() {
+				var elem = document.getElementById("reload-page");
+				var width = 1;
+				var id = setInterval(frame, 100);
+				function frame() {
+					if (width >= 100) {
+						clearInterval(id);
+						window.location.reload(1);
+					} else {
+						width = width+1;
+						elem.style.width = width + '%';
+					}
+				}
+			}
 		</script>
 	</div>
 </div>
@@ -138,13 +160,13 @@
 				id="delete" />
 		</div>
 		<div class="row">
-			<div class="col-6 txt text-left"
+			<div class="col-6 text-left"
 				th:text="${gameForm.getTeamA().getName()}">Das ist Team A</div>
-			<div class="col-6 txt text-right"
+			<div class="col-6 text-right"
 				th:text="${gameForm.getTeamB().getName()}">Das ist Team B</div>
 		</div>
 		<div class="row">
-			<div class="col-6 txt text-right"
+			<div class="col-6 text-right"
 				th:text="${gameForm.killsTeamA + ':' + gameForm.killsTeamB}">10:3</div>
 		</div>
 		<div class="row" th:if="${isCreator}">
@@ -181,13 +203,13 @@
 	<script th:inline="javascript">
 		$(document).ready(function() {
 			var id = /*[[${gameForm.id}]]*/0;
-			
+
 			$("#delete").click(function() {
 				$.get("/games/delete/" + id).done(function(data) {
 					console.log("Deleted");
 				});
 			});
-			
+
 		});
 	</script>
 </div>

@@ -20,76 +20,78 @@
 <title th:text="${title}">Default-Title</title>
 </head>
 <div th:fragment="header">
-	<div class="row-12">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<a class="navbar-brand" href="/home"><img
-				src="/img/Project_Logo_36.png" width="36" height="auto"
-				alt="Logo der Seite"></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarText" aria-controls="navbarText"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarText">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" href="/home">Home</a>
-					</li>
-					<li class="nav-item"><a
-						class="nav-link active dropdown-toggle" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false" href="">Sportarten</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item"
-								th:href="@{/games/search?type=Volleyball}">Volleyball</a> <a
-								class="dropdown-item"
-								th:href="@{/games/search?type=LeagueOfLegends}">League of
-								Legends</a>
-						</div></li>
-					<li class="nav-item active"><a class="nav-link"
-						href="/teams/search/all">Teams</a></li>
-					<li class="nav-item active"><a class="nav-link"
-						href="/games/search/all">Spiele</a></li>
-					<li class="nav-item active"><a class="nav-link"
-						href="/dataprotection">Datenschutz</a></li>
-					<li class="nav-item active"><a class="nav-link"
-						href="/impressum">Impressum</a></li>
-				</ul>
-				<th:block sec:authorize="isAnonymous()">
-					<ul class="navbar-nav">
-						<li class="nav-item active"><a class="nav-link"
-							href="/registration">Registrieren</a></li>
-						<li class="nav-item dropdown"><a
+	<div class="row">
+		<div class="col-12">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+				<a class="navbar-brand" href="/home"><img
+					src="/img/Project_Logo_36.png" width="36" height="auto"
+					alt="Logo der Seite"></a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarText" aria-controls="navbarText"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarText">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active"><a class="nav-link" href="/home">Home</a>
+						</li>
+						<li class="nav-item"><a
 							class="nav-link active dropdown-toggle" data-toggle="dropdown"
-							href="" aria-haspopup="true" aria-expanded="false">Anmelden</a>
-							<div class="dropdown-menu dropdown-menu-right">
-								<form th:action="@{/login}" method="POST" class="form-inline">
-									<div class="container pb-3">
-										<input type="text" name="username" id="username"
-											class="form-control" placeholder="Benutzername" />
-									</div>
-									<p>
-									<div class="container pb-3">
-										<input type="password" name="password" id="password"
-											class="form-control" placeholder="Passwort" />
-									</div>
-									<p>
-									<div class="container">
-										<button type="submit" class="btn btn-primary float-right">Einloggen</button>
-									</div>
-								</form>
+							aria-haspopup="true" aria-expanded="false" href="">Sportarten</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item"
+									th:href="@{/games/search?type=Volleyball}">Volleyball</a> <a
+									class="dropdown-item"
+									th:href="@{/games/search?type=LeagueOfLegends}">League of
+									Legends</a>
 							</div></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="/teams/search/all">Teams</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="/games/search/all">Spiele</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="/dataprotection">Datenschutz</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="/impressum">Impressum</a></li>
 					</ul>
-				</th:block>
-				<th:block sec:authorize="isAuthenticated()">
-					<ul class="navbar-nav">
-						<li class="nav-item"><a class="avatar" href="/profile"></a></li>
-						<li class="nav-item"><a class="nav-link active"
-							href="/profile"><span sec:authentication="name"></span></a>
-						<li class="nav-item"><a class="nav-link active"
-							th:href="@{/logout}">Ausloggen</a></li>
-					</ul>
-				</th:block>
-			</div>
-		</nav>
+					<th:block sec:authorize="isAnonymous()">
+						<ul class="navbar-nav">
+							<li class="nav-item active"><a class="nav-link"
+								href="/registration">Registrieren</a></li>
+							<li class="nav-item dropdown"><a
+								class="nav-link active dropdown-toggle" data-toggle="dropdown"
+								href="" aria-haspopup="true" aria-expanded="false">Anmelden</a>
+								<div class="dropdown-menu dropdown-menu-right">
+									<form th:action="@{/login}" method="POST" class="form-inline">
+										<div class="container pb-3">
+											<input type="text" name="username" id="username"
+												class="form-control" placeholder="Benutzername" />
+										</div>
+										<p>
+										<div class="container pb-3">
+											<input type="password" name="password" id="password"
+												class="form-control" placeholder="Passwort" />
+										</div>
+										<p>
+										<div class="container">
+											<button type="submit" class="btn btn-primary float-right">Einloggen</button>
+										</div>
+									</form>
+								</div></li>
+						</ul>
+					</th:block>
+					<th:block sec:authorize="isAuthenticated()">
+						<ul class="navbar-nav">
+							<li class="nav-item"><a class="avatar" href="/profile"></a></li>
+							<li class="nav-item"><a class="nav-link active"
+								href="/profile"><span sec:authentication="name"></span></a>
+							<li class="nav-item"><a class="nav-link active"
+								th:href="@{/logout}">Ausloggen</a></li>
+						</ul>
+					</th:block>
+				</div>
+			</nav>
+		</div>
 	</div>
 </div>
 <!-- oben neu ende -->
