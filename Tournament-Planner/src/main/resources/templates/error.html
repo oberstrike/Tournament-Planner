@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<div
+	th:replace="fragments/general.html :: headerdata (title='TEMPLATE-NEEDS-CHANGE')"></div>
+<body>
+	<div th:replace="fragments/general.html :: header"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">Upps there was a mistake...</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">Du solltest nach 5 Sekunden
+				weitergeleitet werden.</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">Falls nicht kannst du <a href="/home">hier</a> zum Homebereich gelangen.</div>
+		</div>
+
+	</div>
+	<div th:replace="fragments/general.html :: footer"></div>
+	<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+	<script type="text/javascript">
+		setTimeout("self.location.href='/home'", 5000);
+	</script>
+</body>
+</html>
