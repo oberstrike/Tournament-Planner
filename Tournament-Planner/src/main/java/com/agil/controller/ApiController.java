@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public class ApiController {
 
 	@Autowired
 	private MemberService memberService;
-	
+
 	@GetMapping("/api/gametypes")
 	public List<GameType> getTypes() {
 		return Arrays.asList(GameType.values());
@@ -54,39 +55,39 @@ public class ApiController {
 		}
 		return teamService.getAll().stream().map(TeamDTO::new).collect(Collectors.toList());
 	}
-	
+
 	@GetMapping("/api/nextgame")
 	public String getNextGame(Principal principal) {
-		if(principal == null)
+		if (principal == null)
 			return "";
 		List<Game> gameA = gameService.findByTeamA_Players_Name(principal.getName());
 		List<Game> gameB = gameService.findByTeamB_Players_Name(principal.getName());
 		gameA.addAll(gameB);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		return gameA.stream().sorted().map(GameDTO::new).map(GameDTO::getStartDate).map(sdf::format).findFirst().get();
+		return gameA.stream().sorted().map(GameDTO::new).map(GameDTO::getStartDate)
+				.filter(each -> each.after(new Date(System.currentTimeMillis()))).map(sdf::format).findFirst().orElse("");
 	}
-	
-	
+
 	@GetMapping("/api/games")
 	public List<GameDTO> getGames(@RequestParam(required = false) Long id, Principal principal) {
 		if (id != null) {
 			Game game = gameService.findOne(id).orElse(new Game());
 			return new ArrayList<>(Arrays.asList(new GameDTO(game)));
-		} 
+		}
 		return gameService.getAll().stream().map(GameDTO::new).collect(Collectors.toList());
 	}
-	
+
 	@GetMapping("/api/uhrzeit")
 	public long getDate() {
 		return System.currentTimeMillis();
 	}
+
 	@GetMapping("/api/id")
-	public long getMyId(Principal principal)
-	{
-		if(principal == null)
+	public long getMyId(Principal principal) {
+		if (principal == null)
 			return 0;
 		Member member = memberService.findByUsername(principal.getName());
-		if(member.isAvatar())
+		if (member.isAvatar())
 			return member.getId();
 		return 0;
 	}
