@@ -1,4 +1,4 @@
-<!-- Notiz: beide Fragmente werden noch umgezogen in die eigentliche HTML, momentan bleiben diese aber noch hier für die Entwicklung -->
+<!-- Notiz: beide Fragmente werden noch umgezogen in die eigentliche HTML, momentan bleiben diese aber noch hier fï¿½r die Entwicklung -->
 
 <div th:fragment="showGames(game)">
 	<div class="row">
@@ -118,6 +118,7 @@
 				</script>
 			</th:block>
 		</div>
+		<br>
 		<th:block th:if="${game.isFinished()}">
 			<th:block th:if="${game.getVideo()}">
 				<div class="row">
@@ -194,7 +195,7 @@
 <div th:fragment="showLeague(gameForm, isCreator)">
 	<div class="container">
 		<div class="pull-right" th:if="${isCreator}">
-			<img src="/img/cross_icon.png" alt="Löschen" width="36" height="auto"
+			<img src="/img/cross_icon.png" alt="Lï¿½schen" width="36" height="auto"
 				id="delete" />
 		</div>
 		<div class="row">
