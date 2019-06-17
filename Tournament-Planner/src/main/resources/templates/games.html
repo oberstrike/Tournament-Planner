@@ -41,7 +41,7 @@
 		<th:block th:switch="${gameForm.type.toString()}">
 			<div th:case="'VOLLEYBALL'">
 				<th:block
-					th:replace="fragments/fragm_game :: showGame(${gameForm}, ${isCreator})">
+					th:replace="fragments/fragm_game :: showVolleyball(${gameForm}, ${isCreator})">
 				</th:block>
 			</div>
 			<div th:case="'LEAGUEOFLEGENDS'">
