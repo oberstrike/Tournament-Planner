@@ -131,8 +131,8 @@
 					<div class="col-1"></div>
 				</div>
 			</th:block>
-			<div class="row">
-				<form th:action="@{/setVideo}" method="POST">
+			<form th:action="@{/setVideo}" method="POST">
+				<div class="row">
 					<div class="col-4">
 						<label>YouTube-Link</label>
 					</div>
@@ -143,8 +143,8 @@
 					<div class="col-4">
 						<button class="btn btn-block btn-primary">Video verlinken</button>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</th:block>
 		<div class="row" th:if="${!isCreator}">
 			<div class="col-12">
