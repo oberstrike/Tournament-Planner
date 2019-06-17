@@ -84,6 +84,7 @@ public class GameController {
 			RedirectAttributes redirectAttributes, Principal principal) {
 		gameValidator.validate(volleyballForm, bindingResult);
 		if (bindingResult.hasErrors()) {
+			System.out.println();
 			redirectAttributes.addFlashAttribute("message", "Das Spiel konnte nicht erstellt werden");
 			return "redirect:/home?type=Volleyball";
 		}
