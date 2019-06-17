@@ -7,8 +7,8 @@
 <body>
 	<div th:replace="fragments/general.html :: header"></div>
 	<!-- NEW TEAM CONTROL -->
-	<div class="row">
-		<div class="col-5">
+	<div class="row mb-3">
+		<div class="col-12 col-md-3">
 			<th:block sec:authorize="isAuthenticated()">
 				<th:block th:if="${teams}">
 					<form th:action="@{/team}" method="POST" th:object="${teamForm}">
@@ -37,14 +37,14 @@
 				</th:block>
 			</th:block>
 		</div>
-		<div class="col-4"></div>
-		<div class="col-3">
+		<div class="col-none col-md-6"></div>
+		<div class="col-12 col-md-3">
 			<form th:action="@{/teams/search}" method="GET">
 				<div class="input-group">
 					<input type="text" name="name" class="form-control"
 						placeholder="Team suchen..." aria-label="Team suchen...">
 					<div class="input-group-append">
-						<button class="btn btn-outline-light" type="submit">
+						<button class="btn btn-outline-primary" type="submit">
 							<i class="fa fa-search"></i>
 						</button>
 					</div>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<div th:replace="fragments/general.html :: headerdata (title='Spiele')"></div>
+<th:block
+	th:replace="fragments/general.html :: headerdata (title='Spiele')"></th:block>
 <body>
 	<div th:replace="fragments/general.html :: header"></div>
 	<div th:if="${games}">
@@ -41,14 +42,13 @@
 		<th:block th:switch="${gameForm.type.toString()}">
 			<div th:case="'VOLLEYBALL'">
 				<th:block
-					th:replace="fragments/fragm_game :: showGame(${gameForm}, ${isCreator})">
+					th:replace="fragments/fragm_game :: showVolleyball(${gameForm}, ${isCreator})">
 				</th:block>
 			</div>
 			<div th:case="'LEAGUEOFLEGENDS'">
 				<div
 					th:replace="fragments/fragm_game::showLeague(${gameForm}, ${isCreator})"></div>
 			</div>
-
 		</th:block>
 	</div>
 	<div th:replace="fragments/general.html :: footer"></div>

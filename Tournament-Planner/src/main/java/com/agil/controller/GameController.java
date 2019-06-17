@@ -169,9 +169,11 @@ public class GameController {
 			boolean isCreator = member.getUsername().equals(game.getCreator().getUsername());
 			boolean isAdmin = member.getRoles().contains(MemberRole.ROLE_ADMIN);
 			model.addAttribute("isCreator", isCreator ? true : isAdmin);
+		} else {
+			model.addAttribute("isCreator", false);
 		}
 
-		return "games";
+		return "/games";
 	}
 
 	@GetMapping("/games/search")

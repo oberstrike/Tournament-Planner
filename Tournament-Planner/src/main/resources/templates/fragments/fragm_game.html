@@ -30,7 +30,7 @@
 
 <!-- NEW -->
 
-<div th:fragment="showGame(game, isCreator)">
+<div th:fragment="showVolleyball(game, isCreator)">
 	<div class="container">
 		<div class="row">
 			<div class="col-10" th:text="${game.name}"></div>
@@ -148,21 +148,30 @@
 			</form>
 		</th:block>
 		<div class="row" th:if="${!isCreator}">
-			<div class="col-12">
-				<!-- wie bspw. creator, status etc. (siehe Notizen von Jasper) -->
+			<div class="col-1"></div>
+			<div class="col-10">
+				<!-- wie bspw. creator, status etc. -->
 			</div>
+			<div class="col-1"></div>
+		</div>
+		<th:block th:if="${!isCreator}">
 			<th:block th:if="${!game.isFinished()}">
-				<div class="col-12">
-					<div class="progress">
-						<div
-							class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-							id="reload-page">Aktualisierung</div>
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-10">
+						<div class="progress">
+							<div
+								class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+								id="reload-page">Aktualisierung</div>
+						</div>
 					</div>
+					<div class="col-1"></div>
 				</div>
 			</th:block>
-		</div>
-		<script src="/js/pace.min.js"></script>
-		<!-- <script>
+		</th:block>
+
+		<!-- <script src="/js/pace.min.js"></script>
+		 <script>
 			setTimeout(function() {
 				window.location.reload(1);
 			}, 10000);
@@ -195,8 +204,8 @@
 <div th:fragment="showLeague(gameForm, isCreator)">
 	<div class="container">
 		<div class="pull-right" th:if="${isCreator}">
-			<img src="/img/cross_icon.png" alt="L�schen" width="36" height="auto"
-				id="delete" />
+			<img src="/img/cross_icon.png" alt="L�schen" width="36"
+				height="auto" id="delete" />
 		</div>
 		<div class="row">
 			<div class="col-6 text-left"
