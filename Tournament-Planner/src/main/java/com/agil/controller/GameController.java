@@ -216,4 +216,12 @@ public class GameController {
 		return "/home";
 	}
 	
+	@PostMapping("/setVideo")
+	public String setVideo(@RequestParam(name = "videoid") String videoid, @RequestParam(name = "id") String id) {
+		Game game = gameService.findOne(Long.parseLong(id)).get();
+		game.setVideo(videoid);
+		gameService.save(game);
+		return "redirect:/game?id=" + id;
+	}
+	
 }
