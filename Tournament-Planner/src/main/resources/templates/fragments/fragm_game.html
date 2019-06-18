@@ -1,4 +1,4 @@
-<!-- Notiz: beide Fragmente werden noch umgezogen in die eigentliche HTML, momentan bleiben diese aber noch hier für die Entwicklung -->
+<!-- Notiz: beide Fragmente werden noch umgezogen in die eigentliche HTML, momentan bleiben diese aber noch hier fï¿½r die Entwicklung -->
 
 <div th:fragment="showGames(game)">
 	<div class="row">
@@ -30,7 +30,7 @@
 
 <!-- NEW -->
 
-<div th:fragment="showGame(game, isCreator)">
+<div th:fragment="showVolleyball(game, isCreator)">
 	<div class="container">
 		<div class="row">
 			<div class="col-10" th:text="${game.name}"></div>
@@ -118,46 +118,94 @@
 				</script>
 			</th:block>
 		</div>
-		<div class="row">
-			<div class="col-12"><!-- wie bspw. creator, status etc. (siehe Notizen von Jasper) --></div>
-			<div class="col-12">
-				<div class="progress">
-					<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" id="reload-page">Aktualisierung</div>
+		<br>
+		<th:block th:if="${game.isFinished()}">
+			<th:block th:if="${game.getVideo()}">
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-10">
+						<iframe width="560" height="315" th:src="${game.getVideo()}"
+							frameborder="0"
+							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen></iframe>
+					</div>
+					<div class="col-1"></div>
 				</div>
+			</th:block>
+			<form th:action="@{/setVideo}" method="POST">
+				<div class="row">
+					<div class="col-4">
+						<label>YouTube-Link</label>
+					</div>
+					<div class="col-4">
+						<input type="text" name="videoid"> <input type="hidden"
+							name="id" th:value="${game.getId()}">
+					</div>
+					<div class="col-4">
+						<button class="btn btn-block btn-primary">Video verlinken</button>
+					</div>
+				</div>
+			</form>
+		</th:block>
+		<div class="row" th:if="${!isCreator}">
+			<div class="col-1"></div>
+			<div class="col-10">
+				<!-- wie bspw. creator, status etc. -->
 			</div>
+			<div class="col-1"></div>
 		</div>
-		<script src="/js/pace.min.js"></script>
-		<!-- <script>
+		<th:block th:if="${!isCreator}">
+			<th:block th:if="${!game.isFinished()}">
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-10">
+						<div class="progress">
+							<div
+								class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+								id="reload-page">Aktualisierung</div>
+						</div>
+					</div>
+					<div class="col-1"></div>
+				</div>
+			</th:block>
+		</th:block>
+
+		<!-- <script src="/js/pace.min.js"></script>
+		 <script>
 			setTimeout(function() {
 				window.location.reload(1);
 			}, 10000);
 		</script> -->
-		<script type="text/javascript">
-			move()
-			
-			function move() {
-				var elem = document.getElementById("reload-page");
-				var width = 1;
-				var id = setInterval(frame, 100);
-				function frame() {
-					if (width >= 100) {
-						clearInterval(id);
-						window.location.reload(1);
-					} else {
-						width = width+1;
-						elem.style.width = width + '%';
+		<th:block th:if="${!game.isFinished()}">
+			<th:block th:if="${!isCreator}">
+				<script type="text/javascript">
+					move()
+
+					function move() {
+						var elem = document.getElementById("reload-page");
+						var width = 1;
+						var id = setInterval(frame, 100);
+						function frame() {
+							if (width >= 100) {
+								clearInterval(id);
+								window.location.reload(1);
+							} else {
+								width = width + 1;
+								elem.style.width = width + '%';
+							}
+						}
 					}
-				}
-			}
-		</script>
+				</script>
+			</th:block>
+		</th:block>
 	</div>
 </div>
 
 <div th:fragment="showLeague(gameForm, isCreator)">
 	<div class="container">
 		<div class="pull-right" th:if="${isCreator}">
-			<img src="/img/cross_icon.png" alt="Löschen" width="36" height="auto"
-				id="delete" />
+			<img src="/img/cross_icon.png" alt="Lï¿½schen" width="36"
+				height="auto" id="delete" />
 		</div>
 		<div class="row">
 			<div class="col-6 text-left"
