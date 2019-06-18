@@ -185,7 +185,7 @@ public class GameController {
 
 	@GetMapping("/games/search/all")
 	public String getGames(Model model) {
-		model.addAttribute("games", gameService.getAll());
+		model.addAttribute("games", gameService.getAll().stream().limit(10));
 		return "/games";
 	}
 
