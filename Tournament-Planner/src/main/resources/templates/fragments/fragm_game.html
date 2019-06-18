@@ -124,7 +124,7 @@
 				<div class="row">
 					<div class="col-1"></div>
 					<div class="col-10">
-						<iframe width="560" height="315" th:src="${game.getVideo()}"
+						<iframe width="100%" height="100%" th:src="${game.getVideo()}"
 							frameborder="0"
 							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 							allowfullscreen></iframe>
@@ -218,7 +218,7 @@
 				th:text="${gameForm.killsTeamA + ':' + gameForm.killsTeamB}">10:3</div>
 		</div>
 		<div class="row" th:if="${gameForm.getVideo()}" style="margin-bottom: 7px">
-			<iframe th:src="${gameForm.getVideo()}" allowfullscreen="true" width="560" height="315" frameborder="0"></iframe>
+			<iframe th:src="${gameForm.getVideo()}" allowfullscreen="true" width="100%" height="100%" frameborder="0"></iframe>
 		</div>
 		<div class="row" th:if="${isCreator}" style="margin-bottom: 7px">
 			<form th:action="@{/change/Leagueoflegends}" method="Post">
