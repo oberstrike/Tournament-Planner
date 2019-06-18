@@ -221,8 +221,8 @@ public class GameController {
 		if(!member.equals(game.getCreator()) & !member.getRoles().contains(MemberRole.ROLE_ADMIN))
 			return "redirect:/home";
 		gameService.delete(game);		
-		model.addAttribute("message", new MapBuilder<>().addPair("success", "Das Spiel wurde erfolgreich gelöscht"));
-		return "/home";
+		model.addAttribute("message", new MapBuilder<>().addPair("success", "Das Spiel wurde erfolgreich gelöscht").build());
+		return "home";
 	}
 	
 }
