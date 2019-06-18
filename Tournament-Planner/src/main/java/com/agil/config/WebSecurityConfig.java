@@ -48,8 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.formLogin().loginPage("/login").permitAll()
 			.and()
 				.logout().logoutSuccessUrl("/login").permitAll()
-			.and()
-				.exceptionHandling().accessDeniedPage("/403")
+	//		.and()
+	//			.exceptionHandling().accessDeniedPage("/403")
 			.and()
 				.csrf().disable();
 	}

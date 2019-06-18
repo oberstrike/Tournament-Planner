@@ -59,7 +59,6 @@ public class GameController {
 			@RequestParam(name = "teamBName", required = true) String teamBName,
 			@Valid @ModelAttribute("volleyballForm") LeagueOfLegends leagueForm, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Principal principal) {
-		gameValidator.validate(leagueForm, bindingResult);
 		if (bindingResult.hasErrors() | teamAName.equals(teamBName)) {
 			redirectAttributes.addFlashAttribute("message", new MapBuilder<>().addPair("error", "Bitte überprüfe deine Eingaben").build());
 			return "redirect:/home?type=Leagueoflegends";
@@ -102,13 +101,20 @@ public class GameController {
 
 	@PostMapping("/change/Leagueoflegends")
 	public String changeLeagueOfLegends(@RequestParam(name = "id", required = true) long id,
-			@RequestParam(name = "teamA", required = false) long teamA,
-			@RequestParam(name = "teamB", required = false) long teamB,
-			@RequestParam(name = "status", required = false) String status) {
+			@RequestParam(name = "killsTeamA", required = false) Long killsTeamA,
+			@RequestParam(name = "killsTeamA", required = false) Long killsTeamB,
+			@RequestParam(name = "status", required = false) String status,
+			@RequestParam(name="video", required = false) String video) {
+		
 		LeagueOfLegends leagueOfLegends = (LeagueOfLegends) gameService.findOne(id)
 				.orElseThrow(GameNotFoundException::new);
-		leagueOfLegends.setKillsTeamA(teamA);
-		leagueOfLegends.setKillsTeamB(teamB);
+		if(killsTeamA != null) 
+			leagueOfLegends.setKillsTeamA(killsTeamA);
+		if(killsTeamB != null)
+			leagueOfLegends.setKillsTeamB(killsTeamB);
+		if(video != null)
+			leagueOfLegends.setVideo(video);
+		
 		leagueOfLegends.setStatus(GameStatus.valueOf(status.toUpperCase()));
 		gameService.save(leagueOfLegends);
 
@@ -188,7 +194,7 @@ public class GameController {
 
 	@GetMapping("/games/search/all")
 	public String getGames(Model model) {
-		model.addAttribute("games", gameService.getAll().stream().limit(10));
+		model.addAttribute("games", gameService.getAll());
 		return "/games";
 	}
 
@@ -217,14 +223,6 @@ public class GameController {
 		gameService.delete(game);		
 		model.addAttribute("message", new MapBuilder<>().addPair("success", "Das Spiel wurde erfolgreich gelöscht"));
 		return "/home";
-	}
-	
-	@PostMapping("/setVideo")
-	public String setVideo(@RequestParam(name = "videoid") String videoid, @RequestParam(name = "id") String id) {
-		Game game = gameService.findOne(Long.parseLong(id)).get();
-		game.setVideo(videoid);
-		gameService.save(game);
-		return "redirect:/game?id=" + id;
 	}
 	
 }

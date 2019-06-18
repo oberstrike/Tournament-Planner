@@ -207,27 +207,30 @@
 			<img src="/img/cross_icon.png" alt="L�schen" width="36"
 				height="auto" id="delete" />
 		</div>
-		<div class="row">
+		<div class="row" style="margin-bottom: 7px">
 			<div class="col-6 text-left"
 				th:text="${gameForm.getTeamA().getName()}">Das ist Team A</div>
 			<div class="col-6 text-right"
 				th:text="${gameForm.getTeamB().getName()}">Das ist Team B</div>
 		</div>
-		<div class="row">
+		<div class="row" style="margin-bottom: 7px">
 			<div class="col-6 text-right"
 				th:text="${gameForm.killsTeamA + ':' + gameForm.killsTeamB}">10:3</div>
 		</div>
-		<div class="row" th:if="${isCreator}">
+		<div class="row" th:if="${gameForm.getVideo()}" style="margin-bottom: 7px">
+			<iframe th:src="${gameForm.getVideo()}" allowfullscreen="true" width="560" height="315" frameborder="0"></iframe>
+		</div>
+		<div class="row" th:if="${isCreator}" style="margin-bottom: 7px">
 			<form th:action="@{/change/Leagueoflegends}" method="Post">
 
 				<div class="col-xs-3 col-right">
 					<input type="hidden" name="id" th:value="${game.getId()}">
-					<label for="teamA">Punktestand f&uuml;r Team A</label> <input
-						type="number" id="teamA" name="teamA">
+					<label for="killsTeamA">Punktestand f&uuml;r Team A</label> <input
+						type="number" id="killsTeamA" name="killsTeamA">
 				</div>
 				<div class="col-xs-3 col-right">
-					<label for="teamB">Punktestand f&uuml;r Team B</label> <input
-						type="number" id="teamB" name="teamB">
+					<label for="killsTeamB">Punktestand f&uuml;r Team B</label> <input
+						type="number" id="killsTeamB" name="killsTeamB">
 				</div>
 				<div class="col-xs-3 col-right">
 					<select class="custom-select" name="status">
