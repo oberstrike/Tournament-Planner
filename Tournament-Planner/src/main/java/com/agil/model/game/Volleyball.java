@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.agil.model.Game;
 import com.agil.model.Member;
@@ -17,7 +18,8 @@ import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@PrimaryKeyJoinColumn(referencedColumnName="id")
 public class Volleyball extends Game {
 
 	@Column(name = "sets_rule", columnDefinition = "int default 0")
@@ -42,29 +44,21 @@ public class Volleyball extends Game {
 	@Column(name = "sets_b", columnDefinition = "int default 0")
 	private int setsB;
 
-	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, GameStatus status, Date startDate, Team teamA,
+	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, Date startDate, Team teamA,
 			Team teamB) {
 		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate);
+		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;
-		if (tiebreakRule) {
-			this.setsRule = setsRule + 1;
-		} else {
-			this.setsRule = setsRule;
-		}
 		initVolleyballGame();
 	}
 
-	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name, GameStatus gameStatus,
+	public Volleyball(int setsRule, int pointsRule, boolean tiebreakRule, String name,
 			Date startDate, String tempTeamAName, String tempTeamBName, Member member) {
 		super(GameStatus.PENDING, GameType.VOLLEYBALL, startDate);
+		this.setsRule = setsRule;
 		this.pointsRule = pointsRule;
 		this.tiebreakRule = tiebreakRule;
-		if (tiebreakRule) {
-			this.setsRule = setsRule + 1;
-		} else {
-			this.setsRule = setsRule;
-		}
 		this.setName(name);
 		this.setCreator(member);
 		initVolleyballGame();

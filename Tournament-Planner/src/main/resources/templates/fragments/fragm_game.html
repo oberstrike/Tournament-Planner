@@ -119,11 +119,6 @@
 						value="Minus Point B">-</button>
 				</form>
 			</div>
-			<th:block th:if="${game.isFinished()}">
-				<script>
-					document.getElementsByClassName("modifyGame").disabled = true;
-				</script>
-			</th:block>
 		</div>
 		<br>
 		<th:block th:if="${game.isFinished()}">
@@ -139,6 +134,7 @@
 					<div class="col-1"></div>
 				</div>
 			</th:block>
+			<th:block th:if="{isCreator}">
 			<form th:action="@{/setVideo}" method="POST">
 				<div class="row">
 					<div class="col-4">
@@ -153,6 +149,7 @@
 					</div>
 				</div>
 			</form>
+			</th:block>
 		</th:block>
 		<div class="row" th:if="${!isCreator}">
 			<div class="col-1"></div>
