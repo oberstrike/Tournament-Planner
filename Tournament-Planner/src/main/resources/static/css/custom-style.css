@@ -22,13 +22,13 @@ body {
 	height: 30px;
 	background-color: #4CAF50;
 }
-
+/*
 @media ( min-width : @screen-sm) {
 	.navbar-nav.navbar-right:last-child {
 		margin-right: 0;
 	}
 }
-
+*/
 /*@media only screen {
 	.txt {
 		font-size: 1em;

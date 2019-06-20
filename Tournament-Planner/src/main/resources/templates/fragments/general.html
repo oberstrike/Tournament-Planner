@@ -1,5 +1,4 @@
-<!DOCTYPE HTML>
-<html>
+
 <head th:fragment="headerdata (title)"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
@@ -19,6 +18,7 @@
 	media="screen" />
 <title th:text="${title}">Default-Title</title>
 </head>
+
 <th:block th:fragment="header">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<a class="navbar-brand" href="/home"><img
@@ -92,7 +92,8 @@
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="avatar" href="/profile"></a></li>
 					<li class="nav-item"><a class="nav-link active"
-						href="/profile"><span sec:authentication="name"></span></a> <li class="nav-item"><a class="nav-link active"
+						href="/profile"><span sec:authentication="name"></span></a>
+					<li class="nav-item"><a class="nav-link active"
 						th:href="@{/logout}">Ausloggen</a></li>
 				</ul>
 			</th:block>
@@ -100,18 +101,11 @@
 	</nav>
 	<br>
 </th:block>
-<!-- oben neu ende -->
-<!-- Unteres Menü / Footer -->
-						<!-- 
-	Impressum
-	Datenschutz
-	Jump Up
-	 -->
 
-<div th:fragment="footer">
+<th:block th:fragment="footer">
 	<div class="row">
-		<div class="text-white fixed-bottom float-center bg-primary">
-			<div class="col">
+		<div class="col">
+			<div class="text-white fixed-bottom float-center bg-primary">
 				<div class="uhr">&zwj;</div>
 				<th:block sec:authorize="isAuthenticated()">
 					<div class="nSpiel">&zwj;</div>
@@ -119,22 +113,9 @@
 			</div>
 		</div>
 	</div>
-</div>
+</th:block>
 
-<div th:fragment="bootstrapcomponents">
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<!--
-				<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"></script>-->
+<th:block th:fragment="bootstrapcomponents">
 	<script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.7/popper.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
@@ -177,8 +158,4 @@
 		})
 	</script>
 
-</div>
-
-</body>
-
-					</html>
+</th:block>
