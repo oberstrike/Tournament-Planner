@@ -32,6 +32,9 @@ import com.agil.service.PlayerService;
 import com.agil.service.TeamService;
 import com.agil.utility.GameType;
 
+
+//öffentliche Rest-API
+
 @RestController
 public class ApiController {
 
@@ -43,7 +46,7 @@ public class ApiController {
 
 	@Autowired
 	private MemberService memberService;
-	
+
 	@Autowired
 	private PlayerService playerService;
 
@@ -61,23 +64,10 @@ public class ApiController {
 		return teamService.getAll().stream().map(TeamDTO::new).collect(Collectors.toList());
 	}
 
-	@GetMapping("/api/nextgame")
-	public String getNextGame(Principal principal) {
-		if (principal == null)
-			return "";
-		List<Game> gameA = gameService.findByTeamA_Players_Name(principal.getName());
-		List<Game> gameB = gameService.findByTeamB_Players_Name(principal.getName());
-		gameA.addAll(gameB);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		return gameA.stream().sorted().map(GameDTO::new).map(GameDTO::getStartDate)
-				.filter(each -> each.after(new Date(System.currentTimeMillis()))).map(sdf::format).findFirst().orElse("");
-	}
-	
 	@GetMapping("/api/players")
 	public List<PlayerDTO> getPlayers() {
 		return this.playerService.findAll().stream().map(PlayerDTO::new).collect(Collectors.toList());
 	}
-	
 
 	@GetMapping("/api/games")
 	public List<GameDTO> getGames(@RequestParam(required = false) Long id, Principal principal) {
@@ -87,12 +77,8 @@ public class ApiController {
 		}
 		return gameService.getAll().stream().map(GameDTO::new).collect(Collectors.toList());
 	}
-
-	@GetMapping("/api/uhrzeit")
-	public long getDate() {
-		return System.currentTimeMillis();
-	}
-
+	
+	//Wichtig für die Anwendung
 	@GetMapping("/api/id")
 	public long getMyId(Principal principal) {
 		if (principal == null)
@@ -102,4 +88,23 @@ public class ApiController {
 			return member.getId();
 		return 0;
 	}
+
+	@GetMapping("/api/uhrzeit")
+	public long getDate() {
+		return System.currentTimeMillis();
+	}
+	
+	@GetMapping("/api/nextgame")
+	public String getNextGame(Principal principal) {
+		if (principal == null)
+			return "";
+		List<Game> gameA = gameService.findByTeamA_Players_Name(principal.getName());
+		List<Game> gameB = gameService.findByTeamB_Players_Name(principal.getName());
+		gameA.addAll(gameB);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		return gameA.stream().sorted().map(GameDTO::new).map(GameDTO::getStartDate)
+				.filter(each -> each.after(new Date(System.currentTimeMillis()))).map(sdf::format).findFirst()
+				.orElse("");
+	}
+
 }
