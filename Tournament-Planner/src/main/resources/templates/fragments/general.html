@@ -64,18 +64,36 @@
 								<div class="dropdown-menu dropdown-menu-right">
 									<form th:action="@{/login}" method="POST" class="form-inline">
 										<div class="container pb-3">
-											<input type="text" name="username" id="username"
-												class="form-control" placeholder="Benutzername" />
+											<div class="row">
+												<div class="col">
+													<input type="text" name="username" id="username"
+														class="form-control" placeholder="Benutzername" />
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													<input type="password" name="password" id="password"
+														class="form-control" placeholder="Passwort" />
+												</div>
+											</div>
+											<div class="row">
+											<div class="form-group">
+												<div class="col">
+													<div class="checkbox" style="font-size: small;">
+														<input type="checkbox" class="form-check-input"
+															id="remember-me" name="remember-me">Angemeldet bleiben?
+													</div>
+
+												</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													<button type="submit" class="btn btn-primary float-right">Einloggen</button>
+												</div>
+											</div>
 										</div>
-										<p>
-										<div class="container pb-3">
-											<input type="password" name="password" id="password"
-												class="form-control" placeholder="Passwort" />
-										</div>
-										<p>
-										<div class="container">
-											<button type="submit" class="btn btn-primary float-right">Einloggen</button>
-										</div>
+
 									</form>
 								</div></li>
 						</ul>

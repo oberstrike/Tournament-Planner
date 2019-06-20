@@ -81,7 +81,7 @@
 			</div>
 		</div>
 
-		<div class="container">
+		<div class="container" th:if="${isCreator}">
 			<div th:if="${param.error}" class="container text-danger text-center">Das
 				Bild ist in einem falschen Format.</div>
 			<form th:action="@{/profile/upload}" enctype="multipart/form-data"

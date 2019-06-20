@@ -1,6 +1,9 @@
 package com.agil.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,7 @@ public class PlayerServiceImpl implements PlayerService {
 		playerRepository.save(player);
 	}
 
+	
 	@Override
 	public Optional<Player> findByName(String name) {
 		return playerRepository.findByName(name);
@@ -27,6 +31,12 @@ public class PlayerServiceImpl implements PlayerService {
 	@Override
 	public Optional<Player> findById(long id) {
 		return playerRepository.findById(id);
+	}
+
+
+	@Override
+	public List<Player> findAll() {
+		return StreamSupport.stream(playerRepository.findAll().spliterator(), false).collect(Collectors.toList());
 	}
 
 }

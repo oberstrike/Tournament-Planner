@@ -22,6 +22,14 @@
 		<div class="col-1"></div>
 	</div>
 	<div>
+		<div class="row" th:if="${message}">
+			<div class="col-1"></div>
+			<div class="col-10">
+				<p class="text text-danger" th:text="${message}"></p>
+
+			</div>
+
+		</div>
 		<div class="row">
 			<div class="col-1"></div>
 			<div class="col-10">

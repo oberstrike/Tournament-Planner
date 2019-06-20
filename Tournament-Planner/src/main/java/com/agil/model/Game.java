@@ -16,11 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.agil.service.TeamService;
-import com.agil.service.TeamServiceImpl;
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
 

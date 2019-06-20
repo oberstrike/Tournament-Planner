@@ -1,7 +1,6 @@
 package com.agil.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-//@Configurable
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -44,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/team/**").permitAll()
 			.antMatchers("/avatar/**").permitAll()
 			.anyRequest().authenticated()
+			.and().rememberMe().key("sSecretKey")
 			.and()
 				.formLogin().loginPage("/login").permitAll()
 			.and()
@@ -52,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	//			.exceptionHandling().accessDeniedPage("/403")
 			.and()
 				.csrf().disable();
+			
 	}
 
 	@Bean

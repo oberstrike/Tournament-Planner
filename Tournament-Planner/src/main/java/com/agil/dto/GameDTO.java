@@ -1,6 +1,5 @@
 package com.agil.dto;
 
-
 import java.util.Date;
 
 import com.agil.model.Game;
@@ -8,26 +7,26 @@ import com.agil.utility.GameStatus;
 
 public class GameDTO {
 	private long id;
-	
-	private long teamA;
-	
-	private long teamB;
+
+	private TeamDTO teamA;
+
+	private TeamDTO teamB;
 
 	private Date startDate;
 
 	private String type;
 
 	private GameStatus status;
-	
+
 	public GameDTO(Game game) {
 		this.id = game.getId();
-		this.teamA = game.getTeamA().getId();
-		this.teamB = game.getTeamB().getId();
+		this.teamA = new TeamDTO(game.getTeamA());
+		this.teamB = new TeamDTO(game.getTeamB());
 		this.type = game.getType().name();
-		this.status =  game.getStatus();
+		this.status = game.getStatus();
 		this.startDate = game.getStartDate();
 	}
-	
+
 	public long getId() {
 		return id;
 	}
@@ -36,19 +35,19 @@ public class GameDTO {
 		this.id = id;
 	}
 
-	public long getTeamA() {
+	public TeamDTO getTeamA() {
 		return teamA;
 	}
 
-	public void setTeamA(long teamA) {
+	public void setTeamA(TeamDTO teamA) {
 		this.teamA = teamA;
 	}
 
-	public long getTeamB() {
+	public TeamDTO getTeamB() {
 		return teamB;
 	}
 
-	public void setTeamB(long teamB) {
+	public void setTeamB(TeamDTO teamB) {
 		this.teamB = teamB;
 	}
 

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agil.dto.GameDTO;
+import com.agil.dto.PlayerDTO;
 import com.agil.dto.TeamDTO;
 import com.agil.model.Game;
 import com.agil.model.Member;
@@ -27,6 +28,7 @@ import com.agil.model.Team;
 import com.agil.model.game.Volleyball;
 import com.agil.service.GameService;
 import com.agil.service.MemberService;
+import com.agil.service.PlayerService;
 import com.agil.service.TeamService;
 import com.agil.utility.GameType;
 
@@ -41,6 +43,9 @@ public class ApiController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private PlayerService playerService;
 
 	@GetMapping("/api/gametypes")
 	public List<GameType> getTypes() {
@@ -67,6 +72,12 @@ public class ApiController {
 		return gameA.stream().sorted().map(GameDTO::new).map(GameDTO::getStartDate)
 				.filter(each -> each.after(new Date(System.currentTimeMillis()))).map(sdf::format).findFirst().orElse("");
 	}
+	
+	@GetMapping("/api/players")
+	public List<PlayerDTO> getPlayers() {
+		return this.playerService.findAll().stream().map(PlayerDTO::new).collect(Collectors.toList());
+	}
+	
 
 	@GetMapping("/api/games")
 	public List<GameDTO> getGames(@RequestParam(required = false) Long id, Principal principal) {

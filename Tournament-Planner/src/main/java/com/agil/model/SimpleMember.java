@@ -1,9 +1,6 @@
 package com.agil.model;
 
-import java.util.List;
 import java.util.Set;
-
-import org.springframework.context.annotation.Role;
 
 import com.agil.utility.MemberRole;
 

@@ -21,6 +21,7 @@ import com.agil.model.Team;
 import com.agil.service.MemberService;
 import com.agil.service.TeamService;
 import com.agil.service.TeamServiceImpl;
+import com.agil.utility.MemberRole;
 import com.agil.utility.MemberValidator;
 import com.agil.utility.TeamValidator;
 
@@ -69,8 +70,13 @@ public class TeamController {
 
 		model.addAttribute("teamForm", team);
 		model.addAttribute("playerForm", player);
-		if (principal != null)
-			model.addAttribute("isCreator", principal.getName().equals(team.getCreator().getUsername()));
+		if (principal != null) {
+			Member member = memberService.findByUsername(principal.getName());
+			if (member.getRoles().contains(MemberRole.ROLE_ADMIN))
+				model.addAttribute("isCreator", true);
+			else if (member.getUsername().equals(team.getCreator().getUsername()))
+				model.addAttribute("isCreator", true);
+		}
 		return "teams";
 	}
 

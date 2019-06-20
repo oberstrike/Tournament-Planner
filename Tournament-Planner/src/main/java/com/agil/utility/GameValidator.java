@@ -26,6 +26,7 @@ public class GameValidator implements Validator {
 		if (gameService.findOne(game.getName()).isPresent()) {
 			errors.rejectValue("game", "game.duplicate");
 		}
+		
 	}
 
 }

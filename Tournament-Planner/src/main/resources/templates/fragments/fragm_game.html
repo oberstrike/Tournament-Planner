@@ -33,6 +33,13 @@
 <div th:fragment="showVolleyball(game, isCreator)">
 	<div class="container">
 		<div class="row">
+			<div class="pull-right" th:if="${isCreator}">
+				<img src="/img/cross_icon.png" alt="L&ouml;schen" width="36"
+					height="auto" id="delete" />
+			</div>
+		</div>
+
+		<div class="row">
 			<div class="col-10" th:text="${game.name}"></div>
 			<div class="col-2">
 				<a
@@ -169,7 +176,19 @@
 				</div>
 			</th:block>
 		</th:block>
+		<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+		<script th:inline="javascript">
+			$(document).ready(function() {
+				var id = /*[[${gameForm.id}]]*/0;
 
+				$("#delete").click(function() {
+					$.get("/games/delete/" + id).done(function(data) {
+						location.replace("/home")
+					});
+				});
+
+			});
+		</script>
 		<!-- <script src="/js/pace.min.js"></script>
 		 <script>
 			setTimeout(function() {
@@ -204,7 +223,7 @@
 <div th:fragment="showLeague(gameForm, isCreator)">
 	<div class="container">
 		<div class="pull-right" th:if="${isCreator}">
-			<img src="/img/cross_icon.png" alt="L�schen" width="36"
+			<img src="/img/cross_icon.png" alt="L&ouml;schen" width="36"
 				height="auto" id="delete" />
 		</div>
 		<div class="row" style="margin-bottom: 7px">
@@ -217,8 +236,10 @@
 			<div class="col-6 text-right"
 				th:text="${gameForm.killsTeamA + ':' + gameForm.killsTeamB}">10:3</div>
 		</div>
-		<div class="row" th:if="${gameForm.getVideo()}" style="margin-bottom: 7px">
-			<iframe th:src="${gameForm.getVideo()}" allowfullscreen="true" width="100%" height="100%" frameborder="0"></iframe>
+		<div class="row" th:if="${gameForm.getVideo()}"
+			style="margin-bottom: 7px">
+			<iframe th:src="${gameForm.getVideo()}" allowfullscreen="true"
+				width="100%" height="100%" frameborder="0"></iframe>
 		</div>
 		<div class="row" th:if="${isCreator}" style="margin-bottom: 7px">
 			<form th:action="@{/change/Leagueoflegends}" method="Post">
@@ -257,7 +278,7 @@
 
 			$("#delete").click(function() {
 				$.get("/games/delete/" + id).done(function(data) {
-					console.log("Deleted");
+					location.replace("/home")
 				});
 			});
 
