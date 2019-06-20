@@ -46,8 +46,8 @@ public class TournamentPlannerApplication extends SpringBootServletInitializer {
 		return (args) -> {
 
 			// Init members
-			Member member = new Member("oberstrike", encoder.encode("mewtu123"), "markus.juergens@gmx.de");
-			Member member2 = new Member("eikorn", encoder.encode("eic123abc"), "markus.juergens@gmx.de");
+			Member member = new Member("test_admin", encoder.encode("admin123"), "markus.juergens@gmx.de");
+			Member member2 = new Member("test_user", encoder.encode("user123"), "oberstrike@gmx.de");
 
 			member.addRoles(MemberRole.ROLE_ADMIN);
 
