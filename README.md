@@ -3,7 +3,7 @@ API-Beschreibung:
 
 <h3>/api/games</h3> <br>
 Gibt die aktuellen und vergangenen Spiele zurück<br>
-Optional kann der Parameter id mitgegeben werden. (Filtert nach Game mit Id)
+Optional kann der Parameter id mitgegeben werden. (Filtert nach Game mit Id) <br>
 ```json
 [{
   "id": 1,
