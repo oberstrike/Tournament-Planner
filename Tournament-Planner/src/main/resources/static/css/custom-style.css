@@ -20,21 +20,21 @@ body {
   background-color: #4CAF50;
 }
 
-/*@media only screen {
+@media only screen {
 	.txt {
-		font-size: 1em;
+		font-size: 1rem;
 	}
 	.txt-small {
-		font-size: 0.5em;
+		font-size: 0.5rem;
 	}
 }
 
 @media only screen and (min-width: 576px) {
 	.txt {
-		font-size: 2em;
+		font-size: 1.5rem;
 	}
 	.txt-small {
-		font-size: 1em;
+		font-size: 1rem;
 	}
 	.info {
 		font-size: 12px;
@@ -44,7 +44,7 @@ body {
 
 @media only screen and (min-width: 768px) {
 	.txt {
-		font-size: 3em;
+		font-size: 2rem;
 	}
 	.txt-small {
 		font-size: 1.5em;
@@ -53,10 +53,10 @@ body {
 
 @media only screen and (min-width: 992px) {
 	.txt {
-		font-size: 4em;
+		font-size: 4rem;
 	}
 	.txt-small {
-		font-size: 2em;
+		font-size: 1rem;
 	}
 	.info {
 		font-size: 14px;
@@ -66,10 +66,10 @@ body {
 
 @media only screen and (min-width: 1200px) {
 	.txt {
-		font-size: 5em;
+		font-size: 4rem;
 	}
 	.txt-small {
-		font-size: 2.5em;
+		font-size: 2.5rem;
 	}
 	.info {
 		font-size: 15px;
@@ -78,30 +78,30 @@ body {
 }
 @media only screen {
 	[class*="col-"] {
-		font-size: 2em;
+		font-size: 1rem;
 	}	
 }
 
 @media only screen and (min-width: 576px) {
 	[class*="col-sm-"] {
-		font-size: 2em;
+		font-size: 1rem;
 	}
 }
 
 @media only screen and (min-width: 768px) {
 	[class*="col-md-"] {
-		font-size: 3em;
+		font-size: 1em;
 	}
 }
 
 @media only screen and (min-width: 992px) {
 	[class*="col-lg-"] {
-		font-size: 4em;
+		font-size: 2rem;
 	}
 }
 
 @media only screen and (min-width: 1200px) {
 	[class*="col-xl-"] {
-		font-size: 5em;
+		font-size: 4rem;
 	}
-}*/
+}
