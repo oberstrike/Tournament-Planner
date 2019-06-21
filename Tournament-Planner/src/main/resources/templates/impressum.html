@@ -4,7 +4,7 @@
 	th:replace="fragments/general.html :: headerdata (title='Impressum')">
 </div>
 <body>
-		<div th:replace="fragments/general.html :: header"></div>
+		<th:block th:replace="fragments/general.html :: header"></th:block>
 
 		<h1>Impressum</h1>
 
@@ -108,7 +108,7 @@
 			www.jurarat.de zur Verfügung gestelltem Impressum.
 		</p>
 
-		<div th:replace="fragments/general.html :: footer"></div>
-		<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
+	<th:block th:replace="fragments/general.html :: footer"></th:block>
+	<th:block th:replace="fragments/general.html :: bootstrapcomponents"></th:block>
 </body>
 </html>

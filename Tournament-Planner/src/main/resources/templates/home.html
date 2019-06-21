@@ -5,171 +5,173 @@
 <div
 	th:replace="fragments/general.html :: headerdata(title='Userbereich')"></div>
 <body>
-	<div th:replace="fragments/general.html :: header"></div>
-	<div class="row">
-		<div class="col-1"></div>
-		<div class="col-10 heading">
-			Willkommen in deinem Bereich <span sec:authentication="name"></span>!
-		</div>
-		<div class="col-1"></div>
-	</div>
-	<div class="row">
-		<div class="col-1"></div>
-		<div class="col-10 heading">
-			Deine Rollen: <span
-				th:text="${#authentication.getPrincipal().getMember().getRolesReadable()}"></span>
-		</div>
-		<div class="col-1"></div>
-	</div>
-	<div>
-		<div class="row" th:if="${message}">
+	<th:block th:replace="fragments/general.html :: header"></th:block>
+	<div class="container-fluid">
+		<div class="row">
 			<div class="col-1"></div>
-			<div class="col-10">
-				<p class="text text-danger" th:text="${message}"></p>
-
+			<div class="col-10 heading">
+				Willkommen in deinem Bereich <span sec:authentication="name"></span>!
 			</div>
-
+			<div class="col-1"></div>
 		</div>
 		<div class="row">
 			<div class="col-1"></div>
-			<div class="col-10">
-				<form th:action="@{/home}" method="GET">
-					<div class="input-group">
-						<select class="custom-select" name="type"
-							onchange="this.form.submit()">
-							<option selected disabled="disabled">Zum Spiel erstellen
-								bitte Spielart auswählen...</option>
-							<th:block th:each="gametype : ${gametypes}">
-								<option th:value="${gametype}"
-									th:text="${gametype.getDescription()}"></option>
-							</th:block>
-						</select>
-						<div class="input-group-append">
-							<button type="submit" class="btn btn-primary float-right">Auswählen</button>
-						</div>
-					</div>
-				</form>
+			<div class="col-10 heading">
+				Deine Rollen: <span
+					th:text="${#authentication.getPrincipal().getMember().getRolesReadable()}"></span>
 			</div>
 			<div class="col-1"></div>
 		</div>
-	</div>
-	<div th:if="${type != null}">
-		<th:block th:switch="${type}">
-			<div th:case='LEAGUEOFLEGENDS'>
-				<!-- LEAGUE OF LEGENDS FORMULAR -->
-				<form th:action="@{/game/leagueoflegends}" method="POST"
-					th:object="${leagueForm}">
-					<div th:replace="fragments/fragm_defaultGame"></div>
-					<div class="row">
-						<div class="col-1 col-md-1"></div>
-						<div class="col-10 col-md-5">
-							<label>Wie viele Spiele sollen gespielt werden:</label>
-						</div>
-						<div class="col-1 d-md-none"></div>
-						<div class="col-1 d-md-none"></div>
-						<div class="col-10 col-md-5">
-							<input class="form-control" type="number" min="1" step="1"
-								id="mode" name="mode" placeholder="Siegpunkte">
-						</div>
-						<div class="col-1 col-md-1"></div>
-					</div>
-					<div class="row">
-						<div class="col-1"></div>
-						<div class="col-10">
-							<button type="submit" class="btn btn-primary"
-								value="Spiel erstellen">Spiel erstellen</button>
-						</div>
-					</div>
-				</form>
-			</div>
+		<div>
+			<div class="row" th:if="${message}">
+				<div class="col-1"></div>
+				<div class="col-10">
+					<p class="text text-danger" th:text="${message}"></p>
 
-			<div th:case='VOLLEYBALL'>
-				<!-- VOLLEYBALL FORMULAR -->
-				<form th:action="@{/game/Volleyball}" method="POST"
-					th:object="${volleyballForm}">
-					<div th:replace="fragments/fragm_defaultGame"></div>
-					<div class="row">
-						<div class="col-1 col-md-1"></div>
-						<div class="col-10 col-md-5">
-							<label>Gewinnsätze:</label>
-						</div>
-						<div class="col-1 d-md-none"></div>
-						<div class="col-1 d-md-none"></div>
-						<div class="col-10 col-md-5">
-							<input type="number" class="form-control" min="1" step="1"
-								id="setsRule" name="setsRule" value="2"
-								placeholder="Gewinnsätze">
-						</div>
-						<div class="col-1 col-md-1"></div>
-					</div>
-					<div class="row">
-						<div class="col-1 col-md-1"></div>
-						<div class="col-10 col-md-5">
-							<label>Gewinnpunkte:</label>
-						</div>
-						<div class="col-1 d-md-none"></div>
-						<div class="col-1 d-md-none"></div>
-						<div class="col-10 col-md-5">
-							<input type="number" class="form-control" min="2" step="1"
-								id="pointsRule" name="pointsRule" value="25"
-								placeholder="Gewinnpunkte">
-						</div>
-						<div class="col-1 col-md-1"></div>
-					</div>
-					<div class="row">
-						<div class="col-1 col-md-1"></div>
-						<div class="col-10 col-md-5">
-							<label>Tie-Break?</label>
-						</div>
-						<div class="col-1 d-md-none"></div>
-						<div class="col-1 d-md-none"></div>
-						<div class="col-10 col-md-5">
-							<input type="checkbox" class="form-control" id="tiebreakRule"
-								name="tiebreakRule">
-						</div>
-						<div class="col-1 col-md-1"></div>
-					</div>
-					<div class="row">
-						<div class="col-1"></div>
-						<div class="col-10">
-							<button type="submit" class="btn btn-primary"
-								value="Spiel erstellen">Spiel erstellen</button>
-						</div>
-						<div class="col-1"></div>
-					</div>
-				</form>
+				</div>
+
 			</div>
-			<div th:case="*">
-				<p>Bitte g&uml;ltigen Spieltyp w&auml;hlen!
-				<p>
-				<div th:text="${type}"></div>
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-10">
+					<form th:action="@{/home}" method="GET">
+						<div class="input-group">
+							<select class="custom-select" name="type"
+								onchange="this.form.submit()">
+								<option selected disabled="disabled">Zum Spiel
+									erstellen bitte Spielart auswählen...</option>
+								<th:block th:each="gametype : ${gametypes}">
+									<option th:value="${gametype}"
+										th:text="${gametype.getDescription()}"></option>
+								</th:block>
+							</select>
+							<div class="input-group-append">
+								<button type="submit" class="btn btn-primary float-right">Auswählen</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-1"></div>
 			</div>
+		</div>
+		<div th:if="${type != null}">
+			<th:block th:switch="${type}">
+				<div th:case='LEAGUEOFLEGENDS'>
+					<!-- LEAGUE OF LEGENDS FORMULAR -->
+					<form th:action="@{/game/leagueoflegends}" method="POST"
+						th:object="${leagueForm}">
+						<div th:replace="fragments/fragm_defaultGame"></div>
+						<div class="row">
+							<div class="col-1 col-md-1"></div>
+							<div class="col-10 col-md-5">
+								<label>Wie viele Spiele sollen gespielt werden:</label>
+							</div>
+							<div class="col-1 d-md-none"></div>
+							<div class="col-1 d-md-none"></div>
+							<div class="col-10 col-md-5">
+								<input class="form-control" type="number" min="1" step="1"
+									id="mode" name="mode" placeholder="Siegpunkte">
+							</div>
+							<div class="col-1 col-md-1"></div>
+						</div>
+						<div class="row">
+							<div class="col-1"></div>
+							<div class="col-10">
+								<button type="submit" class="btn btn-primary"
+									value="Spiel erstellen">Spiel erstellen</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div th:case='VOLLEYBALL'>
+					<!-- VOLLEYBALL FORMULAR -->
+					<form th:action="@{/game/Volleyball}" method="POST"
+						th:object="${volleyballForm}">
+						<div th:replace="fragments/fragm_defaultGame"></div>
+						<div class="row">
+							<div class="col-1 col-md-1"></div>
+							<div class="col-10 col-md-5">
+								<label>Gewinnsätze:</label>
+							</div>
+							<div class="col-1 d-md-none"></div>
+							<div class="col-1 d-md-none"></div>
+							<div class="col-10 col-md-5">
+								<input type="number" class="form-control" min="1" step="1"
+									id="setsRule" name="setsRule" value="2"
+									placeholder="Gewinnsätze">
+							</div>
+							<div class="col-1 col-md-1"></div>
+						</div>
+						<div class="row">
+							<div class="col-1 col-md-1"></div>
+							<div class="col-10 col-md-5">
+								<label>Gewinnpunkte:</label>
+							</div>
+							<div class="col-1 d-md-none"></div>
+							<div class="col-1 d-md-none"></div>
+							<div class="col-10 col-md-5">
+								<input type="number" class="form-control" min="2" step="1"
+									id="pointsRule" name="pointsRule" value="25"
+									placeholder="Gewinnpunkte">
+							</div>
+							<div class="col-1 col-md-1"></div>
+						</div>
+						<div class="row">
+							<div class="col-1 col-md-1"></div>
+							<div class="col-10 col-md-5">
+								<label>Tie-Break?</label>
+							</div>
+							<div class="col-1 d-md-none"></div>
+							<div class="col-1 d-md-none"></div>
+							<div class="col-10 col-md-5">
+								<input type="checkbox" class="form-control" id="tiebreakRule"
+									name="tiebreakRule">
+							</div>
+							<div class="col-1 col-md-1"></div>
+						</div>
+						<div class="row">
+							<div class="col-1"></div>
+							<div class="col-10">
+								<button type="submit" class="btn btn-primary"
+									value="Spiel erstellen">Spiel erstellen</button>
+							</div>
+							<div class="col-1"></div>
+						</div>
+					</form>
+				</div>
+				<div th:case="*">
+					<p>Bitte g&uml;ltigen Spieltyp w&auml;hlen!
+					<p>
+					<div th:text="${type}"></div>
+				</div>
+			</th:block>
+		</div>
+		<th:block th:if="${myGames != null}">
+			<div class="row">
+				<div class="col">
+					<br> Deine Spiele: <br>
+				</div>
+			</div>
+			<div class="row">
+				<div
+					class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">ID</div>
+				<div
+					class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Sportart</div>
+				<div class="col-3 col-md-3 border-bottom bg-dark text-white">Spielname</div>
+				<div class="col-3 col-md-2 border-bottom bg-dark text-white">Datum</div>
+				<div class="col-3 col-md-2 border-bottom bg-dark text-white">Heim</div>
+				<div class="col-3 col-md-2 border-bottom bg-dark text-white">Gast</div>
+				<div
+					class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Status</div>
+			</div>
+			<th:block th:each="game: ${myGames}">
+				<th:block th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
+			</th:block>
 		</th:block>
+		<br>
+		<th:block th:replace="fragments/general.html :: footer"></th:block>
+		<th:block th:replace="fragments/general.html :: bootstrapcomponents"></th:block>
 	</div>
-	<th:block th:if="${myGames != null}">
-		<div class="row">
-			<div class="col">
-				<br> Deine Spiele: <br>
-			</div>
-		</div>
-		<div class="row">
-			<div
-				class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">ID</div>
-			<div
-				class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Sportart</div>
-			<div class="col-3 col-md-3 border-bottom bg-dark text-white">Spielname</div>
-			<div class="col-3 col-md-2 border-bottom bg-dark text-white">Datum</div>
-			<div class="col-3 col-md-2 border-bottom bg-dark text-white">Heim</div>
-			<div class="col-3 col-md-2 border-bottom bg-dark text-white">Gast</div>
-			<div
-				class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Status</div>
-		</div>
-		<th:block th:each="game: ${myGames}">
-			<th:block th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
-		</th:block>
-	</th:block>
-	<br>
-	<div th:replace="fragments/general.html :: footer"></div>
-	<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 </body>
 </html>

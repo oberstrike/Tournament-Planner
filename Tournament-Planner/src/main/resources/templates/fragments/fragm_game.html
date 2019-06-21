@@ -1,6 +1,6 @@
 <!-- Notiz: beide Fragmente werden noch umgezogen in die eigentliche HTML, momentan bleiben diese aber noch hier f�r die Entwicklung -->
 
-<div th:fragment="showGames(game)">
+<th:block th:fragment="showGames(game)">
 	<div class="row">
 		<div class="d-none d-md-block col-md-1" th:text="${game.getId()}"></div>
 		<div class="d-none d-md-block col-md-1 enum"
@@ -26,11 +26,11 @@
 		<div class="d-none d-md-block col-md-1 enum"
 			th:text="${game.getStatus().getDescription()}"></div>
 	</div>
-</div>
+</th:block>
 
 <!-- NEW -->
 
-<div th:fragment="showVolleyball(game, isCreator)">
+<th:block th:fragment="showVolleyball(game, isCreator)">
 	<div class="container">
 		<div class="row">
 			<div class="pull-right" th:if="${isCreator}">
@@ -119,11 +119,6 @@
 						value="Minus Point B">-</button>
 				</form>
 			</div>
-			<th:block th:if="${game.isFinished()}">
-				<script>
-					document.getElementsByClassName("modifyGame").disabled = true;
-				</script>
-			</th:block>
 		</div>
 		<br>
 		<th:block th:if="${game.isFinished()}">
@@ -139,20 +134,23 @@
 					<div class="col-1"></div>
 				</div>
 			</th:block>
-			<form th:action="@{/setVideo}" method="POST">
-				<div class="row">
-					<div class="col-4">
-						<label>YouTube-Link</label>
+			<th:block th:if="{isCreator}">
+				<form th:action="@{/setVideo}" method="POST">
+					<div class="row">
+						<div class="col-4">
+							<label>YouTube-Link</label>
+						</div>
+						<div class="col-4">
+							<input type="text" name="videoid"> <input type="hidden"
+								name="id" th:value="${game.getId()}">
+						</div>
+						<div class="col-4">
+							<button class="btn btn-block btn-primary">Video
+								verlinken</button>
+						</div>
 					</div>
-					<div class="col-4">
-						<input type="text" name="videoid"> <input type="hidden"
-							name="id" th:value="${game.getId()}">
-					</div>
-					<div class="col-4">
-						<button class="btn btn-block btn-primary">Video verlinken</button>
-					</div>
-				</div>
-			</form>
+				</form>
+			</th:block>
 		</th:block>
 		<div class="row" th:if="${!isCreator}">
 			<div class="col-1"></div>
@@ -218,9 +216,9 @@
 			</th:block>
 		</th:block>
 	</div>
-</div>
+</th:block>
 
-<div th:fragment="showLeague(gameForm, isCreator)">
+<th:block th:fragment="showLeague(gameForm, isCreator)">
 	<div class="container">
 		<div class="pull-right" th:if="${isCreator}">
 			<img src="/img/cross_icon.png" alt="L&ouml;schen" width="36"
@@ -284,4 +282,4 @@
 
 		});
 	</script>
-</div>
+</th:block>

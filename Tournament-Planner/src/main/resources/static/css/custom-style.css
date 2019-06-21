@@ -1,23 +1,32 @@
 body {
-    padding-bottom: 120px;
-    font-size: 1rem;
+	padding-bottom: 120px;
+	font-size: 1rem;
 }
+
 .heading {
 	font-size: 2rem;
 }
+
 .navbarimg {
 	height: 40px;
 	width: auto;
 }
+
 #progressbar-progress {
-  width: 100%;
-  background-color: #ddd;
+	width: 100%;
+	background-color: #ddd;
 }
 
-#progressbar-bar{
-  width: 1%;
-  height: 30px;
-  background-color: #4CAF50;
+#progressbar-bar {
+	width: 1%;
+	height: 30px;
+	background-color: #4CAF50;
+}
+
+@media ( min-width : @screen-sm) {
+	.navbar-nav.navbar-right:last-child {
+		margin-right: 0;
+	}
 }
 
 @media only screen {
@@ -39,7 +48,6 @@ body {
 	.info {
 		font-size: 12px;
 	}
-	
 }
 
 @media only screen and (min-width: 768px) {
@@ -61,7 +69,6 @@ body {
 	.info {
 		font-size: 14px;
 	}
-	
 }
 
 @media only screen and (min-width: 1200px) {
@@ -74,12 +81,12 @@ body {
 	.info {
 		font-size: 15px;
 	}
-	
 }
+
 @media only screen {
 	[class*="col-"] {
 		font-size: 1rem;
-	}	
+	}
 }
 
 @media only screen and (min-width: 576px) {

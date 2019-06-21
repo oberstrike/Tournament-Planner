@@ -3,55 +3,57 @@
 <th:block
 	th:replace="fragments/general.html :: headerdata (title='Spiele')"></th:block>
 <body>
-	<div th:replace="fragments/general.html :: header"></div>
-	<div th:if="${games}">
-		<div class="input-group mb-3 justify-content-end">
-			<form th:action="@{/games/search}" method="GET" class="form-inline">
-				<input type="text" name="name" class="form-control"
-					placeholder="Spiel suchen..." aria-label="Spiel suchen...">
-				<div class="input-group-append">
-					<button class="btn btn-outline-primary" type="submit">
-						<i class="fa fa-search"></i>
-					</button>
-				</div>
-			</form>
-		</div>
-		<!-- Suchleiste nur bei allen Spielen angezeigt, sonst hier wieder die if-Bedingung einfuegen -->
-		<th:block th:switch="${#lists.size(games)}">
-			<div th:case="'0'">Keine Spiele gefunden</div>
-			<div th:case="*">
-				<div class="row">
-					<div
-						class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">ID</div>
-					<div
-						class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Sportart</div>
-					<div class="col-3 col-md-3 border-bottom bg-dark text-white">Spielname</div>
-					<div class="col-3 col-md-2 border-bottom bg-dark text-white">Datum</div>
-					<div class="col-3 col-md-2 border-bottom bg-dark text-white">Heim</div>
-					<div class="col-3 col-md-2 border-bottom bg-dark text-white">Gast</div>
-					<div
-						class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Status</div>
-				</div>
-				<th:block th:each="game: ${games}">
-					<th:block th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
+	<th:block th:replace="fragments/general.html :: header"></th:block>
+	<div class="container-fluid">
+		<th:block th:if="${games}">
+			<div class="input-group mb-3 justify-content-end">
+				<form th:action="@{/games/search}" method="GET" class="form-inline">
+					<input type="text" name="name" class="form-control"
+						placeholder="Spiel suchen..." aria-label="Spiel suchen...">
+					<div class="input-group-append">
+						<button class="btn btn-outline-primary" type="submit">
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+			<!-- Suchleiste nur bei allen Spielen angezeigt, sonst hier wieder die if-Bedingung einfuegen -->
+			<th:block th:switch="${#lists.size(games)}">
+				<th:block th:case="'0'">Keine Spiele gefunden</th:block>
+				<th:block th:case="*">
+					<div class="row">
+						<div
+							class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">ID</div>
+						<div
+							class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Sportart</div>
+						<div class="col-3 col-md-3 border-bottom bg-dark text-white">Spielname</div>
+						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Datum</div>
+						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Heim</div>
+						<div class="col-3 col-md-2 border-bottom bg-dark text-white">Gast</div>
+						<div
+							class="d-none d-md-block col-md-1 border-bottom bg-dark text-white">Status</div>
+					</div>
+					<th:block th:each="game: ${games}">
+						<th:block th:replace="fragments/fragm_game :: showGames(${game})"></th:block>
+					</th:block>
 				</th:block>
-			</div>
+			</th:block>
 		</th:block>
-	</div>
-	<div th:if="${gameForm}">
-		<th:block th:switch="${gameForm.type.toString()}">
-			<div th:case="'VOLLEYBALL'">
-				<th:block
-					th:replace="fragments/fragm_game :: showVolleyball(${gameForm}, ${isCreator})">
+		<th:block th:if="${gameForm}">
+			<th:block th:switch="${gameForm.type.toString()}">
+				<th:block th:case="'VOLLEYBALL'">
+					<th:block
+						th:replace="fragments/fragm_game :: showVolleyball(${gameForm}, ${isCreator})">
+					</th:block>
 				</th:block>
-			</div>
-			<div th:case="'LEAGUEOFLEGENDS'">
-				<div
-					th:replace="fragments/fragm_game::showLeague(${gameForm}, ${isCreator})"></div>
-			</div>
+				<th:block th:case="'LEAGUEOFLEGENDS'">
+					<th:block
+						th:replace="fragments/fragm_game::showLeague(${gameForm}, ${isCreator})"></th:block>
+				</th:block>
+			</th:block>
 		</th:block>
+		<th:block th:replace="fragments/general.html :: footer"></th:block>
+		<th:block th:replace="fragments/general.html :: bootstrapcomponents"></th:block>
 	</div>
-	<div th:replace="fragments/general.html :: footer"></div>
-	<div th:replace="fragments/general.html :: bootstrapcomponents"></div>
 </body>
 </html>

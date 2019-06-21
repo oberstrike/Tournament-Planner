@@ -14,6 +14,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,8 +22,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
 
+//@Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table
+@Inheritance( strategy = InheritanceType.JOINED )
 public class Game implements Comparable<Game> {
 
 	@Id

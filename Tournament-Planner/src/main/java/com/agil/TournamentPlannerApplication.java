@@ -80,14 +80,13 @@ public class TournamentPlannerApplication extends SpringBootServletInitializer {
 			teamRepository.save(team2);
 
 			// Init game
-			Game game = new Volleyball(3, 25, true, "Spiel 1", GameStatus.PENDING, new Date(System.currentTimeMillis()),
+			Game game = new Volleyball(3, 25, true, "Spiel 1", new Date(System.currentTimeMillis()),
 					team.getName(), team2.getName(), member2);
 			game.setTeamA(team);
 			game.setTeamB(team2);
-			game.setVideo("https://www.youtube.com/watch?v=KyWMlJ987jg");
 			game.setCreator(member);
 
-			Game game2 = new Volleyball(2, 5, true, "Spiel 2", GameStatus.PENDING, new Date(System.currentTimeMillis()),
+			Game game2 = new Volleyball(2, 5, true, "Spiel 2", new Date(System.currentTimeMillis()),
 					team.getName(), team2.getName(), member2);
 			game2.setTeamA(team);
 			game2.setTeamB(team2);

@@ -5,13 +5,15 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.agil.model.Game;
 import com.agil.utility.GameStatus;
 import com.agil.utility.GameType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@PrimaryKeyJoinColumn(referencedColumnName="id")
 public class LeagueOfLegends extends Game {
 	private long killsTeamA;
 	private long killsTeamB;
