@@ -14,5 +14,6 @@ gibt die aktuellen und vergangenen Spiele zurück
         "creator":2},
    "startDate":1561097095541,
    "type":"LEAGUEOFLEGENDS",
-   "status":"PENDING"}];
+   "status":"PENDING"
+}];
 ```
