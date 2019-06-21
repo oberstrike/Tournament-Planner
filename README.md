@@ -2,8 +2,8 @@
 API-Beschreibung:
 
 <h3>/api/games</h3> <br>
-gibt die aktuellen und vergangenen Spiele zurück
-
+Gibt die aktuellen und vergangenen Spiele zurück<br>
+Optional kann der Parameter id mitgegeben werden. (Filtert nach Game mit Id)
 ```json
 [{
   "id": 1,
@@ -27,8 +27,8 @@ gibt die aktuellen und vergangenen Spiele zurück
 }];
 ```
 <h3>/api/teams</h3> <br>
-
-gibt die aktuell vorhanden Teams zurück
+Optional kann der Parameter id mitgegeben werden. (Filtert nach Game mit Id)
+Gibt die aktuell vorhanden Teams zurück
 ```json
 [{
   "id":1,
@@ -39,3 +39,20 @@ gibt die aktuell vorhanden Teams zurück
   "creator":1
 }]
 ```
+
+<h3>/api/players</h3> <br>
+Gibt die aktuell vorhandenen Spieler zurück 
+```json
+[{
+  "id":1,
+  "name":"oberstrike",
+  "teams":
+    [{
+    "id":1,
+    "name":"Team Solo Mid",
+    "players":[2,1],
+    "creator":1
+    }]
+}]
+```
+
