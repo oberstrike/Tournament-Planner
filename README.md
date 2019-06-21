@@ -1,14 +1,14 @@
 # Tournament-Planner
 API-Beschreibung:
 
-/api/games
+/api/games <br>
 gibt die aktuellen und vergangenen Spiele zurück
 
 ```json
 [{"id": 1,
   "teamA":
      {"id":1,"name":"Team Solo Mid","players":[1,2],"creator":1},
-   "teamB":
+  "teamB":
       {"id":2,"name":"Team Liquid",
         "players":[2],
         "creator":2},
@@ -17,3 +17,5 @@ gibt die aktuellen und vergangenen Spiele zurück
    "status":"PENDING"
 }];
 ```
+/api/teams <br>
+gibt die aktuell vorhanden Teams zurück
