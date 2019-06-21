@@ -86,7 +86,7 @@ public class TournamentPlannerApplication extends SpringBootServletInitializer {
 			game.setTeamB(team2);
 			game.setCreator(member);
 
-			Game game2 = new Volleyball(2, 5, true, "Spiel 2", new Date(System.currentTimeMillis()),
+			Game game2 = new Volleyball(2, 5, true, "Spiel 2", new Date(System.currentTimeMillis() + 5* 600000),
 					team.getName(), team2.getName(), member2);
 			game2.setTeamA(team);
 			game2.setTeamB(team2);

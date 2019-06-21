@@ -58,7 +58,7 @@ public class GameController {
 			@Valid @ModelAttribute("volleyballForm") LeagueOfLegends leagueForm, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Principal principal) {
 		if (bindingResult.hasErrors() | teamAName.equals(teamBName)) {
-			redirectAttributes.addFlashAttribute("message", new MapBuilder<>().addPair("error", "Bitte überprüfe deine Eingaben").build());
+			redirectAttributes.addFlashAttribute("message", "Bitte überprüfe deine Eingaben." );
 			return "redirect:/home?type=Leagueoflegends";
 		}
 		String username = principal.getName();

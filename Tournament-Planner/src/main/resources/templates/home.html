@@ -7,14 +7,16 @@
 <body>
 	<th:block th:replace="fragments/general.html :: header"></th:block>
 	<div class="container-fluid">
-		<div class="row">
+		<div class="row mt-1">
 			<div class="col-1"></div>
 			<div class="col-10 heading">
-				Willkommen in deinem Bereich <span sec:authentication="name"></span>!
+				<h3 style="text-decoration: underline black;">
+					Willkommen in deinem Bereich <span sec:authentication="name"></span>!
+				</h3>
 			</div>
 			<div class="col-1"></div>
 		</div>
-		<div class="row">
+		<div class="row mt-1">
 			<div class="col-1"></div>
 			<div class="col-10 heading">
 				Deine Rollen: <span
@@ -31,7 +33,7 @@
 				</div>
 
 			</div>
-			<div class="row">
+			<div class="row mt-1">
 				<div class="col-1"></div>
 				<div class="col-10">
 					<form th:action="@{/home}" method="GET">

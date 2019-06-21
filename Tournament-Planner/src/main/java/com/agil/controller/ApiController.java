@@ -24,6 +24,7 @@ import com.agil.dto.PlayerDTO;
 import com.agil.dto.TeamDTO;
 import com.agil.model.Game;
 import com.agil.model.Member;
+import com.agil.model.Player;
 import com.agil.model.Team;
 import com.agil.model.game.Volleyball;
 import com.agil.service.GameService;
@@ -65,7 +66,11 @@ public class ApiController {
 	}
 
 	@GetMapping("/api/players")
-	public List<PlayerDTO> getPlayers() {
+	public List<PlayerDTO> getPlayers(@RequestParam(required = false) Long id) {
+		if(id != null) {
+			Player player = playerService.findById(id).orElse(new Player());
+			return new ArrayList<>(Arrays.asList(new PlayerDTO(player)));
+		}	
 		return this.playerService.findAll().stream().map(PlayerDTO::new).collect(Collectors.toList());
 	}
 

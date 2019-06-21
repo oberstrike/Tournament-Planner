@@ -37,7 +37,7 @@ public class Player {
 	@JoinTable(name = "player_team", joinColumns = @JoinColumn(name = "player_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
 	private Set<Team> teams = new HashSet<>();
 
-	protected Player() {
+	public Player() {
 		teams = new HashSet<>();
 	}
 

@@ -47,11 +47,14 @@ public class TeamController {
 
 	@PostMapping("/team")
 	public String addTeam(@Valid @ModelAttribute("teamForm") Team teamForm, BindingResult bindingResult,
-			Principal principal) {
+			Principal principal, Model model) {
 		teamValidator.validate(teamForm, bindingResult);
-		if (bindingResult.hasErrors())
-			return "/team";
-		String username = principal.getName();
+		
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("message", "Es konnte kein Team erstellt werden, bitte überprüfe deine Eingaben");
+			return "/home";
+		}
+			String username = principal.getName();
 		Member creator = memberService.findByUsername(username);
 		teamForm.setTeamcolor('#' + teamForm.getTeamcolor());
 		teamForm.setCreator(creator);
